@@ -1,10 +1,12 @@
-package com.example.ifootball;
+package com.example.ifootball.menu;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
+
+import com.example.ifootball.R;
 
 public class ClubProfile extends AppCompatActivity {
 
