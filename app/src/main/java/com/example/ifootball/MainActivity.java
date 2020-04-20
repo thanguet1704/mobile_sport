@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -48,12 +49,13 @@ public class MainActivity extends AppCompatActivity {
     private int RC_SIGN_IN = 0;
     private LoginButton loginButton;
     private CallbackManager callbackManager;
-    private Button fakeLoginButton, loginLocalButton, dangky;
+    private Button fakeLoginButton, loginLocalButton, dangky, fakeSigninButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+
         findId();
 
         clickDangky();
@@ -87,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
         loginLocalButton = findViewById(R.id.loginLocal); // dn tai khoan local
         dangky = findViewById(R.id.register); // nut dang ky
         fakeLoginButton = findViewById(R.id.fake_login_button); // nut gia login facebook
+        fakeSigninButton = findViewById(R.id.fake_signin_button);
     }
 
     private void loginFacebook(){
@@ -132,11 +135,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void signinGoogle(){
-        signInButton.setOnClickListener(new View.OnClickListener() {
+        fakeSigninButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
-                    case R.id.sign_in_button:
+                    case R.id.fake_signin_button:
                         signIn();
                         break;
                 }

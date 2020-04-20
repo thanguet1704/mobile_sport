@@ -92,12 +92,12 @@
         android:visibility="gone"/>
     <Button
         android:id="@+id/fake_login_button"
-        android:layout_width="195dp"
-        android:layout_height="50dp"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
         android:layout_below="@+id/or"
+        android:text="Facebook"
         android:layout_centerHorizontal="true"
         android:background="@drawable/loginfbstyle"
-        android:text="Login with Facebook"
         android:textAllCaps="false"
         android:textColor="#fff"
         android:drawableLeft="@drawable/facebook_icon"
@@ -108,7 +108,19 @@
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_centerInParent="true"
-        android:layout_below="@+id/fake_login_button"/>
+        android:layout_below="@+id/fake_login_button"
+        android:visibility="gone"/>
+    <Button
+        android:id="@+id/fake_signin_button"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:text="Google"
+        android:textColor="#fff"
+        android:textAllCaps="false"
+        android:background="@drawable/signinggstyle"
+        android:layout_below="@+id/fake_login_button"
+        android:layout_centerHorizontal="true"
+        android:drawableLeft="@drawable/google_icon"/>
 
     <TextView
         android:layout_width="wrap_content"
