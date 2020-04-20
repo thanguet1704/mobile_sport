@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<!--Phần này ko sửa-->
+    <ImageView
+        android:layout_marginTop="10dp"
+        android:id="@+id/logo"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:layout_marginLeft="80dp"
+        android:src="@drawable/main_logo"/>
+    <TextView
+        android:id="@+id/appName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SPORTA"
+        android:textStyle="bold"
+        android:textColor="#FF9800"
+        android:textSize="36sp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/logo"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dễ dàng - Vui vẻ - Hấp dẫn"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/appName"
+        android:id="@+id/title"
+        android:textSize="18dp"
+        android:textColor="#FF9800"/>
+<!--    Phần này ko sửa-->
+    <EditText
+        android:id="@+id/edt_email"
+        android:layout_width="220dp"
+        android:layout_height="40dp"
+        android:hint="Nhập email"
+        android:textColorHint="#B2070809"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/title"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/edtlogin"
+        android:inputType="text"
+        android:textAlignment="center"
+        android:textColor="#FF5722" />
+    <EditText
+        android:layout_width="220dp"
+        android:layout_height="40dp"
+        android:id="@+id/edt_pass"
+        android:hint=" Nhập mật khẩu"
+        android:textColorHint="#B2070809"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/edt_email"
+        android:inputType="textPassword"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/edtlogin"
+        android:textAlignment="center"
+        android:textColor="#FF5722"/>
+
+    <Button
+        android:id="@+id/loginLocal"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/edt_pass"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:textAllCaps="false"
+        android:text="Đăng nhập"
+        android:textSize="14dp"
+        android:background="@drawable/bgbtnloginlogout"
+        android:scaleType="centerCrop"
+        android:textColor="#D3210A"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hoặc"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/loginLocal"
+        android:id="@+id/or"
+        android:textColor="#0B0B0A"
+        android:layout_marginBottom="10dp"/>
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_button"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/or"
+        android:visibility="gone"/>
+    <Button
+        android:id="@+id/fake_login_button"
+        android:layout_width="195dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/or"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/loginfbstyle"
+        android:text="Login with Facebook"
+        android:textAllCaps="false"
+        android:textColor="#fff"
+        android:drawableLeft="@drawable/facebook_icon"
+        android:layout_marginBottom="5dp"/>
+<!--        />-->
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/sign_in_button"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/fake_login_button"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        android:padding="30dp"
+        android:text="Chưa có tài khoản?"
+        android:textColor="#070707"
+        android:textSize="20dp"
+        android:id="@+id/no_account"/>
+
+    <Button
+        android:id="@+id/register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="193dp"
+        android:layout_marginLeft="-36dp"
+        android:layout_marginEnd="133dp"
+        android:layout_marginBottom="20dp"
+        android:layout_toRightOf="@+id/no_account"
+        android:background="@drawable/dangkylogin"
+        android:text="Đăng ký"
+        android:textColor="#FF5722"
+        android:textAllCaps="false"
+        android:textSize="20dp"/>
+</RelativeLayout>
