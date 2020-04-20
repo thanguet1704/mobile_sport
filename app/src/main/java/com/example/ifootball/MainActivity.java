@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                             String id = object.getString("id");
                             String name = object.getString("name");
                             String imageURL = "http://graph.facebook.com/"+ id +"/picture?type=large";
-                            Intent intent = new Intent(MainActivity.this, Account.class);
+                            Intent intent = new Intent(MainActivity.this, Home.class);
                             startActivity(intent);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
             // Signed in successfully, show authenticated UI.
-            Intent intent = new Intent(MainActivity.this, Account.class);
+            Intent intent = new Intent(MainActivity.this, Home.class);
             startActivity(intent);
 //            updateUI(account);
         } catch (ApiException e) {
