@@ -29,7 +29,7 @@
                 android:id="@+id/text_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ngocthantk@gmail.com"
+                android:text="Trinh Thang"
                 android:textColor="#111"
                 android:layout_below="@+id/avatar"
                 android:layout_centerHorizontal="true"
