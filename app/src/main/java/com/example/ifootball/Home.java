@@ -2,22 +2,18 @@ package com.example.ifootball;
 
 import android.os.Bundle;
 
-import com.example.ifootball.fragment.AccountFragment;
-import com.example.ifootball.fragment.CLubFragment;
-import com.example.ifootball.fragment.GameFragment;
-import com.example.ifootball.fragment.NewsFragment;
-import com.example.ifootball.fragment.StadiumFragment;
+import com.example.ifootball.fragment.account.AccountFragment;
+import com.example.ifootball.fragment.club.CLubFragment;
+import com.example.ifootball.fragment.game.GameFragment;
+import com.example.ifootball.fragment.news.NewsFragment;
+import com.example.ifootball.fragment.stadium.StadiumFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.view.MenuItem;
-import android.view.View;
 
 public class Home extends AppCompatActivity {
 
