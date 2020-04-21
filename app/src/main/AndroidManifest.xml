@@ -12,21 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".menu.FootballMatchInfo"></activity>
-        <activity android:name=".menu.FootballMatch"></activity>
-        <activity android:name=".menu.ClubProfile"></activity>
-
-        <activity android:name=".menu.FootballMatchInfo">
+        <activity android:name=".menu.Club"
+            android:label="Câu lạc bộ">
         </activity>
-        <activity android:name=".menu.FootballMatch">
-
-        </activity>
+        <activity android:name=".menu.FootballMatchInfo" />
+        <activity android:name=".menu.FootballMatch" />
+        <activity android:name=".menu.ClubProfile" />
         <activity
             android:name=".Home"
             android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".menu.Account"
             android:label="@string/title_activity_account"
@@ -60,7 +55,8 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
