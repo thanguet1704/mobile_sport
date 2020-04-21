@@ -12,8 +12,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".menu.Club"
+        <activity android:name=".menu.ClubSearching">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".menu.Club"
             android:label="Câu lạc bộ">
+
         </activity>
         <activity android:name=".menu.FootballMatchInfo" />
         <activity android:name=".menu.FootballMatch" />
