@@ -14,19 +14,11 @@
 
         <activity android:name=".menu.FootballMatchInfo"></activity>
         <activity android:name=".menu.FootballMatch"></activity>
-        <activity android:name=".menu.ClubProfile">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".menu.ClubProfile"></activity>
 
         <activity android:name=".menu.FootballMatchInfo">
         </activity>
         <activity android:name=".menu.FootballMatch">
-
-        </activity>
-        <activity
-            android:name=".Home"
-            android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
         <activity

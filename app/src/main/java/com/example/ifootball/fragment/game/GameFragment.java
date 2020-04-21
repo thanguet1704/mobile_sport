@@ -1,4 +1,4 @@
-package com.example.ifootball.fragment;
+package com.example.ifootball.fragment.game;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
