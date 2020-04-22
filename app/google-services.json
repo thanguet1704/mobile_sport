@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "910794649373",
+    "firebase_url": "https://mobilesporta-5d201.firebaseio.com",
+    "project_id": "mobilesporta-5d201",
+    "storage_bucket": "mobilesporta-5d201.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:910794649373:android:e280c857cbca2e6203fbf4",
+        "android_client_info": {
+          "package_name": "com.example.ifootball"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "910794649373-qv94qsemv86e9rrqat81ovsqvtq9fvac.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ifootball",
+            "certificate_hash": "89dd454f5345f38b9b981835eabb41bdfad9cb88"
+          }
+        },
+        {
+          "client_id": "910794649373-c2fva8g6894qd1ur0r0qnffonm6hse2o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQZ9rBK9vanYNo5yIqJTJsZYKZj7O0ONQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "910794649373-c2fva8g6894qd1ur0r0qnffonm6hse2o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
