@@ -1,4 +1,4 @@
-package com.example.ifootball.menu;
+package com.example.mobile_sporta.menu;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,11 +10,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 
-import com.example.ifootball.R;
+import com.example.mobile_sporta.R;
 
 import java.util.ArrayList;
 
-import static com.example.ifootball.R.*;
+import static com.example.mobile_sporta.R.*;
 
 public class ClubSearching extends AppCompatActivity {
 

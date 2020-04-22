@@ -1,13 +1,11 @@
-package com.example.ifootball.menu;
+package com.example.mobile_sporta.menu;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.app.Activity;
-import android.util.Log;
 import android.view.Window;
 
-import com.example.ifootball.R;
+import com.example.mobile_sporta.R;
 
 public class FootballMatch extends AppCompatActivity {
 
