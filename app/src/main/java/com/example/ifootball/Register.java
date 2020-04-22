@@ -25,22 +25,7 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        findId();
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Register.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                validateInput();
-            }
-        });
     }
 
     private void findId(){
@@ -49,21 +34,5 @@ public class Register extends AppCompatActivity {
         email = findViewById(R.id.register_email);
         pass = findViewById(R.id.register_pass);
         rePass = findViewById(R.id.register_re_pass);
-    }
-
-    private void validateInput(){
-
-        mail = email.getText().toString();
-        pw = pass.getText().toString();
-        rePw= rePass.getText().toString();
-        if (mail.isEmpty() || pw.isEmpty() || rePw.isEmpty()){
-            //validate here
-            Toast.makeText(Register.this,"Hãy nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
-        }else{
-            //success
-            Toast.makeText(Register.this, "Đăng ký thành công với tài khoản: " + mail, Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(Register.this, MainActivity.class);
-            startActivity(intent);
-        }
     }
 }

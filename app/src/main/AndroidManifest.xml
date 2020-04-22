@@ -16,11 +16,7 @@
         <activity
             android:name=".menu.Club"
             android:label="Câu lạc bộ">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".menu.FootballMatchInfo" />
         <activity android:name=".menu.FootballMatch" />
