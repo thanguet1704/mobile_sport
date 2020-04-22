@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.ifootball">
+    package="com.example.mobile_sporta">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -12,25 +12,25 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".menu.ClubSearching"></activity>
+        <activity android:name="com.example.mobile_sporta.menu.ClubSearching"></activity>
         <activity
-            android:name=".menu.Club"
+            android:name="com.example.mobile_sporta.menu.Club"
             android:label="Câu lạc bộ">
 
         </activity>
-        <activity android:name=".menu.FootballMatchInfo" />
-        <activity android:name=".menu.FootballMatch" />
-        <activity android:name=".menu.ClubProfile" />
+        <activity android:name="com.example.mobile_sporta.menu.FootballMatchInfo" />
+        <activity android:name="com.example.mobile_sporta.menu.FootballMatch" />
+        <activity android:name="com.example.mobile_sporta.menu.ClubProfile" />
         <activity
             android:name=".Home"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".menu.Account"
+            android:name="com.example.mobile_sporta.menu.Account"
             android:label="@string/title_activity_account"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Register"
+            android:name="com.example.mobile_sporta.Register"
             android:label="@string/title_activity_register"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -59,7 +59,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.mobile_sporta.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

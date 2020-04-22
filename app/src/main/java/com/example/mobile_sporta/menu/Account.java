@@ -1,10 +1,10 @@
-package com.example.ifootball.menu;
+package com.example.mobile_sporta.menu;
 
 import android.net.Uri;
 import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
-import com.example.ifootball.R;
+import com.example.mobile_sporta.R;
 import com.facebook.FacebookSdk;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;

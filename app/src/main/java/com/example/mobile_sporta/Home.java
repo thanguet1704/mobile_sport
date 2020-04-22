@@ -1,12 +1,13 @@
-package com.example.ifootball;
+package com.example.mobile_sporta;
 
 import android.os.Bundle;
 
-import com.example.ifootball.fragment.account.AccountFragment;
-import com.example.ifootball.fragment.club.CLubFragment;
-import com.example.ifootball.fragment.game.GameFragment;
-import com.example.ifootball.fragment.news.NewsFragment;
-import com.example.ifootball.fragment.stadium.StadiumFragment;
+import com.example.mobile_sporta.R;
+import com.example.mobile_sporta.fragment.account.AccountFragment;
+import com.example.mobile_sporta.fragment.club.CLubFragment;
+import com.example.mobile_sporta.fragment.game.GameFragment;
+import com.example.mobile_sporta.fragment.news.NewsFragment;
+import com.example.mobile_sporta.fragment.stadium.StadiumFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;

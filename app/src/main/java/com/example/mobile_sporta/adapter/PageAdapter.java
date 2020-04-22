@@ -1,13 +1,13 @@
-package com.example.ifootball.adapter;
+package com.example.mobile_sporta.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.ifootball.fragment.club.CommentTabFragment;
-import com.example.ifootball.fragment.club.DescriptionTabFragment;
-import com.example.ifootball.fragment.club.HistoryTabFragment;
+import com.example.mobile_sporta.fragment.club.CommentTabFragment;
+import com.example.mobile_sporta.fragment.club.DescriptionTabFragment;
+import com.example.mobile_sporta.fragment.club.HistoryTabFragment;
 
 public class PageAdapter extends FragmentPagerAdapter {
 

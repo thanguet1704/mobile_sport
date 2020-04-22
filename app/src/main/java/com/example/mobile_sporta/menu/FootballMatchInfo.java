@@ -1,10 +1,10 @@
-package com.example.ifootball.menu;
+package com.example.mobile_sporta.menu;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.example.ifootball.R;
+import com.example.mobile_sporta.R;
 
 public class FootballMatchInfo extends AppCompatActivity {
 

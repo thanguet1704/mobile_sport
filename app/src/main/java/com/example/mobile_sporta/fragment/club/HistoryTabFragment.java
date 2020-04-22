@@ -1,4 +1,4 @@
-package com.example.ifootball.fragment.club;
+package com.example.mobile_sporta.fragment.club;
 
 import android.os.Bundle;
 
@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.ifootball.R;
+import com.example.mobile_sporta.R;
 
 /**
  * A simple {@link Fragment} subclass.

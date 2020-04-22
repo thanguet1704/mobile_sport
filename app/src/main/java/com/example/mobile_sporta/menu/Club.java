@@ -1,4 +1,4 @@
-package com.example.ifootball.menu;
+package com.example.mobile_sporta.menu;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 
-import com.example.ifootball.R;
+import com.example.mobile_sporta.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class Club extends AppCompatActivity {

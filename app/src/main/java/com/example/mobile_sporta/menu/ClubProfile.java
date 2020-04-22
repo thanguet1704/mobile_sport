@@ -1,15 +1,14 @@
-package com.example.ifootball.menu;
+package com.example.mobile_sporta.menu;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Window;
 
-import com.example.ifootball.R;
-import com.example.ifootball.adapter.PageAdapter;
+import com.example.mobile_sporta.R;
+import com.example.mobile_sporta.adapter.PageAdapter;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 

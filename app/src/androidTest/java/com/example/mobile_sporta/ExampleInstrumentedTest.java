@@ -1,4 +1,4 @@
-package com.example.ifootball;
+package com.example.mobile_sporta;
 
 import android.content.Context;
 
