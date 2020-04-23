@@ -1,42 +1,42 @@
 {
   "project_info": {
-    "project_number": "910794649373",
-    "firebase_url": "https://mobilesporta-5d201.firebaseio.com",
-    "project_id": "mobilesporta-5d201",
-    "storage_bucket": "mobilesporta-5d201.appspot.com"
+    "project_number": "328587499575",
+    "firebase_url": "https://mobilesporta-5bb33.firebaseio.com",
+    "project_id": "mobilesporta-5bb33",
+    "storage_bucket": "mobilesporta-5bb33.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:910794649373:android:e280c857cbca2e6203fbf4",
+        "mobilesdk_app_id": "1:328587499575:android:981240156737067a2987b2",
         "android_client_info": {
-          "package_name": "com.example.ifootball"
+          "package_name": "com.example.mobilesporta"
         }
       },
       "oauth_client": [
         {
-          "client_id": "910794649373-qv94qsemv86e9rrqat81ovsqvtq9fvac.apps.googleusercontent.com",
+          "client_id": "328587499575-vg7lh3mhqs7bd8c93mgkep18ubr6hl5s.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.ifootball",
-            "certificate_hash": "89dd454f5345f38b9b981835eabb41bdfad9cb88"
+            "package_name": "com.example.mobilesporta",
+            "certificate_hash": "23fb9ff06752aefc9415c5598a8fc32921c07b19"
           }
         },
         {
-          "client_id": "910794649373-c2fva8g6894qd1ur0r0qnffonm6hse2o.apps.googleusercontent.com",
+          "client_id": "328587499575-p8qkluhno0nai83eukm6u5rurhl6qv64.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAQZ9rBK9vanYNo5yIqJTJsZYKZj7O0ONQ"
+          "current_key": "AIzaSyDuZT_FuVVZAnKbRdAXFETYD7vOgn_u6_U"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "910794649373-c2fva8g6894qd1ur0r0qnffonm6hse2o.apps.googleusercontent.com",
+              "client_id": "328587499575-p8qkluhno0nai83eukm6u5rurhl6qv64.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

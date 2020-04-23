@@ -1,7 +1,10 @@
 package com.example.mobilesporta;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +16,7 @@ import com.example.mobilesporta.fragment.game.GameFragment;
 import com.example.mobilesporta.fragment.news.NewsFragment;
 import com.example.mobilesporta.fragment.stadium.StadiumFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class Home extends AppCompatActivity {
 

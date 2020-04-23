@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.mobilesporta.menu.Account;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -55,13 +56,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseAuth.getInstance().signOut();
         FirebaseUser user = mAuth.getCurrentUser();
-        if (user != null){
+        if (user != null) {
             Intent intent = new Intent(MainActivity.this, Home.class);
             startActivity(intent);
         }
+
+        LoginManager.getInstance().logOut();
+        mGoogleSignInClient.signOut()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                    }
+                });
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         signinGoogle();
     }
 
-    private void findId(){
+    private void findId() {
         loginButton = findViewById(R.id.login_button); // button facebook login
         signInButton = findViewById(R.id.sign_in_button); // dang nhap google
         loginLocalButton = findViewById(R.id.loginLocal); // dn tai khoan local
@@ -107,38 +116,16 @@ public class MainActivity extends AppCompatActivity {
         edtPassword = findViewById(R.id.edtPass);
     }
 
-    private void loginFacebook(){
+    private void loginFacebook() {
         callbackManager = CallbackManager.Factory.create();
 
         loginButton.setReadPermissions("email", "public_profile");
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                // lay thong tin nguoi dung
-//                Picasso.get().load(imageURL).into(logo);
-
-//                GraphRequest graphRequest = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
-//                    @Override
-//                    public void onCompleted(JSONObject object, GraphResponse response) {
-//                        try {
-//                            String id = object.getString("id");
-//                            String name = object.getString("name");
-//                            String imageURL = "http://graph.facebook.com/"+ id +"/picture?type=large";
-//                            Intent intent = new Intent(MainActivity.this, Home.class);
-//                            startActivity(intent);
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                });
-//                Bundle parameters = new Bundle();
-//                parameters.putString("fields", "id, name");
-//                graphRequest.setParameters(parameters);
-//                graphRequest.executeAsync();
-
                 handleFacebookAccessToken(loginResult.getAccessToken());
-
             }
+
             @Override
             public void onCancel() {
             }
@@ -150,8 +137,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void signinGoogle(){
+    private void signinGoogle() {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
 
@@ -171,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult (signInIntent, RC_SIGN_IN);
+        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
     @Override
@@ -193,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void clickDangky(){
+    private void clickDangky() {
         dangky.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -203,16 +191,16 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void loginLocal(){
+    private void loginLocal() {
 
         String email = edtEmail.getText().toString();
         String password = edtPassword.getText().toString();
-        if (email.length() == 0 || password.length() == 0){
+        if (email.length() == 0 || password.length() == 0) {
             Toast.makeText(MainActivity.this, "Nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
-        }else{
-            if (password.length() < 6){
+        } else {
+            if (password.length() < 6) {
                 Toast.makeText(MainActivity.this, "Mật khẩu phải lớn hơn 6 ký tự", Toast.LENGTH_SHORT).show();
-            }else{
+            } else {
                 mAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override
@@ -242,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
                             Intent intent = new Intent(MainActivity.this, Home.class);
                             startActivity(intent);
                         } else {
-
+                            Toast.makeText(MainActivity.this, "lỗi", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -250,7 +238,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
 
-        //lỗi do chưa connect firebase
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -262,19 +249,9 @@ public class MainActivity extends AppCompatActivity {
                             Intent intent = new Intent(MainActivity.this, Home.class);
                             startActivity(intent);
                         } else {
-                            updateUI(null);
+                            Toast.makeText(MainActivity.this, "Lỗi", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
-    }
-
-    private void updateUI(FirebaseUser user){
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
-        if (account != null){
-            String personName = account.getDisplayName();
-            String email = account.getEmail();
-            String id = account.getId();
-            Toast.makeText(MainActivity.this, "name: " + personName + "email: " + email, Toast.LENGTH_SHORT).show();
-        }
     }
 }
