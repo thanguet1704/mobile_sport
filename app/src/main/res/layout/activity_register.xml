@@ -55,7 +55,8 @@
         android:layout_below="@+id/register_email"
         android:background="@drawable/edtlogin"
         android:layout_marginBottom="10dp"
-        android:textAlignment="center"/>
+        android:textAlignment="center"
+        android:inputType="textPassword"/>
     <EditText
         android:id="@+id/register_re_pass"
         android:layout_width="220dp"
@@ -65,7 +66,8 @@
         android:layout_below="@+id/register_pass"
         android:background="@drawable/edtlogin"
         android:layout_marginBottom="10dp"
-        android:textAlignment="center"/>
+        android:textAlignment="center"
+        android:inputType="textPassword"/>
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="100dp"
