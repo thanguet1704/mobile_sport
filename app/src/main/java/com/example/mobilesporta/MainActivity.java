@@ -29,8 +29,12 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     private SignInButton signInButton;
     private GoogleSignInClient mGoogleSignInClient;
-    private int RC_SIGN_IN = 0;
+    private final static int RC_SIGN_IN = 1;
     private LoginButton loginButton;
     private CallbackManager callbackManager;
     private Button fakeLoginButton, loginLocalButton, dangky, fakeSigninButton;
@@ -49,11 +53,23 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseAuth.getInstance().signOut();
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null){
+            Intent intent = new Intent(MainActivity.this, Home.class);
+            startActivity(intent);
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
         findId();
+        mAuth = FirebaseAuth.getInstance();
 
         clickDangky();
 
@@ -94,32 +110,33 @@ public class MainActivity extends AppCompatActivity {
     private void loginFacebook(){
         callbackManager = CallbackManager.Factory.create();
 
-        loginButton.setReadPermissions(Arrays.asList("public_profile", "email"));
+        loginButton.setReadPermissions("email", "public_profile");
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 // lay thong tin nguoi dung
-//                String imageURL = "http://graph.facebook.com/"+ loginResult.getAccessToken().getUserId() +"/picture?type=large";
 //                Picasso.get().load(imageURL).into(logo);
 
-                GraphRequest graphRequest = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
-                    @Override
-                    public void onCompleted(JSONObject object, GraphResponse response) {
-                        try {
-                            String id = object.getString("id");
-                            String name = object.getString("name");
-                            String imageURL = "http://graph.facebook.com/"+ id +"/picture?type=large";
-                            Intent intent = new Intent(MainActivity.this, Home.class);
-                            startActivity(intent);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                Bundle parameters = new Bundle();
-                parameters.putString("fields", "id, name");
-                graphRequest.setParameters(parameters);
-                graphRequest.executeAsync();
+//                GraphRequest graphRequest = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+//                    @Override
+//                    public void onCompleted(JSONObject object, GraphResponse response) {
+//                        try {
+//                            String id = object.getString("id");
+//                            String name = object.getString("name");
+//                            String imageURL = "http://graph.facebook.com/"+ id +"/picture?type=large";
+//                            Intent intent = new Intent(MainActivity.this, Home.class);
+//                            startActivity(intent);
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                });
+//                Bundle parameters = new Bundle();
+//                parameters.putString("fields", "id, name");
+//                graphRequest.setParameters(parameters);
+//                graphRequest.executeAsync();
+
+                handleFacebookAccessToken(loginResult.getAccessToken());
 
             }
             @Override
@@ -134,6 +151,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void signinGoogle(){
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
         fakeSigninButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,12 +167,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-        // Build a GoogleSignInClient with the options specified by gso.
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
     }
 
     private void signIn() {
@@ -161,33 +178,19 @@ public class MainActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         super.onActivityResult(requestCode, resultCode, data);
+
         callbackManager.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == RC_SIGN_IN){
+        if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleSignInResult(task);
+            try {
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                firebaseAuthWithGoogle(account);
+            } catch (ApiException e) {
+                Log.d("Error", e.toString());
+            }
         }
 
-    }
-
-    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
-        try {
-            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-
-            // Signed in successfully, show authenticated UI.
-            Intent intent = new Intent(MainActivity.this, Home.class);
-            startActivity(intent);
-//            updateUI(account);
-        } catch (ApiException e) {
-            Log.w("error", "signInResult:failed code=" + e.getStatusCode());
-//            updateUI(null);
-        }
-    }
-
-    @Override
-    protected void onStart() {
-        LoginManager.getInstance().logOut();
-        super.onStart();
     }
 
     private void clickDangky(){
@@ -201,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loginLocal(){
-        mAuth = FirebaseAuth.getInstance();
+
         String email = edtEmail.getText().toString();
         String password = edtPassword.getText().toString();
         if (email.length() == 0 || password.length() == 0){
@@ -224,6 +227,53 @@ public class MainActivity extends AppCompatActivity {
                         });
 
             }
+        }
+    }
+
+    private void handleFacebookAccessToken(AccessToken token) {
+        Log.d("log", "handleFacebookAccessToken:" + token);
+
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Intent intent = new Intent(MainActivity.this, Home.class);
+                            startActivity(intent);
+                        } else {
+
+                        }
+                    }
+                });
+    }
+
+    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            FirebaseUser user = mAuth.getCurrentUser();
+
+                            Intent intent = new Intent(MainActivity.this, Home.class);
+                            startActivity(intent);
+                        } else {
+                            updateUI(null);
+                        }
+                    }
+                });
+    }
+
+    private void updateUI(FirebaseUser user){
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+        if (account != null){
+            String personName = account.getDisplayName();
+            String email = account.getEmail();
+            String id = account.getId();
+            Toast.makeText(MainActivity.this, "name: " + personName + "email: " + email, Toast.LENGTH_SHORT).show();
         }
     }
 }
