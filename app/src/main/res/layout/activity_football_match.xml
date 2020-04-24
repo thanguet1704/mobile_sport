@@ -118,7 +118,7 @@
         android:id="@+id/btnFootballMatchAdd_AddNewMatch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginRight="8dp"
         android:text="Tạo mới"
         app:layout_constraintRight_toLeftOf="parent"
         app:layout_constraintLeft_toRightOf="parent"
