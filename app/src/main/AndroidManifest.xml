@@ -16,7 +16,11 @@
         <activity
             android:name="com.example.mobilesporta.menu.Club"
             android:label="Câu lạc bộ">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name="com.example.mobilesporta.menu.FootballMatchInfo" />
         <activity android:name="com.example.mobilesporta.menu.FootballMatch" />
