@@ -26,10 +26,6 @@
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name="com.example.mobilesporta.menu.Account"
-            android:label="@string/title_activity_account"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name="com.example.mobilesporta.Register"
             android:label="@string/title_activity_register"
             android:theme="@style/AppTheme.NoActionBar" />

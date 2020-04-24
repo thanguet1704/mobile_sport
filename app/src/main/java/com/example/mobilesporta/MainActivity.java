@@ -11,14 +11,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.mobilesporta.menu.Account;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -36,11 +33,6 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -63,14 +55,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         LoginManager.getInstance().logOut();
-        mGoogleSignInClient.signOut()
-                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                    }
-                });
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -26,6 +26,7 @@ public class AccountFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_account, container, false);;
 
+        mAuth = FirebaseAuth.getInstance();
         logout = view.findViewById(R.id.logout);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
