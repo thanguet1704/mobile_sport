@@ -15,18 +15,20 @@
             android:name=".menu.News"
             android:label="@string/title_activity_news"
             android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".menu.ClubSearching" />
+        <activity
+            android:name=".menu.Club"
+            android:label="Câu lạc bộ">
+        </activity>
+        <activity android:name=".menu.FootballMatchInfo" />
+        <activity android:name=".menu.FootballMatch">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".menu.ClubSearching" />
-        <activity
-            android:name=".menu.Club"
-            android:label="Câu lạc bộ"></activity>
-        <activity android:name=".menu.FootballMatchInfo" />
-        <activity android:name=".menu.FootballMatch" />
         <activity android:name=".menu.ClubProfile" />
         <activity
             android:name=".Home"
