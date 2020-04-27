@@ -4,110 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="2"
-    tools:context=".menu.ClubProfile">
+    tools:context=".menu.Club">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="#ffffff">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/imgClubProfileAct_ClubBackground"
+        <ListView
+            android:id="@+id/lvClubAct_MyClub"
             android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:background="@drawable/img_background_club_profile"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cvClubProfileAct_Club"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
-            app:cardCornerRadius="50dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/imgClubProfileAct_ClubBackground"
-            app:layout_constraintTop_toTopOf="@+id/imgClubProfileAct_ClubBackground">
-
-            <ImageView
-                android:id="@+id/imgClubProfileAct_ClubImage"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_margin="10dp"
-                android:src="@drawable/fc" />
-
-        </androidx.cardview.widget.CardView>
-
+            android:layout_height="match_parent" />
 
         <TextView
-            android:id="@+id/txtClubProfile_ClubName"
+            android:id="@+id/txtClub_NoData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Arsenal FC"
-            android:textSize="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cvClubProfileAct_Club" />
+            android:layout_gravity="center"
+            android:text="Chưa có CLB nào"/>
 
-        <TextView
-            android:id="@+id/txtClubProfile_ClubSlogan"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabClubAdd_AddNewClub"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Vui, khỏe, có ích - Không chặt chém"
-            android:textSize="12dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtClubProfile_ClubName" />
+            android:layout_gravity="right|bottom"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/ic_addnew" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="#d9d9d9"
-        android:orientation="vertical"
-        app:tabMode="fixed">
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/ClubProfieAct_TabLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/ClubProfieAct_ClubDescriptionTab"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Description"/>
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/ClubProfieAct_ClubHistoryTab"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="History"/>
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/ClubProfieAct_ClubCommentTab"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Comment"/>
-
-        </com.google.android.material.tabs.TabLayout>
-
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/ClubProfieAct_ViewPager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </androidx.viewpager.widget.ViewPager>
-
-    </LinearLayout>
-
+    </FrameLayout>
 
 </LinearLayout>

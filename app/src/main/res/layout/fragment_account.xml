@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:weightSum="10"
     android:orientation="vertical">
     <LinearLayout
@@ -16,22 +17,32 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="4">
-
-            <ImageView
-                android:layout_marginTop="20dp"
-                android:id="@+id/avatar"
+            <androidx.cardview.widget.CardView
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:background="@drawable/fc"
+                android:layout_marginTop="20dp"
+                android:id="@+id/cv_avatar"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="10dp" />
+                app:cardCornerRadius="75dp"
+                app:cardElevation="0dp"
+                android:background="@drawable/border_image">
+                <ImageView
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/avatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/fc"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10dp"
+                    android:scaleType="centerCrop"/>
+            </androidx.cardview.widget.CardView>
             <TextView
                 android:id="@+id/text_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Trinh Thang"
                 android:textColor="#111"
-                android:layout_below="@+id/avatar"
+                android:layout_below="@+id/cv_avatar"
                 android:layout_centerHorizontal="true"
                 android:textSize="24dp"
                 android:textStyle="bold"/>
