@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment;
 import com.example.mobilesporta.R;
 
 public class NewsFragment extends Fragment {
-    int[] IMAGES={R.drawable.news,R.drawable.stadium,R.drawable.game,R.drawable.club};
+    int[] IMAGES={R.drawable.list_news,R.drawable.list_news,R.drawable.list_news,R.drawable.list_news};
     String [] DESCRIPTIONS={"new_2","new_2","new_2","new_2"};
     private final String TAG= getClass().getSimpleName();
 
