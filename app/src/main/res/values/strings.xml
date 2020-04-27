@@ -36,5 +36,8 @@
     <string name="title_activity_news">News</string>
     <string name="title_name">Title</string>
     <string name="description">description</string>
+    <string name="title_activity_edit_account">Tài khoản</string>
+    <string name="title_activity_recommend">Giới thiệu</string>
+    <string name="title_activity_pravicy_policy">Chính sách bảo mật</string>
 
 </resources>
