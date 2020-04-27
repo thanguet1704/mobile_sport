@@ -7,12 +7,50 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.game.SugesstionsFbMatch_TabFragment">
 
+    <TextView
+        android:id="@+id/tvSugesstion_Match_Fragment_FilterDateTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="40dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="Ngày "/>
+
+    <EditText
+        android:id="@+id/edtSugesstion_Match_Fragment_FilterDateSearch"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:inputType="date"
+        app:layout_constraintLeft_toRightOf="@+id/tvSugesstion_Match_Fragment_FilterDateTitle"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvSugesstion_Match_Fragment_FilterTimeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Thời gian"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/edtSugesstion_Match_Fragment_FilterTimeSearch"/>
+
+    <EditText
+        android:id="@+id/edtSugesstion_Match_Fragment_FilterTimeSearch"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:layout_marginRight="40dp"
+        android:ems="10"
+        android:inputType="time"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <!-- TODO: Update blank fragment layout -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cvSugesstion_Match_Fragment_HomeClub"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         app:cardBackgroundColor="@color/colorPrimaryDark"
         app:cardCornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -76,7 +114,7 @@
         android:id="@+id/imgSugesstion_Match_Fragment_Icon_VS"
         android:layout_width="90dp"
         android:layout_height="50dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="60dp"
         android:src="@drawable/vs_icon"
         app:layout_constraintHorizontal_bias="0.50"
         app:layout_constraintLeft_toRightOf="@id/cvSugesstion_Match_Fragment_HomeClub"
@@ -99,7 +137,7 @@
         android:id="@+id/cvSugesstion_Match_Fragment_AwayClub"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         app:cardBackgroundColor="@color/colorPrimaryDark"
         app:cardCornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
