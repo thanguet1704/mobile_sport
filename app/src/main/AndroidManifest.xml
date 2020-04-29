@@ -26,8 +26,6 @@
             android:label="Câu lạc bộ">
         </activity>
         <activity android:name=".menu.FootballMatchInfo" />
-        <activity android:name=".menu.FootballMatch">
-        </activity>
         <activity android:name=".menu.ClubProfile" />
         <activity
             android:name=".Home"
