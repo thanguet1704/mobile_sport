@@ -4,12 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".menu.Club">
+    android:weightSum="10"
+    android:orientation="vertical">
 
+    <Button
+        android:id="@+id/btn_search_club"
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Câu lạc bộ"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
+        android:drawableRight="@drawable/search_icon_yellow"
+        android:background="@drawable/btn_search_club_style"
+        android:textSize="30dp"
+        android:textColor="#FFC107"/>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <ListView
             android:id="@+id/lvClubAct_MyClub"
             android:layout_width="match_parent"
