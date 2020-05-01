@@ -20,13 +20,13 @@
         <activity
             android:name=".activity.account.EditAccount"
             android:label="@string/title_activity_edit_account"></activity>
-        <activity android:name=".menu.ClubSearching" />
+        <activity android:name=".activity.club.ClubSearching" />
         <activity
             android:name=".menu.Club"
             android:label="Câu lạc bộ">
         </activity>
-        <activity android:name=".menu.FootballMatchInfo" />
-        <activity android:name=".menu.ClubProfile" />
+        <activity android:name=".activity.game.FootballMatchInfo" />
+        <activity android:name=".activity.club.ClubProfile" />
         <activity
             android:name=".Home"
             android:label="@string/title_activity_home"

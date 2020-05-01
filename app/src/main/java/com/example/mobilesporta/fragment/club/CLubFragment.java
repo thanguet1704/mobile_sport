@@ -2,7 +2,6 @@ package com.example.mobilesporta.fragment.club;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -11,14 +10,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.mobilesporta.R;
-import com.example.mobilesporta.menu.ClubSearching;
+import com.example.mobilesporta.activity.club.ClubSearching;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class CLubFragment extends Fragment {

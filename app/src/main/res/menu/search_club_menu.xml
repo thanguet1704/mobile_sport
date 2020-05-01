@@ -6,5 +6,5 @@
         android:id="@+id/searchClub_Icon"
         android:icon="@drawable/ic_search_black_24dp"
         android:title="Search"
-        app:showAsAction="always" />
+        app:showAsAction="always"/>
 </menu>
