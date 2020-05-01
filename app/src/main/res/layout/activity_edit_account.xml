@@ -48,7 +48,8 @@
             android:id="@+id/edit_email"
             android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:enabled="false"/>
     </LinearLayout>
 
     <LinearLayout
@@ -69,7 +70,8 @@
             android:id="@+id/edit_pass"
             android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"/>
     </LinearLayout>
 
     <LinearLayout
@@ -90,35 +92,17 @@
             android:id="@+id/edit_confirm_pass"
             android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:weightSum="2"
-        android:layout_weight="2"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical">
-        <TextView
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text=" Số điện thoại"
-            android:textSize="24dp"
-            android:drawableLeft="@drawable/edit_phone_number"
-            android:textColor="#0B0B0B"/>
-        <EditText
-            android:id="@+id/edit_phone_number"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
 
     <LinearLayout
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center">
+        android:gravity="center"
+        android:layout_gravity="bottom">
 
         <Button
             android:id="@+id/btn_update"
