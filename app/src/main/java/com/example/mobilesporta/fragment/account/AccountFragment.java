@@ -66,8 +66,8 @@ public class AccountFragment extends Fragment {
         recommend = view.findViewById(R.id.gt);
         security = view.findViewById(R.id.security_policy);
         btnAddImage = view.findViewById(R.id.add_profile_image);
-
-        updateUI();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        updateUI(currentUser);
 
         btnAddImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,15 +113,15 @@ public class AccountFragment extends Fragment {
 
     }
 
-    private void updateUI(){
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+    private void updateUI(FirebaseUser currentUser){
+
         String strName;
         if (currentUser.getDisplayName() == null || currentUser.getDisplayName().length() == 0){
             username.setText("NoName");
         }else{
             username.setText(currentUser.getDisplayName());
         }
-
+//        username.setText(currentUser.getDisplayName());
 
         if (currentUser.getPhotoUrl() == null){
             uriAvatar = Uri.parse("https://firebasestorage.googleapis.com/v0/b/mobile-1054b.appspot.com/o/account.png?alt=media&token=2e8acf2d-ab0d-4b15-bfc7-b007e2ca991c");

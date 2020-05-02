@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
             Intent intent = new Intent(MainActivity.this, Home.class);
+            intent.putExtra("main", "home");
             startActivity(intent);
         }
 
@@ -94,12 +95,6 @@ public class MainActivity extends AppCompatActivity {
         //sign in google
         signInButton.setSize(SignInButton.SIZE_WIDE);
         signinGoogle();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        finish();
     }
 
     private void findId() {
@@ -204,6 +199,7 @@ public class MainActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     Intent intent = new Intent(MainActivity.this, Home.class);
+                                    intent.putExtra("main", "home");
                                     startActivity(intent);
                                 } else {
                                     Toast.makeText(MainActivity.this, "Email hoặc mật khẩu không đúng", Toast.LENGTH_SHORT).show();
@@ -225,6 +221,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Intent intent = new Intent(MainActivity.this, Home.class);
+                            intent.putExtra("main", "home");
                             startActivity(intent);
                         } else {
                             Toast.makeText(MainActivity.this, "lỗi", Toast.LENGTH_SHORT).show();
@@ -244,6 +241,7 @@ public class MainActivity extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
 
                             Intent intent = new Intent(MainActivity.this, Home.class);
+                            intent.putExtra("main", "home");
                             startActivity(intent);
                         } else {
                             Toast.makeText(MainActivity.this, "Lỗi", Toast.LENGTH_SHORT).show();
