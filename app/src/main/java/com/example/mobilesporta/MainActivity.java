@@ -96,6 +96,12 @@ public class MainActivity extends AppCompatActivity {
         signinGoogle();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        finish();
+    }
+
     private void findId() {
         loginButton = findViewById(R.id.login_button); // button facebook login
         signInButton = findViewById(R.id.sign_in_button); // dang nhap google

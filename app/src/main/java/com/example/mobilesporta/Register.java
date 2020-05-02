@@ -47,6 +47,12 @@ public class Register extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        finish();
+    }
+
     private void findId(){
         btnBack =  findViewById(R.id.back);
         btnRegister = findViewById(R.id.btnRegister);

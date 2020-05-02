@@ -1,7 +1,9 @@
 package com.example.mobilesporta.fragment.account;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -25,21 +27,32 @@ import com.example.mobilesporta.activity.account.EditAccount;
 import com.example.mobilesporta.activity.account.PravicyPolicy;
 import com.example.mobilesporta.activity.account.Recommend;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+
+import static android.widget.Toast.LENGTH_SHORT;
 
 public class AccountFragment extends Fragment {
 
     Button logout, editAccount, recommend, security, btnAddImage;
     TextView username;
     ImageView avatar;
-    String uriAvatar, strName = "NoName";
-    final int IMAGE_PICK_CODE = 1000, RESULT_OK = -1;
+    final int IMAGE_PICK_CODE = 1, RESULT_OK = -1;
     Uri imageURI;
+    Uri uriAvatar;
+    private StorageReference storageRef;
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     @Nullable
     @Override
@@ -54,8 +67,7 @@ public class AccountFragment extends Fragment {
         security = view.findViewById(R.id.security_policy);
         btnAddImage = view.findViewById(R.id.add_profile_image);
 
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        updateUI(currentUser);
+        updateUI();
 
         btnAddImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,22 +113,27 @@ public class AccountFragment extends Fragment {
 
     }
 
-    private void updateUI(FirebaseUser currentUser){
-        if (currentUser.getDisplayName().length() > 0)
-            strName = currentUser.getDisplayName();
+    private void updateUI(){
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String strName;
+        if (currentUser.getDisplayName() == null || currentUser.getDisplayName().length() == 0){
+            username.setText("NoName");
+        }else{
+            username.setText(currentUser.getDisplayName());
+        }
 
-        username.setText(strName);
 
         if (currentUser.getPhotoUrl() == null){
-            uriAvatar = "https://firebasestorage.googleapis.com/v0/b/mobile-1054b.appspot.com/o/account.png?alt=media&token=2e8acf2d-ab0d-4b15-bfc7-b007e2ca991c";
+            uriAvatar = Uri.parse("https://firebasestorage.googleapis.com/v0/b/mobile-1054b.appspot.com/o/account.png?alt=media&token=2e8acf2d-ab0d-4b15-bfc7-b007e2ca991c");
         }else{
-            uriAvatar = currentUser.getPhotoUrl().toString();
+            uriAvatar = currentUser.getPhotoUrl();
         }
+
         Picasso.get().load(uriAvatar).into(avatar);
     }
 
     private void addImage(){
-        Intent intent = new Intent(Intent.ACTION_PICK);
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
         startActivityForResult(intent, IMAGE_PICK_CODE);
     }
@@ -125,26 +142,38 @@ public class AccountFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE){
-            updateAvatar(data.getData());
+            imageURI = data.getData();
+            Picasso.get().load(imageURI).into(avatar);
+            updateAvatar(imageURI);
         }
     }
 
-    private void updateAvatar(Uri uri){
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//        Log.d("image", user.getPhotoUrl().toString());
+    private void updateAvatar(Uri uriImage){
 
-//        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-//                .setPhotoUri(uri)
-//                .build();
-//
-//        user.updateProfile(profileUpdates)
-//                .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Void> task) {
-//                        if (task.isSuccessful()) {
-//                            Log.d("success", "User profile updated.");
-//                        }
-//                    }
-//                });
+        storageRef = FirebaseStorage.getInstance().getReference();
+        final StorageReference imageName = storageRef.child("image_account/uid_" + user.getUid());
+        imageName.putFile(uriImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                imageName.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                .setPhotoUri(uri)
+                                .build();
+
+                        user.updateProfile(profileUpdates)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                        }
+                                    }
+                                });
+                    }
+                });
+            }
+        });
+
     }
 }

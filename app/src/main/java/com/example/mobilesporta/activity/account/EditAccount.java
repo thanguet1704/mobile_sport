@@ -29,7 +29,7 @@ public class EditAccount extends AppCompatActivity {
 
     EditText edtUsername, edtEmail, edtPassword, edtConfirmPassword;
     Button btnUpdate;
-
+    final String SUCCESS = "Success";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +39,10 @@ public class EditAccount extends AppCompatActivity {
         findId();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         edtEmail.setText(user.getEmail());
+        if (user.getDisplayName() != null)
+            edtUsername.setText(user.getDisplayName());
+        else
+            edtUsername.setText("NoName");
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +50,12 @@ public class EditAccount extends AppCompatActivity {
                 updateAccount();
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        finish();
     }
 
     private void findId(){
@@ -72,19 +82,20 @@ public class EditAccount extends AppCompatActivity {
             username = edtUsername.getText().toString();
         }
 
-        if (password.length() != 0 && confirmPassword.length() != 0){
+        if (password.length() > 0 && confirmPassword.length() > 0){
             if (password.equals(confirmPassword) == false){
+                edtPassword.setText("");
+                edtConfirmPassword.setText("");
                 Toast.makeText(EditAccount.this, "Nhập lại mật khẩu không đúng", Toast.LENGTH_LONG).show();
             }else{
                 user.updatePassword(password)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                Log.d("success", password);
+                                Toast.makeText(EditAccount.this, "Bạn đã đổi mật khẩu", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(EditAccount.this, MainActivity.class));
                             }
                         });
-
-
                 UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                         .setDisplayName(username)
                         .build();
@@ -93,14 +104,11 @@ public class EditAccount extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()){
-                                    Log.d("success", "succcess full");
                                 }
                             }
                         });
-
-                startActivity(new Intent(EditAccount.this, Home.class));
             }
-        }else{
+        }else if (password.length() == 0 && confirmPassword.length() == 0){
 
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                     .setDisplayName(username)
@@ -110,12 +118,12 @@ public class EditAccount extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()){
-                                Log.d("success", "succcess full");
+                                Intent intent = new Intent(EditAccount.this, Home.class);
+                                intent.putExtra("success", "true");
+                                startActivity(intent);
                             }
                         }
                     });
-
-            startActivity(new Intent(EditAccount.this, Home.class));
         }
     }
 }

@@ -2,6 +2,7 @@ package com.example.mobilesporta;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.mobilesporta.activity.account.EditAccount;
 import com.example.mobilesporta.fragment.account.AccountFragment;
 import com.example.mobilesporta.fragment.club.CLubFragment;
 import com.example.mobilesporta.fragment.game.GameFragment;
@@ -30,10 +32,9 @@ public class Home extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
+
         bottomNav.setSelectedItemId(R.id.nav_stadium);
-
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StadiumFragment()).commit();
-
 
     }
 

@@ -6,7 +6,7 @@
     android:weightSum="10"
     android:orientation="vertical">
     <LinearLayout
-        android:layout_weight="9"
+        android:layout_weight="10"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:weightSum="10"
@@ -16,13 +16,12 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="4">
-            <TextView
+            <ImageView
                 android:id="@+id/text_email"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="add stadium code"
+                android:background="@drawable/photo"
                 android:textColor="#111"
-                android:layout_below="@+id/avatar"
                 android:layout_centerHorizontal="true"
                 android:textSize="24dp"
                 android:textStyle="bold"/>
