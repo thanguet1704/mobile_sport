@@ -33,9 +33,14 @@ public class Home extends AppCompatActivity {
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-        bottomNav.setSelectedItemId(R.id.nav_stadium);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StadiumFragment()).commit();
-
+        Intent data = getIntent();
+        if (data.getStringExtra("main") != null){
+            bottomNav.setSelectedItemId(R.id.nav_stadium);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StadiumFragment()).commit();
+        }else{
+            bottomNav.setSelectedItemId(R.id.nav_account);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AccountFragment()).commit();
+        }
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {

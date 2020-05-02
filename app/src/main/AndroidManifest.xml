@@ -14,13 +14,16 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activity.account.PravicyPolicy"
-            android:label="@string/title_activity_pravicy_policy"></activity>
+            android:label="@string/title_activity_pravicy_policy"
+            android:parentActivityName=".Home"></activity>
         <activity
             android:name=".activity.account.Recommend"
-            android:label="@string/title_activity_recommend"></activity>
+            android:label="@string/title_activity_recommend"
+            android:parentActivityName=".Home"></activity>
         <activity
             android:name=".activity.account.EditAccount"
-            android:label="@string/title_activity_edit_account"></activity>
+            android:label="@string/title_activity_edit_account"
+            android:parentActivityName=".Home"></activity>
         <activity android:name=".activity.club.ClubSearching" />
         <activity
             android:name=".menu.Club"

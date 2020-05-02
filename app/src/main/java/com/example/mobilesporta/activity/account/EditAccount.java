@@ -119,7 +119,6 @@ public class EditAccount extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()){
                                 Intent intent = new Intent(EditAccount.this, Home.class);
-                                intent.putExtra("success", "true");
                                 startActivity(intent);
                             }
                         }
