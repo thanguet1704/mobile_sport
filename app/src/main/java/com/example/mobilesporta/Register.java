@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Register extends AppCompatActivity {
     private ImageButton btnBack;
@@ -77,6 +78,7 @@ public class Register extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(Register.this, "Đăng ký thành công", Toast.LENGTH_LONG).show();
+                                    FirebaseAuth.getInstance().signOut();
                                     Intent intent = new Intent(Register.this, MainActivity.class);
                                     startActivity(intent);
                                 } else {

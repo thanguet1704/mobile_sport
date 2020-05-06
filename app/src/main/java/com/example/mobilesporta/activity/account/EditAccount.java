@@ -88,14 +88,6 @@ public class EditAccount extends AppCompatActivity {
                 edtConfirmPassword.setText("");
                 Toast.makeText(EditAccount.this, "Nhập lại mật khẩu không đúng", Toast.LENGTH_LONG).show();
             }else{
-                user.updatePassword(password)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                Toast.makeText(EditAccount.this, "Bạn đã đổi mật khẩu", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(EditAccount.this, MainActivity.class));
-                            }
-                        });
                 UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                         .setDisplayName(username)
                         .build();
@@ -105,6 +97,15 @@ public class EditAccount extends AppCompatActivity {
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()){
                                 }
+                            }
+                        });
+                user.updatePassword(password)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Toast.makeText(EditAccount.this, "Bạn đã đổi mật khẩu, mời đăng nhập lại", Toast.LENGTH_SHORT).show();
+                                FirebaseAuth.getInstance().signOut();
+                                startActivity(new Intent(EditAccount.this, MainActivity.class));
                             }
                         });
             }
