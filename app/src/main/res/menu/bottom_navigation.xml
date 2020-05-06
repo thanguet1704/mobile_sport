@@ -9,11 +9,11 @@
         android:title="Tìm sân"/>
 
     <item android:id="@+id/nav_game"
-        android:icon="@drawable/game"
+        android:icon="@drawable/icon_game"
         android:title="Tìm đối"/>
 
     <item android:id="@+id/nav_club"
-        android:icon="@drawable/club"
+        android:icon="@drawable/icon_club"
         android:title="Câu lạc bộ"/>
 
     <item android:id="@+id/nav_account"
