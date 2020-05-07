@@ -41,7 +41,8 @@
             android:layout_gravity="right|bottom"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
-            android:src="@drawable/ic_addnew" />
+            android:src="@drawable/ic_add_white"
+            android:backgroundTint="#FFC107"/>
 
     </FrameLayout>
 

@@ -30,7 +30,7 @@
             android:label="Câu lạc bộ">
         </activity>
         <activity android:name=".activity.game.FootballMatchInfo" />
-        <activity android:name=".activity.club.ClubProfile" />
+        <activity android:name=".activity.club.ClubProfile"/>
         <activity
             android:name=".Home"
             android:label="@string/title_activity_home"
