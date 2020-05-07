@@ -37,6 +37,9 @@ public class Home extends AppCompatActivity {
         if (data.getStringExtra("main") != null){
             bottomNav.setSelectedItemId(R.id.nav_stadium);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StadiumFragment()).commit();
+        }else if(data.getStringExtra("addclub") != null){
+            bottomNav.setSelectedItemId(R.id.nav_club);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CLubFragment()).commit();
         }else{
             bottomNav.setSelectedItemId(R.id.nav_account);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AccountFragment()).commit();

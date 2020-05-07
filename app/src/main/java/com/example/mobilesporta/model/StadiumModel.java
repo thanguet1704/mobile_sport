@@ -1,5 +1,7 @@
 package com.example.mobilesporta.model;
 
+import com.example.mobilesporta.data.service.StadiumCommentService;
+
 import java.util.List;
 
 public class StadiumModel {
@@ -15,13 +17,13 @@ public class StadiumModel {
     private String location_x;
     private String location_y;
 
-    private List<StadiumComment> listComments;
+    private List<StadiumCommentService> listComments;
     private String zone;
 
     public StadiumModel() {
     }
 
-    public StadiumModel(String stadium_name, String description, String address, Integer amount, Integer cost, String image, String phone_number, String time_open, String time_close, String location_x, String location_y, List<StadiumComment> listComments, String zone) {
+    public StadiumModel(String stadium_name, String description, String address, Integer amount, Integer cost, String image, String phone_number, String time_open, String time_close, String location_x, String location_y, List<StadiumCommentService> listComments, String zone) {
         this.stadium_name = stadium_name;
         this.description = description;
         this.address = address;
@@ -136,11 +138,11 @@ public class StadiumModel {
         return this;
     }
 
-    public List<StadiumComment> getComments() {
+    public List<StadiumCommentService> getComments() {
         return listComments;
     }
 
-    public StadiumModel setComments(List<StadiumComment> listComments) {
+    public StadiumModel setComments(List<StadiumCommentService> listComments) {
         this.listComments = listComments;
         return this;
     }
