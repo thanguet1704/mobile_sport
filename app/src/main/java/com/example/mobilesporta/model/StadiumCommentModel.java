@@ -1,14 +1,14 @@
 package com.example.mobilesporta.model;
 
-public class StadiumComment {
+public class StadiumCommentModel {
 
     private String user_id;
     private String content;
 
-    public StadiumComment() {
+    public StadiumCommentModel() {
     }
 
-    public StadiumComment(String user_id, String content) {
+    public StadiumCommentModel(String user_id, String content) {
         this.user_id = user_id;
         this.content = content;
     }
@@ -17,7 +17,7 @@ public class StadiumComment {
         return user_id;
     }
 
-    public StadiumComment setUser_id(String user_id) {
+    public StadiumCommentModel setUser_id(String user_id) {
         this.user_id = user_id;
         return this;
     }
@@ -26,7 +26,7 @@ public class StadiumComment {
         return content;
     }
 
-    public StadiumComment setContent(String content) {
+    public StadiumCommentModel setContent(String content) {
         this.content = content;
         return this;
     }

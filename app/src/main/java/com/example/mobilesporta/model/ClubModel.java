@@ -2,7 +2,7 @@ package com.example.mobilesporta.model;
 
 import java.util.List;
 
-public class Club {
+public class ClubModel {
 
     private String club_name;
     private String image;
@@ -12,10 +12,10 @@ public class Club {
     private Integer match_count;
     private List<ClubComment> listComments;
 
-    public Club() {
+    public ClubModel() {
     }
 
-    public Club(String club_name, String image, String slogan, String description, String user_created_id, Integer match_count, List<ClubComment> listComments) {
+    public ClubModel(String club_name, String image, String slogan, String description, String user_created_id, Integer match_count, List<ClubComment> listComments) {
         this.club_name = club_name;
         this.image = image;
         this.slogan = slogan;
@@ -29,7 +29,7 @@ public class Club {
         return club_name;
     }
 
-    public Club setClub_name(String club_name) {
+    public ClubModel setClub_name(String club_name) {
         this.club_name = club_name;
         return this;
     }
@@ -38,7 +38,7 @@ public class Club {
         return image;
     }
 
-    public Club setImage(String image) {
+    public ClubModel setImage(String image) {
         this.image = image;
         return this;
     }
@@ -47,7 +47,7 @@ public class Club {
         return slogan;
     }
 
-    public Club setSlogan(String slogan) {
+    public ClubModel setSlogan(String slogan) {
         this.slogan = slogan;
         return this;
     }
@@ -56,7 +56,7 @@ public class Club {
         return description;
     }
 
-    public Club setDescription(String description) {
+    public ClubModel setDescription(String description) {
         this.description = description;
         return this;
     }
@@ -65,7 +65,7 @@ public class Club {
         return user_created_id;
     }
 
-    public Club setUser_created_id(String user_created_id) {
+    public ClubModel setUser_created_id(String user_created_id) {
         this.user_created_id = user_created_id;
         return this;
     }
@@ -74,7 +74,7 @@ public class Club {
         return match_count;
     }
 
-    public Club setMatch_count(Integer match_count) {
+    public ClubModel setMatch_count(Integer match_count) {
         this.match_count = match_count;
         return this;
     }
@@ -83,7 +83,7 @@ public class Club {
         return listComments;
     }
 
-    public Club setListComment(List<ClubComment> listComment) {
+    public ClubModel setListComment(List<ClubComment> listComment) {
         this.listComments = listComment;
         return this;
     }

@@ -1,6 +1,6 @@
 package com.example.mobilesporta.model;
 
-public class Match {
+public class MatchModel {
 
     private String club_home_id;
     private String club_away_id;
@@ -13,10 +13,10 @@ public class Match {
     private String description;
     private String phone_number;
 
-    public Match() {
+    public MatchModel() {
     }
 
-    public Match(String club_home_id, String club_away_id, String user_created_id, String stadium_id, String date, String time, Integer time_amount, String status, String description, String phone_number) {
+    public MatchModel(String club_home_id, String club_away_id, String user_created_id, String stadium_id, String date, String time, Integer time_amount, String status, String description, String phone_number) {
         this.club_home_id = club_home_id;
         this.club_away_id = club_away_id;
         this.user_created_id = user_created_id;
@@ -33,7 +33,7 @@ public class Match {
         return club_home_id;
     }
 
-    public Match setClub_home_id(String club_home_id) {
+    public MatchModel setClub_home_id(String club_home_id) {
         this.club_home_id = club_home_id;
         return this;
     }
@@ -42,7 +42,7 @@ public class Match {
         return club_away_id;
     }
 
-    public Match setClub_away_id(String club_away_id) {
+    public MatchModel setClub_away_id(String club_away_id) {
         this.club_away_id = club_away_id;
         return this;
     }
@@ -51,7 +51,7 @@ public class Match {
         return user_created_id;
     }
 
-    public Match setUser_created_id(String user_created_id) {
+    public MatchModel setUser_created_id(String user_created_id) {
         this.user_created_id = user_created_id;
         return this;
     }
@@ -60,7 +60,7 @@ public class Match {
         return stadium_id;
     }
 
-    public Match setStadium_id(String stadium_id) {
+    public MatchModel setStadium_id(String stadium_id) {
         this.stadium_id = stadium_id;
         return this;
     }
@@ -69,7 +69,7 @@ public class Match {
         return date;
     }
 
-    public Match setDate(String date) {
+    public MatchModel setDate(String date) {
         this.date = date;
         return this;
     }
@@ -78,7 +78,7 @@ public class Match {
         return time;
     }
 
-    public Match setTime(String time) {
+    public MatchModel setTime(String time) {
         this.time = time;
         return this;
     }
@@ -87,7 +87,7 @@ public class Match {
         return time_amount;
     }
 
-    public Match setTime_amount(Integer time_amount) {
+    public MatchModel setTime_amount(Integer time_amount) {
         this.time_amount = time_amount;
         return this;
     }
@@ -96,7 +96,7 @@ public class Match {
         return status;
     }
 
-    public Match setStatus(String status) {
+    public MatchModel setStatus(String status) {
         this.status = status;
         return this;
     }
@@ -105,7 +105,7 @@ public class Match {
         return description;
     }
 
-    public Match setDescription(String description) {
+    public MatchModel setDescription(String description) {
         this.description = description;
         return this;
     }
@@ -114,7 +114,7 @@ public class Match {
         return phone_number;
     }
 
-    public Match setPhone_number(String phone_number) {
+    public MatchModel setPhone_number(String phone_number) {
         this.phone_number = phone_number;
         return this;
     }
