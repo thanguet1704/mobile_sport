@@ -3,6 +3,7 @@ package com.example.mobilesporta.fragment.club;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,14 +24,19 @@ import com.example.mobilesporta.Home;
 import com.example.mobilesporta.R;
 import com.example.mobilesporta.activity.club.ClubProfile;
 import com.example.mobilesporta.activity.club.ClubSearching;
+import com.example.mobilesporta.adapter.ItemClubAdapter;
 import com.example.mobilesporta.data.service.ClubService;
 import com.example.mobilesporta.model.ClubCommentModel;
 import com.example.mobilesporta.model.ClubModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +48,10 @@ public class CLubFragment extends Fragment {
     ClubService clubService = new ClubService();
     EditText edtNameClub, edtSlogan, edtDescription;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    ArrayList<ClubModel> listClub = new ArrayList<>();
+    ListView lvClub;
+    ItemClubAdapter itemClubAdapter;
+    TextView none;
 
     @Nullable
     @Override
@@ -54,12 +66,16 @@ public class CLubFragment extends Fragment {
             }
         });
         btnSearchClub = view.findViewById(R.id.btn_search_club);
+        lvClub = view.findViewById(R.id.lvClubAct_MyClub);
+        none = view.findViewById(R.id.txtClub_NoData);
         btnSearchClub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), ClubSearching.class));
             }
         });
+
+        showListClub();
         return view;
     }
 
@@ -130,5 +146,36 @@ public class CLubFragment extends Fragment {
             intent.putExtra("addclub", "true");
             startActivity(intent);
         }
+    }
+
+    private void showListClub(){
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("clubs");
+        Query infoClub = mDatabase.orderByChild("user_created_id").equalTo(user.getUid());
+
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                        ClubModel clubModel = snapshot.getValue(ClubModel.class);
+                        listClub.add(clubModel);
+                    }
+                    itemClubAdapter = new ItemClubAdapter(getActivity(), R.layout.item_club, listClub);
+                    lvClub.setAdapter(itemClubAdapter);
+                    none.setVisibility(View.INVISIBLE);
+                }else{
+                    none.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+
+        infoClub.addListenerForSingleValueEvent(valueEventListener);
+
+
     }
 }
