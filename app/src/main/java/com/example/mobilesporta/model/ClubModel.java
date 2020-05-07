@@ -1,5 +1,6 @@
 package com.example.mobilesporta.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClubModel {
@@ -9,19 +10,19 @@ public class ClubModel {
     private String slogan;
     private String description;
     private String user_created_id;
-    private Integer match_count;
-    private List<ClubComment> listComments;
+//    private Integer match_count;
+    private ArrayList<ClubCommentModel> listComments;
 
     public ClubModel() {
     }
 
-    public ClubModel(String club_name, String image, String slogan, String description, String user_created_id, Integer match_count, List<ClubComment> listComments) {
+    public ClubModel(String club_name, String image, String slogan, String description, String user_created_id, ArrayList<ClubCommentModel> listComments) {
         this.club_name = club_name;
         this.image = image;
         this.slogan = slogan;
         this.description = description;
         this.user_created_id = user_created_id;
-        this.match_count = match_count;
+//        this.match_count = match_count;
         this.listComments = listComments;
     }
 
@@ -70,20 +71,20 @@ public class ClubModel {
         return this;
     }
 
-    public Integer getMatch_count() {
-        return match_count;
-    }
+//    public Integer getMatch_count() {
+//        return match_count;
+//    }
+//
+//    public ClubModel setMatch_count(Integer match_count) {
+//        this.match_count = match_count;
+//        return this;
+//    }
 
-    public ClubModel setMatch_count(Integer match_count) {
-        this.match_count = match_count;
-        return this;
-    }
-
-    public List<ClubComment> getListComment() {
+    public ArrayList<ClubCommentModel> getListComment() {
         return listComments;
     }
 
-    public ClubModel setListComment(List<ClubComment> listComment) {
+    public ClubModel setListComment(ArrayList<ClubCommentModel> listComment) {
         this.listComments = listComment;
         return this;
     }
