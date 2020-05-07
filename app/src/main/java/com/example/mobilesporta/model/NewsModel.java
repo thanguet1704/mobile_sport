@@ -1,15 +1,15 @@
 package com.example.mobilesporta.model;
 
-public class News {
+public class NewsModel {
 
     private String title;
     private String content;
     private String image;
 
-    public News() {
+    public NewsModel() {
     }
 
-    public News(String title, String content, String image) {
+    public NewsModel(String title, String content, String image) {
         this.title = title;
         this.content = content;
         this.image = image;
@@ -19,7 +19,7 @@ public class News {
         return title;
     }
 
-    public News setTitle(String title) {
+    public NewsModel setTitle(String title) {
         this.title = title;
         return this;
     }
@@ -28,7 +28,7 @@ public class News {
         return content;
     }
 
-    public News setContent(String content) {
+    public NewsModel setContent(String content) {
         this.content = content;
         return this;
     }
@@ -37,7 +37,7 @@ public class News {
         return image;
     }
 
-    public News setImage(String image) {
+    public NewsModel setImage(String image) {
         this.image = image;
         return this;
     }
