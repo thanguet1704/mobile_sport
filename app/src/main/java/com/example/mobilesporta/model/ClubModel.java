@@ -10,13 +10,14 @@ public class ClubModel {
     private String slogan;
     private String description;
     private String user_created_id;
+    private String background;
 //    private Integer match_count;
     private ArrayList<ClubCommentModel> listComments;
 
     public ClubModel() {
     }
 
-    public ClubModel(String club_name, String image, String slogan, String description, String user_created_id, ArrayList<ClubCommentModel> listComments) {
+    public ClubModel(String club_name, String image, String slogan, String description, String user_created_id, ArrayList<ClubCommentModel> listComments, String background) {
         this.club_name = club_name;
         this.image = image;
         this.slogan = slogan;
@@ -24,6 +25,7 @@ public class ClubModel {
         this.user_created_id = user_created_id;
 //        this.match_count = match_count;
         this.listComments = listComments;
+        this.background = background;
     }
 
     public String getClub_name() {
@@ -87,5 +89,13 @@ public class ClubModel {
     public ClubModel setListComment(ArrayList<ClubCommentModel> listComment) {
         this.listComments = listComment;
         return this;
+    }
+
+    public String getBackground() {
+        return background;
+    }
+
+    public void setBackground(String background) {
+        this.background = background;
     }
 }

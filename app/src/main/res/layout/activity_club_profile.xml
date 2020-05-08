@@ -18,13 +18,14 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:background="@drawable/ic_add_image"
-            android:stateListAnimator="@null"/>
+            android:layout_marginTop="130dp"
+            android:layout_alignRight="@+id/imgClubProfileAct_ClubBackground"/>
 
         <ImageView
             android:id="@+id/imgClubProfileAct_ClubBackground"
             android:layout_width="match_parent"
             android:layout_height="160dp"
-            android:background="@drawable/img_background_club_profile"/>
+            android:scaleType="fitXY"/>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cvClubProfileAct_Club"
@@ -38,7 +39,6 @@
                 android:id="@+id/imgClubProfileAct_ClubImage"
                 android:layout_width="160dp"
                 android:layout_height="160dp"
-                android:src="@drawable/fc"
                 android:scaleType="fitXY"/>
         </androidx.cardview.widget.CardView>
 

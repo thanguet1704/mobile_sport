@@ -24,6 +24,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -40,10 +42,12 @@ public class ClubProfile extends AppCompatActivity {
     private ClubService clubService;
     private ImageView imgClub;
     private TextView txtNameClub, txtSlogan;
-    private Button btnAddAvatar;
-    final int IMAGE_PICK_CODE = 1, RESULT_OK = -1;
-    Uri imageURI;
+    private Button btnAddAvatar, btnAddBackground;
+    final int IMAGE_PICK_CODE = 1, RESULT_OK = -1, BACKGROUND_PICK_CODE = 2;
+    Uri imageURI, bgURI;
     private StorageReference storageRef;
+    ImageView bgClub;
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +55,10 @@ public class ClubProfile extends AppCompatActivity {
         this.supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_club_profile);
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         Intent idClubFromFragment = getIntent();
         clubId = idClubFromFragment.getStringExtra("club_id");
+        userId = idClubFromFragment.getStringExtra("user_id");
 
         tabLayout = (TabLayout) findViewById(R.id.ClubProfieAct_TabLayout);
         commentTab = (TabItem) findViewById(R.id.ClubProfieAct_ClubCommentTab);
@@ -63,8 +69,18 @@ public class ClubProfile extends AppCompatActivity {
         txtSlogan = findViewById(R.id.txtClubProfile_ClubSlogan);
         viewPager = findViewById(R.id.ClubProfieAct_ViewPager);
         btnAddAvatar = findViewById(R.id.btn_add_avatar);
+        bgClub = findViewById(R.id.imgClubProfileAct_ClubBackground);
+        btnAddBackground = findViewById(R.id.btn_add_bachground);
+
         updateUI();
-        addAvatar();
+
+        if (user.getUid().equals(userId) == true){
+            addAvatar();
+            addBackround();
+        }else{
+            btnAddBackground.setVisibility(View.INVISIBLE);
+            btnAddAvatar.setVisibility(View.INVISIBLE);
+        }
         pagerAdapter = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
 
@@ -97,7 +113,7 @@ public class ClubProfile extends AppCompatActivity {
 
     private void updateUI(){
         clubService = new ClubService();
-        clubService.getDataClub(clubId, txtNameClub, txtSlogan, imgClub);
+        clubService.getDataClub(clubId, txtNameClub, txtSlogan, imgClub, bgClub);
     }
 
     private void addAvatar(){
@@ -111,6 +127,18 @@ public class ClubProfile extends AppCompatActivity {
         });
     }
 
+
+    private void addBackround(){
+        btnAddBackground.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                startActivityForResult(intent, BACKGROUND_PICK_CODE);
+            }
+        });
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -119,6 +147,12 @@ public class ClubProfile extends AppCompatActivity {
             imageURI = data.getData();
             Picasso.get().load(imageURI).into(imgClub);
             updateAvatar(imageURI);
+        }
+
+        if (resultCode == RESULT_OK && requestCode == BACKGROUND_PICK_CODE){
+            bgURI = data.getData();
+            Picasso.get().load(bgURI).into(bgClub);
+            updateBackground(bgURI);
         }
     }
 
@@ -139,5 +173,22 @@ public class ClubProfile extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void updateBackground(Uri uriImage){
+        storageRef = FirebaseStorage.getInstance().getReference();
+        final StorageReference imageName = storageRef.child("image_club/background_uid_" + clubId);
+        imageName.putFile(uriImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                imageName.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        ClubService updateImage = new ClubService();
+                        updateImage.updateBackground(clubId, uri.toString());
+                    }
+                });
+            }
+        });
     }
 }

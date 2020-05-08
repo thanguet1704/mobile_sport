@@ -104,25 +104,6 @@ public class CLubFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.search_club_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        //click item menu
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onPrepareOptionsMenu(@NonNull Menu menu) {
-        menu.findItem(R.menu.search_club_menu).setVisible(true);
-        super.onPrepareOptionsMenu(menu);
-    }
-
     private void addNewClub(){
         ClubCommentModel clubCommentModel = new ClubCommentModel("", "");
         ArrayList<ClubCommentModel> listComment = new ArrayList<>();
@@ -139,6 +120,7 @@ public class CLubFragment extends Fragment {
         clubModel.setDescription(description);
         clubModel.setSlogan(slogan);
         clubModel.setImage("https://firebasestorage.googleapis.com/v0/b/mobilesporta-5bb33.appspot.com/o/image_club%2Ffootball.png?alt=media&token=b656362f-0411-43bd-be36-b070294f7ad3");
+        clubModel.setBackground("https://firebasestorage.googleapis.com/v0/b/mobilesporta-5bb33.appspot.com/o/image_club%2Fbg.jpg?alt=media&token=cfd62931-b784-4ac0-b23f-fb0c2644e236");
         clubModel.setUser_created_id(userId);
 
         if (nameClub.length() == 0 || slogan.length() == 0 || description.length() == 0){
@@ -172,6 +154,7 @@ public class CLubFragment extends Fragment {
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             Intent intent = new Intent(getActivity(), ClubProfile.class);
                             intent.putExtra("club_id", listClubId.get(position));
+                            intent.putExtra("user_id", listClub.get(position).getUser_created_id());
                             startActivity(intent);
                         }
                     });
