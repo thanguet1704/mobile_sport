@@ -1,6 +1,7 @@
 package com.example.mobilesporta.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,12 +34,12 @@ public class ItemClubAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return clubList.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
@@ -55,6 +56,8 @@ public class ItemClubAdapter extends BaseAdapter {
         txtSlogan.setText(clubModel.getSlogan());
         Picasso.get().load(clubModel.getImage()).into(imgClub);
 
+
         return convertView;
     }
+
 }
