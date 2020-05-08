@@ -8,64 +8,71 @@
     android:weightSum="2"
     tools:context=".activity.club.ClubProfile">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="#ffffff">
+        <Button
+            android:id="@+id/btn_add_bachground"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/ic_add_image"
+            android:stateListAnimator="@null"/>
 
         <ImageView
             android:id="@+id/imgClubProfileAct_ClubBackground"
             android:layout_width="match_parent"
             android:layout_height="160dp"
-            android:background="@drawable/img_background_club_profile"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:background="@drawable/img_background_club_profile"/>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cvClubProfileAct_Club"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
             android:layout_marginTop="80dp"
-            app:cardCornerRadius="50dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/imgClubProfileAct_ClubBackground"
-            app:layout_constraintTop_toTopOf="@+id/imgClubProfileAct_ClubBackground">
+            app:cardCornerRadius="80dp"
+            android:layout_centerHorizontal="true">
 
             <ImageView
                 android:id="@+id/imgClubProfileAct_ClubImage"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_margin="10dp"
-                android:src="@drawable/fc" />
-
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:src="@drawable/fc"
+                android:scaleType="fitXY"/>
         </androidx.cardview.widget.CardView>
 
+
+        <Button
+            android:id="@+id/btn_add_avatar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/ic_add_image"
+            android:layout_toRightOf="@+id/cvClubProfileAct_Club"
+            android:layout_below="@+id/cvClubProfileAct_Club"
+            android:layout_marginLeft="-30dp"
+            android:layout_marginTop="-40dp"/>
 
         <TextView
             android:id="@+id/txtClubProfile_ClubName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Arsenal FC"
-            android:textSize="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cvClubProfileAct_Club" />
+            android:layout_marginTop="5dp"
+            android:textSize="24dp"
+            android:textColor="#000"
+            android:text="FC"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/cvClubProfileAct_Club"/>
 
         <TextView
             android:id="@+id/txtClubProfile_ClubSlogan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Vui, khỏe, có ích - Không chặt chém"
-            android:textSize="12dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtClubProfile_ClubName" />
+            android:textSize="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/txtClubProfile_ClubName"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

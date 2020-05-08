@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -49,6 +50,7 @@ public class CLubFragment extends Fragment {
     EditText edtNameClub, edtSlogan, edtDescription;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     ArrayList<ClubModel> listClub = new ArrayList<>();
+    ArrayList<String> listClubId = new ArrayList<>();
     ListView lvClub;
     ItemClubAdapter itemClubAdapter;
     TextView none;
@@ -68,6 +70,7 @@ public class CLubFragment extends Fragment {
         btnSearchClub = view.findViewById(R.id.btn_search_club);
         lvClub = view.findViewById(R.id.lvClubAct_MyClub);
         none = view.findViewById(R.id.txtClub_NoData);
+        fabAddNew = view.findViewById(R.id.fabClubAdd_AddNewClub);
         btnSearchClub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,7 +138,7 @@ public class CLubFragment extends Fragment {
         clubModel.setClub_name(nameClub);
         clubModel.setDescription(description);
         clubModel.setSlogan(slogan);
-        clubModel.setImage("https://firebasestorage.googleapis.com/v0/b/mobilesporta-5bb33.appspot.com/o/image_account%2Fuid_LvIFA5MB5dcDyumpoM1aQ0qDTZr1?alt=media&token=c6787997-ec2b-4d0e-9fa5-e9757bada7de");
+        clubModel.setImage("https://firebasestorage.googleapis.com/v0/b/mobilesporta-5bb33.appspot.com/o/image_club%2Ffootball.png?alt=media&token=b656362f-0411-43bd-be36-b070294f7ad3");
         clubModel.setUser_created_id(userId);
 
         if (nameClub.length() == 0 || slogan.length() == 0 || description.length() == 0){
@@ -159,9 +162,19 @@ public class CLubFragment extends Fragment {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                         ClubModel clubModel = snapshot.getValue(ClubModel.class);
                         listClub.add(clubModel);
+                        listClubId.add(snapshot.getKey());
                     }
                     itemClubAdapter = new ItemClubAdapter(getActivity(), R.layout.item_club, listClub);
                     lvClub.setAdapter(itemClubAdapter);
+
+                    lvClub.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Intent intent = new Intent(getActivity(), ClubProfile.class);
+                            intent.putExtra("club_id", listClubId.get(position));
+                            startActivity(intent);
+                        }
+                    });
                     none.setVisibility(View.INVISIBLE);
                 }else{
                     none.setVisibility(View.VISIBLE);

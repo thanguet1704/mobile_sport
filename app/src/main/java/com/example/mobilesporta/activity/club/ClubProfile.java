@@ -1,16 +1,34 @@
 package com.example.mobilesporta.activity.club;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.mobilesporta.R;
 import com.example.mobilesporta.adapter.PageAdapter;
+import com.example.mobilesporta.data.service.ClubService;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 public class ClubProfile extends AppCompatActivity {
 
@@ -18,6 +36,14 @@ public class ClubProfile extends AppCompatActivity {
     private ViewPager viewPager;
     private TabItem commentTab, historyTab, descriptionTab;
     public PagerAdapter pagerAdapter;
+    private String clubId;
+    private ClubService clubService;
+    private ImageView imgClub;
+    private TextView txtNameClub, txtSlogan;
+    private Button btnAddAvatar;
+    final int IMAGE_PICK_CODE = 1, RESULT_OK = -1;
+    Uri imageURI;
+    private StorageReference storageRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,12 +51,20 @@ public class ClubProfile extends AppCompatActivity {
         this.supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_club_profile);
 
+        Intent idClubFromFragment = getIntent();
+        clubId = idClubFromFragment.getStringExtra("club_id");
+
         tabLayout = (TabLayout) findViewById(R.id.ClubProfieAct_TabLayout);
         commentTab = (TabItem) findViewById(R.id.ClubProfieAct_ClubCommentTab);
         historyTab = (TabItem) findViewById(R.id.ClubProfieAct_ClubHistoryTab);
         descriptionTab = (TabItem) findViewById(R.id.ClubProfieAct_ClubDescriptionTab);
+        imgClub = findViewById(R.id.imgClubProfileAct_ClubImage);
+        txtNameClub = findViewById(R.id.txtClubProfile_ClubName);
+        txtSlogan = findViewById(R.id.txtClubProfile_ClubSlogan);
         viewPager = findViewById(R.id.ClubProfieAct_ViewPager);
-
+        btnAddAvatar = findViewById(R.id.btn_add_avatar);
+        updateUI();
+        addAvatar();
         pagerAdapter = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
 
@@ -59,5 +93,51 @@ public class ClubProfile extends AppCompatActivity {
         });
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+    }
+
+    private void updateUI(){
+        clubService = new ClubService();
+        clubService.getDataClub(clubId, txtNameClub, txtSlogan, imgClub);
+    }
+
+    private void addAvatar(){
+        btnAddAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                startActivityForResult(intent, IMAGE_PICK_CODE);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE){
+            imageURI = data.getData();
+            Picasso.get().load(imageURI).into(imgClub);
+            updateAvatar(imageURI);
+        }
+    }
+
+    private void updateAvatar(Uri uriImage){
+
+        storageRef = FirebaseStorage.getInstance().getReference();
+        final StorageReference imageName = storageRef.child("image_club/avatar_uid_" + clubId);
+        imageName.putFile(uriImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                imageName.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        ClubService updateImage = new ClubService();
+                        updateImage.updateAvatarCLub(clubId, uri.toString());
+                    }
+                });
+            }
+        });
+
     }
 }
