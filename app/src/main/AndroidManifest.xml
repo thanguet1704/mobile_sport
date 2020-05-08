@@ -24,7 +24,8 @@
             android:name=".activity.account.EditAccount"
             android:label="@string/title_activity_edit_account"
             android:parentActivityName=".Home"></activity>
-        <activity android:name=".activity.club.ClubSearching" />
+        <activity android:name=".activity.club.ClubSearching"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".menu.Club"
             android:label="Câu lạc bộ">

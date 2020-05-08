@@ -1,10 +1,17 @@
 package com.example.mobilesporta.data.service;
 
+import android.content.Context;
 import android.content.Intent;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,6 +21,7 @@ import androidx.annotation.Nullable;
 import com.example.mobilesporta.Home;
 import com.example.mobilesporta.R;
 import com.example.mobilesporta.activity.club.ClubProfile;
+import com.example.mobilesporta.activity.club.ClubSearching;
 import com.example.mobilesporta.adapter.ItemClubAdapter;
 import com.example.mobilesporta.model.ClubModel;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -37,7 +45,7 @@ public class ClubService {
         mDatabase.child("clubs").push().setValue(clubModel);
     }
 
-    public void getDataClub(String clubId, final TextView txtName, final TextView txtSlogan, final ImageView avatar) {
+    public void getDataClub(String clubId, final TextView txtName, final TextView txtSlogan, final ImageView avatar, final ImageView background) {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("clubs");
         Query infoClub = mDatabase.orderByKey().equalTo(clubId);
 
@@ -50,6 +58,7 @@ public class ClubService {
                         txtName.setText(club.getClub_name());
                         txtSlogan.setText(club.getSlogan());
                         Picasso.get().load(club.getImage()).into(avatar);
+                        Picasso.get().load(club.getBackground()).into(background);
                     }
                 }
             }
@@ -71,6 +80,23 @@ public class ClubService {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 dataSnapshot.getRef().child("image").setValue(uri);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void updateBackground(String clubId, final String uri){
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("clubs");
+        Query updateAvatar = mDatabase.child(clubId);
+
+        updateAvatar.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                dataSnapshot.getRef().child("background").setValue(uri);
             }
 
             @Override
