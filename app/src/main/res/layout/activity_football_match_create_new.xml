@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.game.FootballMatchCreateNew">
+
+    <TextView
+        android:id="@+id/txtMatchCreateAct_Date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="60dp"
+        android:text="Ngày"
+        android:textSize="14sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <EditText
+        android:id="@+id/edtMatchCreateAct_Date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtMatchCreateAct_Date"
+        app:layout_constraintTop_toTopOf="@+id/txtMatchCreateAct_Date"
+        app:layout_constraintBottom_toBottomOf="@+id/txtMatchCreateAct_Date"/>
+
+    <TextView
+        android:id="@+id/txtMatchCreateAct_Time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:text="Thời gian"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtMatchCreateAct_Date" />
+
+    <EditText
+        android:id="@+id/edtMatchCreateAct_Time"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text=""
+        app:layout_constraintStart_toEndOf="@+id/txtMatchCreateAct_Time"
+        app:layout_constraintTop_toTopOf="@+id/txtMatchCreateAct_Time"
+        app:layout_constraintBottom_toBottomOf="@+id/txtMatchCreateAct_Time"/>
+
+    <TextView
+        android:id="@+id/txtMatchCreateAct_TimeAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thời lượng"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toRightOf="@id/edtMatchCreateAct_Time"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/txtMatchCreateAct_Time"
+        app:layout_constraintBottom_toBottomOf="@id/txtMatchCreateAct_Time"/>
+
+    <EditText
+        android:id="@+id/edtMatchCreateAct_TimeAmount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtMatchCreateAct_TimeAmount"
+        app:layout_constraintTop_toTopOf="@+id/txtMatchCreateAct_TimeAmount"
+        app:layout_constraintBottom_toBottomOf="@+id/txtMatchCreateAct_TimeAmount"/>
+
+    <TextView
+        android:id="@+id/txtMatchCreateAct_PhoneNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:text="Số điện thoại liên hệ"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtMatchCreateAct_Time" />
+
+    <EditText
+        android:id="@+id/edtMatchCreateAct_PhoneNumber"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:text=""
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtMatchCreateAct_PhoneNumber"
+        app:layout_constraintTop_toTopOf="@+id/txtMatchCreateAct_PhoneNumber"
+        app:layout_constraintBottom_toBottomOf="@+id/txtMatchCreateAct_PhoneNumber"/>
+
+    <TextView
+        android:id="@+id/txtMatchCreateAct_Stadium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:text="Sân bóng"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtMatchCreateAct_PhoneNumber" />
+
+    <EditText
+        android:id="@+id/edtMatchCreateAct_Stadium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:textSize="16sp"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="@+id/txtMatchCreateAct_Stadium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtMatchCreateAct_Stadium"
+        app:layout_constraintTop_toTopOf="@+id/txtMatchCreateAct_Stadium" />
+
+    <TextView
+        android:id="@+id/txtMatchCreateAct_Description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:text="Mô tả"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtMatchCreateAct_Stadium" />
+
+    <EditText
+        android:id="@+id/edtMatchCreateAct_Description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:textSize="16sp"
+        android:text=""
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtMatchCreateAct_Description" />
+
+    <Button
+        android:id="@+id/btnMatchCreateAct_Save"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:text="Lưu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtMatchCreateAct_Description" />
+</androidx.constraintlayout.widget.ConstraintLayout>
