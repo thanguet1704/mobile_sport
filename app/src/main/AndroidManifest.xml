@@ -3,7 +3,7 @@
     package="com.example.mobilesporta">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -12,26 +12,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.game.FootballMatchCreateNew"></activity>
         <activity
             android:name=".activity.account.PravicyPolicy"
             android:label="@string/title_activity_pravicy_policy"
-            android:parentActivityName=".Home"></activity>
+            android:parentActivityName=".Home" />
         <activity
             android:name=".activity.account.Recommend"
             android:label="@string/title_activity_recommend"
-            android:parentActivityName=".Home"></activity>
+            android:parentActivityName=".Home" />
         <activity
             android:name=".activity.account.EditAccount"
             android:label="@string/title_activity_edit_account"
-            android:parentActivityName=".Home"></activity>
-        <activity android:name=".activity.club.ClubSearching"
+            android:parentActivityName=".Home" />
+        <activity
+            android:name=".activity.club.ClubSearching"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".menu.Club"
-            android:label="Câu lạc bộ">
-        </activity>
+            android:label="Câu lạc bộ"></activity>
         <activity android:name=".activity.game.FootballMatchInfo" />
-        <activity android:name=".activity.club.ClubProfile"/>
+        <activity android:name=".activity.club.ClubProfile" />
         <activity
             android:name=".Home"
             android:label="@string/title_activity_home"
@@ -39,12 +40,10 @@
         <activity
             android:name=".Register"
             android:label="@string/title_activity_register"
-            android:theme="@style/AppTheme.NoActionBar" />
-<!--        <activity-->
-<!--            android:name=".login.FacebookLogin"-->
-<!--            android:label="@string/title_activity_facebook_login"-->
-<!--            android:theme="@style/AppTheme.NoActionBar" />-->
-
+            android:theme="@style/AppTheme.NoActionBar" /> <!-- <activity -->
+        <!-- android:name=".login.FacebookLogin" -->
+        <!-- android:label="@string/title_activity_facebook_login" -->
+        <!-- android:theme="@style/AppTheme.NoActionBar" /> -->
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
