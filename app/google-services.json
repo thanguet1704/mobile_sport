@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "328587499575-v48pf7ie4be3evjjbqk5pn1qs5v0gtc1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mobilesporta",
+            "certificate_hash": "61fbaf2ce843d0e09270088372cee0fca5b590d4"
+          }
+        },
+        {
           "client_id": "328587499575-vg7lh3mhqs7bd8c93mgkep18ubr6hl5s.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
