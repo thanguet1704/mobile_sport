@@ -19,6 +19,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.mobilesporta.R;
 import com.example.mobilesporta.adapter.PageAdapter;
 import com.example.mobilesporta.data.service.ClubService;
+import com.example.mobilesporta.fragment.club.DescriptionTabFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -81,7 +82,8 @@ public class ClubProfile extends AppCompatActivity {
             btnAddBackground.setVisibility(View.INVISIBLE);
             btnAddAvatar.setVisibility(View.INVISIBLE);
         }
-        pagerAdapter = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+
+        pagerAdapter = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount(), clubId);
         viewPager.setAdapter(pagerAdapter);
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -109,6 +111,7 @@ public class ClubProfile extends AppCompatActivity {
         });
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
     }
 
     private void updateUI(){

@@ -39,6 +39,7 @@ import java.util.ArrayList;
 
 public class ClubService {
     ArrayList<ClubModel> listClub = new ArrayList<>();
+    private String description;
 
     public void addClub(ClubModel clubModel){
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -104,5 +105,30 @@ public class ClubService {
 
             }
         });
+    }
+
+    public void renderDescription(String clubId, final TextView textView){
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("clubs");
+        Query infoClub = mDatabase.orderByKey().equalTo(clubId);
+
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                        ClubModel clubModel = snapshot.getValue(ClubModel.class);
+                        description = clubModel.getDescription();
+                        textView.setText(description);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+
+        infoClub.addListenerForSingleValueEvent(valueEventListener);
     }
 }
