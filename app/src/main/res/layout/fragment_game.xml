@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:background="#ffffff"
     android:orientation="vertical"
-    app:tabMode="fixed"
-    tools:context=".menu.FootballMatch">
+    app:tabMode="fixed">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/FootballMatchAct_TabLayout"

@@ -22,9 +22,9 @@
             android:layout_marginLeft="40dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="Ngày "/>
+            android:text="Thứ "/>
 
-        <EditText
+        <NumberPicker
             android:id="@+id/edtSugesstion_Match_Fragment_FilterDateSearch"
             android:layout_width="50dp"
             android:layout_height="40dp"

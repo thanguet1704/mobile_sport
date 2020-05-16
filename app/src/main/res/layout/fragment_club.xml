@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="10"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#fff">
 
     <Button
         android:id="@+id/btn_search_club"
@@ -25,7 +26,8 @@
         <ListView
             android:id="@+id/lvClubAct_MyClub"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:dividerHeight="10dp"/>
 
         <TextView
             android:id="@+id/txtClub_NoData"
