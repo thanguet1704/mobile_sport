@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.mobilesporta.activity.account.EditAccount;
+import com.example.mobilesporta.activity.club.ClubProfile;
 import com.example.mobilesporta.fragment.account.AccountFragment;
 import com.example.mobilesporta.fragment.club.CLubFragment;
 import com.example.mobilesporta.fragment.game.GameFragment;
@@ -22,9 +23,10 @@ import com.example.mobilesporta.fragment.stadium.StadiumFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Home extends AppCompatActivity {
-
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,12 @@ public class Home extends AppCompatActivity {
             bottomNav.setSelectedItemId(R.id.nav_stadium);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StadiumFragment()).commit();
         }else if(data.getStringExtra("addclub") != null){
+            if (data.getStringExtra("edit") != null){
+                Intent intent = new Intent(Home.this, ClubProfile.class);
+                intent.putExtra("club_id", data.getStringExtra("club_id"));
+                intent.putExtra("user_id", user.getUid());
+                startActivity(intent);
+            }
             bottomNav.setSelectedItemId(R.id.nav_club);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CLubFragment()).commit();
         }else{

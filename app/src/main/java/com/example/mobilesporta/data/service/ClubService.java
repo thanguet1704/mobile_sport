@@ -131,4 +131,86 @@ public class ClubService {
 
         infoClub.addListenerForSingleValueEvent(valueEventListener);
     }
+
+    public void deleteClub(String clubId){
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("clubs").child(clubId);
+        mDatabase.removeValue();
+    }
+
+    public void updateDescriptionClub(String clubId, final String des){
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("clubs");
+        Query updateDescription = mDatabase.child(clubId);
+
+        updateDescription.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                dataSnapshot.getRef().child("description").setValue(des);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void  updateSloganClub(String clubId, final String slogan){
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("clubs");
+        Query updateDescription = mDatabase.child(clubId);
+
+        updateDescription.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                dataSnapshot.getRef().child("slogan").setValue(slogan);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void updateClubName(String clubId, final String clubName){
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("clubs");
+        Query updateDescription = mDatabase.child(clubId);
+
+        updateDescription.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                dataSnapshot.getRef().child("club_name").setValue(clubName);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void renderDialogUpdateClub(String clubId, final EditText edtName, final EditText slogan, final EditText description){
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("clubs");
+        Query infoClub = mDatabase.orderByKey().equalTo(clubId);
+
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                        ClubModel clubModel = snapshot.getValue(ClubModel.class);
+                        edtName.setText(clubModel.getClub_name());
+                        slogan.setText(clubModel.getSlogan());
+                        description.setText(clubModel.getDescription());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+
+        infoClub.addListenerForSingleValueEvent(valueEventListener);
+    }
 }

@@ -1,14 +1,19 @@
 package com.example.mobilesporta.activity.club;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.mobilesporta.Home;
 import com.example.mobilesporta.R;
 import com.example.mobilesporta.adapter.PageAdapter;
 import com.example.mobilesporta.data.service.ClubService;
@@ -23,6 +29,7 @@ import com.example.mobilesporta.fragment.club.DescriptionTabFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -49,6 +56,9 @@ public class ClubProfile extends AppCompatActivity {
     private StorageReference storageRef;
     ImageView bgClub;
     private String userId;
+    private Button btnOptionClub, btnEditInfoClub, btnDeleteClub, btnBack, btnUpdateClub;
+    private EditText edtClubName, edtSlogan, edtDescription;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,26 +71,39 @@ public class ClubProfile extends AppCompatActivity {
         clubId = idClubFromFragment.getStringExtra("club_id");
         userId = idClubFromFragment.getStringExtra("user_id");
 
-        tabLayout = (TabLayout) findViewById(R.id.ClubProfieAct_TabLayout);
-        commentTab = (TabItem) findViewById(R.id.ClubProfieAct_ClubCommentTab);
-        historyTab = (TabItem) findViewById(R.id.ClubProfieAct_ClubHistoryTab);
-        descriptionTab = (TabItem) findViewById(R.id.ClubProfieAct_ClubDescriptionTab);
-        imgClub = findViewById(R.id.imgClubProfileAct_ClubImage);
-        txtNameClub = findViewById(R.id.txtClubProfile_ClubName);
-        txtSlogan = findViewById(R.id.txtClubProfile_ClubSlogan);
-        viewPager = findViewById(R.id.ClubProfieAct_ViewPager);
-        btnAddAvatar = findViewById(R.id.btn_add_avatar);
-        bgClub = findViewById(R.id.imgClubProfileAct_ClubBackground);
-        btnAddBackground = findViewById(R.id.btn_add_bachground);
+        map();
+
+        btnOptionClub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog();
+            }
+        });
 
         updateUI();
 
         if (user.getUid().equals(userId) == true){
             addAvatar();
             addBackround();
+            btnBack.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(ClubProfile.this, Home.class);
+                    intent.putExtra("addclub", "true");
+                    startActivity(intent);
+                }
+            });
         }else{
-            btnAddBackground.setVisibility(View.INVISIBLE);
-            btnAddAvatar.setVisibility(View.INVISIBLE);
+            btnAddBackground.setVisibility(View.GONE);
+            btnAddAvatar.setVisibility(View.GONE);
+            btnOptionClub.setVisibility(View.GONE);
+            btnBack.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(ClubProfile.this, ClubSearching.class);
+                    startActivity(intent);
+                }
+            });
         }
 
         pagerAdapter = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount(), clubId, userId);
@@ -112,6 +135,82 @@ public class ClubProfile extends AppCompatActivity {
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
+    }
+
+    private void map(){
+        tabLayout = (TabLayout) findViewById(R.id.ClubProfieAct_TabLayout);
+        commentTab = (TabItem) findViewById(R.id.ClubProfieAct_ClubCommentTab);
+        historyTab = (TabItem) findViewById(R.id.ClubProfieAct_ClubHistoryTab);
+        descriptionTab = (TabItem) findViewById(R.id.ClubProfieAct_ClubDescriptionTab);
+        imgClub = findViewById(R.id.imgClubProfileAct_ClubImage);
+        txtNameClub = findViewById(R.id.txtClubProfile_ClubName);
+        txtSlogan = findViewById(R.id.txtClubProfile_ClubSlogan);
+        viewPager = findViewById(R.id.ClubProfieAct_ViewPager);
+        btnAddAvatar = findViewById(R.id.btn_add_avatar);
+        bgClub = findViewById(R.id.imgClubProfileAct_ClubBackground);
+        btnAddBackground = findViewById(R.id.btn_add_bachground);
+        btnOptionClub = findViewById(R.id.btn_select_option_club);
+        btnBack = findViewById(R.id.btn_back);
+    }
+
+    private void openDialog(){
+        View view = getLayoutInflater().inflate(R.layout.dialog_option_club, null);
+        final Dialog dialog = new BottomSheetDialog(ClubProfile.this);
+        dialog.setContentView(view);
+        dialog.show();
+
+        btnEditInfoClub = dialog.findViewById(R.id.btn_edit_info_club);
+        btnDeleteClub = dialog.findViewById(R.id.btn_delete_club);
+
+        btnDeleteClub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClubService clubService = new ClubService();
+                clubService.deleteClub(clubId);
+                Intent intent = new Intent(ClubProfile.this, Home.class);
+                intent.putExtra("addclub", "true");
+                startActivity(intent);
+            }
+        });
+
+        btnEditInfoClub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialogUpdateInfo(dialog);
+            }
+        });
+    }
+
+    private void openDialogUpdateInfo(final Dialog dialog){
+        View viewEdit = getLayoutInflater().inflate(R.layout.dialog_update_info_club, null);
+        final Dialog dialogEdit = new Dialog(ClubProfile.this);
+        dialogEdit.setContentView(viewEdit);
+        dialogEdit.show();
+        Window window = dialogEdit.getWindow();
+        window.setLayout(ViewPager.LayoutParams.MATCH_PARENT, ViewPager.LayoutParams.WRAP_CONTENT);
+
+        btnUpdateClub = dialogEdit.findViewById(R.id.btn_dl_update_club);
+        edtClubName = dialogEdit.findViewById(R.id.edt_dl_club_name);
+        edtSlogan = dialogEdit.findViewById(R.id.edt_dl_slogan);
+        edtDescription = dialogEdit.findViewById(R.id.edt_dl_des);
+
+        ClubService clubServies = new ClubService();
+        clubServies.renderDialogUpdateClub(clubId, edtClubName, edtSlogan, edtDescription);
+
+        btnUpdateClub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClubService clubService = new ClubService();
+                clubService.updateClubName(clubId, edtClubName.getText().toString());
+                clubService.updateSloganClub(clubId, edtSlogan.getText().toString());
+                clubService.updateDescriptionClub(clubId, edtDescription.getText().toString());
+                Intent intent = new Intent(ClubProfile.this, Home.class);
+                intent.putExtra("addclub", "true");
+                intent.putExtra("edit", "true");
+                intent.putExtra("club_id", clubId);
+                startActivity(intent);
+            }
+        });
     }
 
     private void updateUI(){
