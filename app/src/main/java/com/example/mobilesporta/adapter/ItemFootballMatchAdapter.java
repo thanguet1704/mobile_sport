@@ -58,14 +58,13 @@ public class ItemFootballMatchAdapter extends BaseAdapter {
         TextView txtMatchDate = convertView.findViewById(R.id.txtItemFootballMatch_Date);
         TextView txtStadium = convertView.findViewById(R.id.txtItemFootballMatch_Stadium);
 
-        // MatchModel match = FootballMatchList.get(position);
-        // MatchModel match = new MatchModel("1", "2", "12", "12", "Ngày 12", "12h00", 90, "None", "keo nhe", "0320");
+        MatchModel match = FootballMatchList.get(position);
 
-        txtHomeClubName.setText("f4515415151515151sa");
-        txtAwayClubName.setText("fsaffsdafdsadsa");
-        txtMatchTime.setText("fscccccccdsa");
-        txtMatchDate.setText("fsa214r32dsa");
-        txtStadium.setText("fsafdaaaaaaaaaaaaaaaaaaasa");
+        txtHomeClubName.setText(match.getClub_away_id());
+        txtAwayClubName.setText(match.getClub_away_id());
+        txtMatchTime.setText(match.getTime());
+        txtMatchDate.setText(match.getDate());
+        txtStadium.setText(match.getStadium_id());
 
 
         return convertView;

@@ -4,13 +4,16 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.mobilesporta.R;
 import com.example.mobilesporta.adapter.ItemFootballMatchAdapter;
+import com.example.mobilesporta.data.service.MatchService;
 import com.example.mobilesporta.model.MatchModel;
 
 import java.util.ArrayList;
@@ -21,9 +24,9 @@ import java.util.List;
  */
 public class SugesstionsFbMatch_TabFragment extends Fragment {
 
-    List<MatchModel> listMatch = new ArrayList<>();
-    MatchModel match = new MatchModel("1", "2", "12", "12", "Ngày 12", "12h00", 90, "None", "keo nhe", "0320");
-
+    MatchService matchService = new MatchService();
+    List<MatchModel> listMatch = matchService.getListMatch();
+    ListView listView;
 
     public SugesstionsFbMatch_TabFragment() {
         // Required empty public constructor
@@ -36,14 +39,20 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
 
         View view =  inflater.inflate(R.layout.fragment_sugesstions_fb_match__tab, container, false);
 
-        ListView listView = (ListView) view.findViewById(R.id.lvSugesstion_Match_Fragment_ListMatch);
+        connectView(view);
+        Log.e("msg", "goiy");
 
-        listMatch.add(match);
-        ItemFootballMatchAdapter itemFootballMatchAdapter = new ItemFootballMatchAdapter(getActivity(), listMatch);
-
-        listView.setAdapter(itemFootballMatchAdapter);
-
+        showListMatch();
         // Inflate the layout for this fragment
         return view;
+    }
+
+    private void connectView(View view) {
+        listView = (ListView) view.findViewById(R.id.lvSugesstion_Match_Fragment_ListMatch);
+    }
+
+    private void showListMatch() {
+        ItemFootballMatchAdapter itemFootballMatchAdapter = new ItemFootballMatchAdapter(getActivity(), listMatch);
+        listView.setAdapter(itemFootballMatchAdapter);
     }
 }
