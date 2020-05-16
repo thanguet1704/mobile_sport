@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.ListView;
 import com.example.mobilesporta.R;
 import com.example.mobilesporta.activity.game.FootballMatchCreateNew;
 import com.example.mobilesporta.adapter.ItemFootballMatchAdapter;
+import com.example.mobilesporta.data.service.MatchService;
 import com.example.mobilesporta.model.MatchModel;
 
 import java.util.ArrayList;
@@ -24,9 +26,8 @@ import java.util.List;
  */
 public class MyFbMatch_TabFragment extends Fragment {
 
-    List<MatchModel> listMatch = new ArrayList<>();
-    MatchModel match = new MatchModel("1", "2", "12", "12", "Ngày 12", "12h00", 90, "None", "keo nhe", "0320");
-
+    MatchService matchService = new MatchService();
+    List<MatchModel> listMatch = matchService.getMyListMatch();
 
     Button btnCreateNewMatch;
     ListView lvMatch;
@@ -43,10 +44,11 @@ public class MyFbMatch_TabFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_my_fb_match__tab, container, false);
         connectView(view);
 
-        listMatch.add(match);
+        Log.e("msg", "my");
         ItemFootballMatchAdapter itemFootballMatchAdapter = new ItemFootballMatchAdapter(getActivity(), listMatch);
         lvMatch.setAdapter(itemFootballMatchAdapter);
 
+        showMyListMatch();
 
         btnCreateNewMatch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,5 +67,10 @@ public class MyFbMatch_TabFragment extends Fragment {
     private void connectView(View view) {
         btnCreateNewMatch = (Button) view.findViewById(R.id.btnMy_Fb_Match_Fragment_AddNewMatch);
         lvMatch = (ListView) view.findViewById(R.id.lvMy_Fb_Match_Fragment_ListMatch);
+    }
+
+    private void showMyListMatch() {
+        ItemFootballMatchAdapter itemFootballMatchAdapter = new ItemFootballMatchAdapter(getActivity(), listMatch);
+        lvMatch.setAdapter(itemFootballMatchAdapter);
     }
 }

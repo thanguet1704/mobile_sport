@@ -1,6 +1,7 @@
 package com.example.mobilesporta.fragment.game;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +29,7 @@ public class GameFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_game, container, false);
-
+        Log.e("msg", "gamefragment");
         tabLayout = (TabLayout) view.findViewById(R.id.FootballMatchAct_TabLayout);
         sugesstionsTab = (TabItem) view.findViewById(R.id.FootballMatchAct_SuggestionsFbMatchTab);
         myTab = (TabItem) view.findViewById(R.id.FootballMatchAct_MyFbMatchTab);
