@@ -15,11 +15,13 @@ public class PageAdapter extends FragmentPagerAdapter {
 
     private int numOfTabs;
     private String clubId;
+    private String userId;
 
-    public PageAdapter(@NonNull FragmentManager fm, int numOfTabs, String clubId) {
+    public PageAdapter(@NonNull FragmentManager fm, int numOfTabs, String clubId, String userId) {
         super(fm);
         this.numOfTabs = numOfTabs;
         this.clubId = clubId;
+        this.userId = userId;
     }
 
     @NonNull
@@ -27,6 +29,7 @@ public class PageAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         Bundle bundle = new Bundle();
         bundle.putString("club_id", clubId);
+        bundle.putString("user_id", userId);
         switch (position) {
             case 0:
                 DescriptionTabFragment descriptionTabFragment = new DescriptionTabFragment();

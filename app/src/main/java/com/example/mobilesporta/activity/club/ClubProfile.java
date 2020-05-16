@@ -83,7 +83,7 @@ public class ClubProfile extends AppCompatActivity {
             btnAddAvatar.setVisibility(View.INVISIBLE);
         }
 
-        pagerAdapter = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount(), clubId);
+        pagerAdapter = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount(), clubId, userId);
         viewPager.setAdapter(pagerAdapter);
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

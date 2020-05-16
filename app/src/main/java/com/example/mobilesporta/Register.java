@@ -22,6 +22,7 @@ public class Register extends AppCompatActivity {
     private Button btnRegister;
     private EditText edtEmail, edtPass, edtrePass;
     private FirebaseAuth mAuth;
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,4 +90,6 @@ public class Register extends AppCompatActivity {
             }
         }
     }
+
+
 }

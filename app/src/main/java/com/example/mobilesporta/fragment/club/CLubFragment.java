@@ -40,7 +40,9 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CLubFragment extends Fragment {
 
@@ -105,7 +107,7 @@ public class CLubFragment extends Fragment {
     }
 
     private void addNewClub(){
-        ClubCommentModel clubCommentModel = new ClubCommentModel("", "");
+//        ClubCommentModel clubCommentModel = new ClubCommentModel("", "");
         ArrayList<ClubCommentModel> listComment = new ArrayList<>();
         ClubModel clubModel = new ClubModel();
 
@@ -114,8 +116,9 @@ public class CLubFragment extends Fragment {
         String description = edtDescription.getText().toString();
         String userId = user.getUid();
 
-        listComment.add(clubCommentModel);
-        clubModel.setListComment(listComment);
+        ClubCommentModel clubComment = new ClubCommentModel();
+        listComment.add(clubComment);
+        clubModel.setListComments(listComment);
         clubModel.setClub_name(nameClub);
         clubModel.setDescription(description);
         clubModel.setSlogan(slogan);
