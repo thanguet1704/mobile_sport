@@ -73,22 +73,12 @@ public class ClubModel {
         return this;
     }
 
-//    public Integer getMatch_count() {
-//        return match_count;
-//    }
-//
-//    public ClubModel setMatch_count(Integer match_count) {
-//        this.match_count = match_count;
-//        return this;
-//    }
-
-    public ArrayList<ClubCommentModel> getListComment() {
+    public ArrayList<ClubCommentModel> getListComments() {
         return listComments;
     }
 
-    public ClubModel setListComment(ArrayList<ClubCommentModel> listComment) {
-        this.listComments = listComment;
-        return this;
+    public void setListComments(ArrayList<ClubCommentModel> listComments) {
+        this.listComments = listComments;
     }
 
     public String getBackground() {
