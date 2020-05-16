@@ -7,6 +7,11 @@ import androidx.annotation.NonNull;
 import com.example.mobilesporta.model.MatchModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import androidx.annotation.NonNull;
+
+import com.example.mobilesporta.model.MatchModel;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MatchService {
-
     List<MatchModel> listMatchModels = new ArrayList<>();
 
     public void addMatch(MatchModel matchModel){

@@ -13,6 +13,19 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="#ffffff">
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/ic_back"/>
+        <Button
+            android:id="@+id/btn_select_option_club"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/ic_option_club"/>
+
         <Button
             android:id="@+id/btn_add_bachground"
             android:layout_width="30dp"
