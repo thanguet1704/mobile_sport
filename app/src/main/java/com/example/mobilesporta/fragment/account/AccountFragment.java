@@ -124,7 +124,7 @@ public class AccountFragment extends Fragment {
 //        username.setText(currentUser.getDisplayName());
 
         if (currentUser.getPhotoUrl() == null){
-            uriAvatar = Uri.parse("https://firebasestorage.googleapis.com/v0/b/mobile-1054b.appspot.com/o/account.png?alt=media&token=2e8acf2d-ab0d-4b15-bfc7-b007e2ca991c");
+            uriAvatar = Uri.parse("https://firebasestorage.googleapis.com/v0/b/mobilesporta-5bb33.appspot.com/o/image_account%2Fphoto.jpg?alt=media&token=af122689-ff5f-4435-80ad-0304efef367d");
         }else{
             uriAvatar = currentUser.getPhotoUrl();
         }

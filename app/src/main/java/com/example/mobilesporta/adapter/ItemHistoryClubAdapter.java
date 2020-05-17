@@ -78,8 +78,15 @@ public class ItemHistoryClubAdapter extends BaseAdapter {
         String clubHomeId = FootballMatchList.get(position).getClub_home_id();
         String clubAwayId = FootballMatchList.get(position).getClub_away_id();
 
+        renderClubHome(clubHomeId, txtHomeClubName, imgHomeClub);
+
+        renderAwayClub(clubAwayId, txtAwayClubName, imgAwayClub);
+
+        return convertView;
+    }
+
+    private void renderClubHome(String clubHomeId, final TextView textView, final ImageView imageView){
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("clubs");
-        // in ra ảnh và tên club home
         Query infoClubHome = mDatabase.orderByKey().equalTo(clubHomeId);
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
@@ -87,8 +94,8 @@ public class ItemHistoryClubAdapter extends BaseAdapter {
                 if (dataSnapshot.exists()){
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                         ClubModel clubModel = snapshot.getValue(ClubModel.class);
-                        txtHomeClubName.setText(clubModel.getClub_name());
-                        Picasso.get().load(clubModel.getImage()).into(imgHomeClub);
+                        textView.setText(clubModel.getClub_name());
+                        Picasso.get().load(clubModel.getImage()).into(imageView);
                     }
                 }
             }
@@ -100,17 +107,19 @@ public class ItemHistoryClubAdapter extends BaseAdapter {
         };
 
         infoClubHome.addListenerForSingleValueEvent(valueEventListener);
+    }
 
-        // in ra ảnh và tên club away
+    private void renderAwayClub(String clubAwayId, final TextView textView, final ImageView imageView){
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("clubs");
         Query infoClubAway = mDatabase.orderByKey().equalTo(clubAwayId);
         ValueEventListener clubAway = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                        ClubModel clubModel = snapshot.getValue(ClubModel.class);
-                        txtAwayClubName.setText(clubModel.getClub_name());
-                        Picasso.get().load(clubModel.getImage()).into(imgAwayClub);
+                        ClubModel club = snapshot.getValue(ClubModel.class);
+                        textView.setText(club.getClub_name());
+                        Picasso.get().load(club.getImage()).into(imageView);
                     }
                 }
             }
@@ -122,7 +131,5 @@ public class ItemHistoryClubAdapter extends BaseAdapter {
         };
 
         infoClubAway.addListenerForSingleValueEvent(clubAway);
-
-        return convertView;
     }
 }

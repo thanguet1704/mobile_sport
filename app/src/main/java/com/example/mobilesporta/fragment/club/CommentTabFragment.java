@@ -2,9 +2,11 @@ package com.example.mobilesporta.fragment.club;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -20,13 +22,16 @@ import com.example.mobilesporta.R;
 import com.example.mobilesporta.adapter.ItemCommentClubAdapter;
 import com.example.mobilesporta.data.service.ClubCommentService;
 import com.example.mobilesporta.model.ClubCommentModel;
+import com.example.mobilesporta.model.ClubModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -65,10 +70,11 @@ public class CommentTabFragment extends Fragment {
         clubId = getArguments().getString("club_id");
         userId = getArguments().getString("user_id");
 
+
         if (user.getUid().equals(userId)){
             llGroupComment.setVisibility(View.GONE);
         }
-        renderClubComment(clubId);
+        renderClubComment(clubId, user.getUid());
 
         imgBtnAddComment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +84,14 @@ public class CommentTabFragment extends Fragment {
                 clubComment.setContent(edtComment.getText().toString());
                 clubComment.setDate(LocalDate.now().toString());
                 clubComment.setUser_name(user.getDisplayName());
-                clubComment.setAvatar(user.getPhotoUrl().toString());
+
+                String avatar;
+                if (user.getPhotoUrl() == null){
+                    avatar = "https://firebasestorage.googleapis.com/v0/b/mobilesporta-5bb33.appspot.com/o/image_account%2Fphoto.jpg?alt=media&token=af122689-ff5f-4435-80ad-0304efef367d";
+                }else{
+                    avatar = user.getPhotoUrl().toString();
+                }
+                clubComment.setAvatar(avatar);
 
                 ClubCommentService clubCommentService = new ClubCommentService();
                 clubCommentService.addClubComment(clubId, clubComment);
@@ -90,7 +103,7 @@ public class CommentTabFragment extends Fragment {
         return view;
     }
 
-    public void renderClubComment(String clubId){
+    public void renderClubComment(final String clubId, final String userId){
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("clubs").child(clubId).child("listComment").addValueEventListener(new ValueEventListener() {
             @Override
@@ -99,6 +112,9 @@ public class CommentTabFragment extends Fragment {
                     ArrayList<ClubCommentModel> listClubComment = new ArrayList<>();
                     for (DataSnapshot snapshot: dataSnapshot.getChildren()){
                         ClubCommentModel clubComment = snapshot.getValue(ClubCommentModel.class);
+                        if (clubComment.getUser_id().equals(userId) == true){
+                            llGroupComment.setVisibility(View.GONE);
+                        }
                         listClubComment.add(clubComment);
                     }
                     ItemCommentClubAdapter itemCommentClubAdapter = new ItemCommentClubAdapter(getActivity(), listClubComment);

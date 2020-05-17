@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.mobilesporta.R;
+import com.example.mobilesporta.activity.game.FootballMatchInfo;
+import com.example.mobilesporta.adapter.ItemCommentClubAdapter;
 import com.example.mobilesporta.adapter.ItemHistoryClubAdapter;
 import com.example.mobilesporta.data.service.MatchService;
 import com.example.mobilesporta.model.ClubModel;
@@ -43,31 +45,32 @@ public class HistoryTabFragment extends Fragment {
 
 
         String clubId = getArguments().getString("club_id");
-        Log.d("id", clubId);
-        renderMatchProfile(clubId);
+
+        renderHistoryHome(clubId, listView);
+
+        renderHistoryAway(clubId, listView);
 
         return view;
     }
 
-    public void renderMatchProfile(String clubId){
-        final ArrayList<MatchModel> listMatch = new ArrayList<>();
+    private void renderHistoryHome(final String clubId, final ListView listView){
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("matchs");
-        Query matchQuery = mDatabase.orderByChild("club_home_id").equalTo(clubId);
 
-        ValueEventListener valueEventListener = new ValueEventListener() {
+        ValueEventListener clubHome = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
-
+                    ArrayList<MatchModel> listMatchByHome = new ArrayList<>();
                     for (DataSnapshot snapshot: dataSnapshot.getChildren()){
                         MatchModel matchModel = snapshot.getValue(MatchModel.class);
-                        if (matchModel.getClub_away_id().length() != 0){
-                            listMatch.add(matchModel);
+                        if ((matchModel.getClub_home_id().equals(clubId) && matchModel.getClub_away_id().length() != 0)|| matchModel.getClub_away_id().equals(clubId)){
+                            listMatchByHome.add(matchModel);
                         }
-
-                        ItemHistoryClubAdapter itemHistoryClubAdapter = new ItemHistoryClubAdapter(getActivity(), listMatch);
-                        listView.setAdapter(itemHistoryClubAdapter);
                     }
+
+                    ItemHistoryClubAdapter itemHistoryClubAdapter = new ItemHistoryClubAdapter(getActivity(), listMatchByHome);
+                    listView.setAdapter(itemHistoryClubAdapter);
+                    itemHistoryClubAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -77,22 +80,26 @@ public class HistoryTabFragment extends Fragment {
             }
         };
 
-        matchQuery.addListenerForSingleValueEvent(valueEventListener);
+        mDatabase.addListenerForSingleValueEvent(clubHome);
+    }
 
-        Query query = mDatabase.orderByChild("club_away_id").equalTo(clubId);
-        ValueEventListener clubAway = new ValueEventListener() {
+    private void renderHistoryAway(String clubId, final ListView listView){
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("matchs");
+
+        Query query1 = mDatabase.orderByChild("club_away_id").equalTo(clubId);
+        ValueEventListener clubHome = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
+                    ArrayList<MatchModel> listMatchByHome = new ArrayList<>();
                     for (DataSnapshot snapshot: dataSnapshot.getChildren()){
                         MatchModel matchModel = snapshot.getValue(MatchModel.class);
-                        if (matchModel.getClub_away_id().length() != 0){
-                            listMatch.add(matchModel);
-                        }
-
-                        ItemHistoryClubAdapter itemHistoryClubAdapter = new ItemHistoryClubAdapter(getActivity(), listMatch);
-                        listView.setAdapter(itemHistoryClubAdapter);
+                        listMatchByHome.add(matchModel);
                     }
+
+                    ItemHistoryClubAdapter itemHistoryClubAdapter = new ItemHistoryClubAdapter(getActivity(), listMatchByHome);
+                    listView.setAdapter(itemHistoryClubAdapter);
+                    itemHistoryClubAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -102,6 +109,6 @@ public class HistoryTabFragment extends Fragment {
             }
         };
 
-        query.addListenerForSingleValueEvent(clubAway);
+        query1.addListenerForSingleValueEvent(clubHome);
     }
 }
