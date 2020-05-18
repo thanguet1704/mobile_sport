@@ -83,7 +83,14 @@ public class CommentTabFragment extends Fragment {
                 clubComment.setUser_id(user.getUid());
                 clubComment.setContent(edtComment.getText().toString());
                 clubComment.setDate(LocalDate.now().toString());
-                clubComment.setUser_name(user.getDisplayName());
+
+                String name;
+                if (user.getDisplayName() == null){
+                    name = user.getEmail();
+                }else{
+                    name = user.getDisplayName();
+                }
+                clubComment.setUser_name(name);
 
                 String avatar;
                 if (user.getPhotoUrl() == null){
