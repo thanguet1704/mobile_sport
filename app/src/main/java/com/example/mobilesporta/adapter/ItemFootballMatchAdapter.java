@@ -9,18 +9,33 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mobilesporta.R;
+import com.example.mobilesporta.model.ClubModel;
 import com.example.mobilesporta.model.MatchModel;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ItemFootballMatchAdapter extends BaseAdapter {
 
     private Activity activity;
     private List<MatchModel> FootballMatchList;
+    Map<String, ClubModel> mapClubs = new HashMap<>();
 
-    public ItemFootballMatchAdapter(Activity activity, List<MatchModel> FootballMatchList) {
+    public ItemFootballMatchAdapter(Activity activity, List<MatchModel> footballMatchList, Map<String, ClubModel> mapClubs) {
         this.activity = activity;
-        this.FootballMatchList = FootballMatchList;
+        FootballMatchList = footballMatchList;
+        this.mapClubs = mapClubs;
+    }
+
+    public ClubModel getClubById(String clubId) {
+        ClubModel clubModel = new ClubModel();
+        for (Map.Entry<String, ClubModel> entry : mapClubs.entrySet()) {
+            if(entry.getKey().equals(clubId)) {
+                clubModel = entry.getValue();
+            }
+        }
+        return  clubModel;
     }
 
     @Override
@@ -65,6 +80,24 @@ public class ItemFootballMatchAdapter extends BaseAdapter {
         txtMatchTime.setText(match.getTime());
         txtMatchDate.setText(match.getDate());
         txtStadium.setText(match.getStadium_id());
+
+
+        if (!match.getClub_home_id().equals("")) {
+            ClubModel homeClub = getClubById(match.getClub_home_id());
+            txtHomeClubName.setText(homeClub.getClub_name());
+        }
+        else {
+            txtHomeClubName.setText("???");
+        }
+
+
+        if( !match.getClub_away_id().equals("")) {
+            ClubModel awayClub = getClubById(match.getClub_away_id());
+            txtAwayClubName.setText(awayClub.getClub_name());
+        }
+        else {
+            txtAwayClubName.setText("???");
+        }
 
 
         return convertView;

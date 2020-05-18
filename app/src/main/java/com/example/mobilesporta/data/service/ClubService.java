@@ -36,9 +36,13 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ClubService {
     ArrayList<ClubModel> listClub = new ArrayList<>();
+    Map<String, ClubModel> mapClubs = new HashMap<>();
     private String description;
 
     public void addClub(ClubModel clubModel){
@@ -213,4 +217,84 @@ public class ClubService {
 
         infoClub.addListenerForSingleValueEvent(valueEventListener);
     }
+
+    public List<ClubModel> getListClubs() {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("clubs");
+        Query a = mDatabase.orderByKey();
+
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        ClubModel clubModel = snapshot.getValue(ClubModel.class);
+                        listClub.add(clubModel);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+
+        a.addListenerForSingleValueEvent(valueEventListener);
+
+        return listClub;
+    }
+
+    public List<ClubModel> getClubById(final String clubId) {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("clubs");
+        Query a = mDatabase.orderByKey().equalTo(clubId);
+
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        ClubModel clubModel = snapshot.getValue(ClubModel.class);
+                        listClub.add(clubModel);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+
+        a.addListenerForSingleValueEvent(valueEventListener);
+
+        return listClub;
+    }
+
+    public Map<String, ClubModel> getMapClubs() {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("clubs");
+        Query a = mDatabase.orderByKey();
+
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                        ClubModel clubModel = snapshot.getValue(ClubModel.class);
+                        mapClubs.put(snapshot.getKey(), clubModel);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+
+        a.addListenerForSingleValueEvent(valueEventListener);
+
+        return mapClubs;
+    }
+
 }
