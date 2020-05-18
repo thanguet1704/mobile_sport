@@ -122,8 +122,8 @@ public class CLubFragment extends Fragment {
         clubModel.setClub_name(nameClub);
         clubModel.setDescription(description);
         clubModel.setSlogan(slogan);
-        clubModel.setImage("https://firebasestorage.googleapis.com/v0/b/mobilesporta-5bb33.appspot.com/o/image_club%2Ffootball.png?alt=media&token=b656362f-0411-43bd-be36-b070294f7ad3");
-        clubModel.setBackground("https://firebasestorage.googleapis.com/v0/b/mobilesporta-5bb33.appspot.com/o/image_club%2Fbg.jpg?alt=media&token=cfd62931-b784-4ac0-b23f-fb0c2644e236");
+        clubModel.setImage("https://firebasestorage.googleapis.com/v0/b/mobilesporta-5bb33.appspot.com/o/image_club%2Fimage_club.jpg?alt=media&token=7e5b5eb4-7c55-486b-9839-528804ba8f84");
+        clubModel.setBackground("https://firebasestorage.googleapis.com/v0/b/mobilesporta-5bb33.appspot.com/o/image_club%2Fbg_club.jpg?alt=media&token=cd844456-84eb-4716-b457-e383868b7871");
         clubModel.setUser_created_id(userId);
 
         if (nameClub.length() == 0 || slogan.length() == 0 || description.length() == 0){
