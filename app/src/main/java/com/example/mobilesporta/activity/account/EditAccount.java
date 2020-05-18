@@ -29,7 +29,7 @@ public class EditAccount extends AppCompatActivity {
 
     EditText edtUsername, edtEmail, edtPassword, edtConfirmPassword;
     Button btnUpdate;
-    final String SUCCESS = "Success";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +42,7 @@ public class EditAccount extends AppCompatActivity {
         if (user.getDisplayName() != null)
             edtUsername.setText(user.getDisplayName());
         else
-            edtUsername.setText("NoName");
+            edtUsername.setText(user.getEmail());
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,9 +72,9 @@ public class EditAccount extends AppCompatActivity {
         String username = edtUsername.getText().toString();
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (username.length() == 0){
-            if (user.getDisplayName().length() == 0){
-                username = "NoName";
+        if (username.equals("")){
+            if (user.getDisplayName() == null){
+                username = user.getEmail();
             }else{
                 username = user.getDisplayName();
             }

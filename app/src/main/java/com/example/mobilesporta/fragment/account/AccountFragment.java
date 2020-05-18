@@ -115,13 +115,11 @@ public class AccountFragment extends Fragment {
 
     private void updateUI(FirebaseUser currentUser){
 
-        String strName;
         if (currentUser.getDisplayName() == null || currentUser.getDisplayName().length() == 0){
-            username.setText("NoName");
+            username.setText(currentUser.getEmail());
         }else{
             username.setText(currentUser.getDisplayName());
         }
-//        username.setText(currentUser.getDisplayName());
 
         if (currentUser.getPhotoUrl() == null){
             uriAvatar = Uri.parse("https://firebasestorage.googleapis.com/v0/b/mobilesporta-5bb33.appspot.com/o/image_account%2Fphoto.jpg?alt=media&token=af122689-ff5f-4435-80ad-0304efef367d");

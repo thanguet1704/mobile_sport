@@ -20,6 +20,7 @@ import com.example.mobilesporta.data.service.ClubService;
 import com.example.mobilesporta.model.ClubCommentModel;
 import com.example.mobilesporta.model.ClubModel;
 import com.example.mobilesporta.model.MatchModel;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -86,6 +87,11 @@ public class ItemCommentClubAdapter extends BaseAdapter {
             @Override
             public void onSuccess(Uri uri) {
                 Picasso.get().load(uri).into(imageView);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Picasso.get().load("https://firebasestorage.googleapis.com/v0/b/mobilesporta-5bb33.appspot.com/o/image_account%2Fphoto.jpg?alt=media&token=af122689-ff5f-4435-80ad-0304efef367d").into(imageView);
             }
         });
     }
