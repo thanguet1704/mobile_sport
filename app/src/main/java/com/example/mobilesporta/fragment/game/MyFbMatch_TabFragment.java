@@ -15,11 +15,14 @@ import android.widget.ListView;
 import com.example.mobilesporta.R;
 import com.example.mobilesporta.activity.game.FootballMatchCreateNew;
 import com.example.mobilesporta.adapter.ItemFootballMatchAdapter;
+import com.example.mobilesporta.data.service.ClubService;
 import com.example.mobilesporta.data.service.MatchService;
+import com.example.mobilesporta.model.ClubModel;
 import com.example.mobilesporta.model.MatchModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,6 +31,9 @@ public class MyFbMatch_TabFragment extends Fragment {
 
     MatchService matchService = new MatchService();
     List<MatchModel> listMatch = matchService.getMyListMatch();
+
+    ClubService clubService = new ClubService();
+    Map<String, ClubModel> mapClubs = clubService.getMapClubs();
 
     Button btnCreateNewMatch;
     ListView lvMatch;
@@ -43,10 +49,6 @@ public class MyFbMatch_TabFragment extends Fragment {
 
         View view =  inflater.inflate(R.layout.fragment_my_fb_match__tab, container, false);
         connectView(view);
-
-        Log.e("msg", "my");
-        ItemFootballMatchAdapter itemFootballMatchAdapter = new ItemFootballMatchAdapter(getActivity(), listMatch);
-        lvMatch.setAdapter(itemFootballMatchAdapter);
 
         showMyListMatch();
 
@@ -70,7 +72,7 @@ public class MyFbMatch_TabFragment extends Fragment {
     }
 
     private void showMyListMatch() {
-        ItemFootballMatchAdapter itemFootballMatchAdapter = new ItemFootballMatchAdapter(getActivity(), listMatch);
+        ItemFootballMatchAdapter itemFootballMatchAdapter = new ItemFootballMatchAdapter(getActivity(), listMatch, mapClubs);
         lvMatch.setAdapter(itemFootballMatchAdapter);
     }
 }
