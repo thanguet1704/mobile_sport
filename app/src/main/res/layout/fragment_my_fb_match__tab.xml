@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:weightSum="10"
     android:orientation="vertical"
-    android:background="#dddd"
+    android:background="#fff"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.game.MyFbMatch_TabFragment">
 
@@ -20,7 +20,8 @@
         <ListView
             android:id="@+id/lvMy_Fb_Match_Fragment_ListMatch"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:dividerHeight="10dp"/>
     </FrameLayout>
 
 </LinearLayout>

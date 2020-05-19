@@ -71,11 +71,13 @@
             android:layout_weight="1">
 
 
-            <ImageView
-                android:id="@+id/imgItemFootballMatch_Icon_VS"
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:src="@drawable/vs_icon"
+                android:layout_height="wrap_content"
+                android:text="VS"
+                android:textAlignment="center"
+                android:textSize="36sp"
+                android:textColor="#FF9800"
                 android:layout_gravity="center"/>
         </LinearLayout>
         <LinearLayout
