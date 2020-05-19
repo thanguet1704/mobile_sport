@@ -37,6 +37,7 @@ public class FootballMatchCreateNew extends AppCompatActivity {
         setContentView(R.layout.activity_football_match_create_new);
 
         connectView();
+
         btnSave.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override

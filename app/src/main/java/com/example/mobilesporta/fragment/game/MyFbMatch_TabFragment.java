@@ -52,22 +52,10 @@ public class MyFbMatch_TabFragment extends Fragment {
 
         showMyListMatch();
 
-        btnCreateNewMatch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createMatch();
-            }
-        });
-        // Inflate the layout for this fragment
         return view;
     }
 
-    private void createMatch() {
-        startActivity(new Intent(getActivity(), FootballMatchCreateNew.class));
-    }
-
     private void connectView(View view) {
-        btnCreateNewMatch = (Button) view.findViewById(R.id.btnMy_Fb_Match_Fragment_AddNewMatch);
         lvMatch = (ListView) view.findViewById(R.id.lvMy_Fb_Match_Fragment_ListMatch);
     }
 
