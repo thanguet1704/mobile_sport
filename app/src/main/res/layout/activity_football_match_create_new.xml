@@ -19,15 +19,15 @@
             android:layout_height="match_parent"
             android:layout_weight="1">
             <Button
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginLeft="-5dp"
                 android:background="@drawable/ic_back"
                 android:layout_gravity="center"/>
         </LinearLayout>
-
         <TextView
+            android:id="@+id/select_date"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="9"
@@ -36,104 +36,163 @@
             android:gravity="center"
             android:textSize="24sp" />
     </LinearLayout>
-    <TextView
-        android:id="@+id/txtMatchCreateAct_Date"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:text="Ngày"
-        android:textSize="20sp"
-        android:layout_weight="1"
-        android:textColor="#000"/>
 
-    <EditText
-        android:id="@+id/edtMatchCreateAct_Date"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:textColor="#000"/>
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:text="Đội nhà"
+            android:textSize="20sp"
+            android:textColor="#000"
+            android:gravity="center"
+            android:textAlignment="textStart"/>
+        <TextView
+            android:id="@+id/tv_select_club"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:text="dd"
+            android:textSize="20dp"
+            android:gravity="center_vertical"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <TextView
+            android:id="@+id/txtMatchCreateAct_Stadium"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textSize="20sp"
+            android:text="Sân bóng"
+            android:layout_weight="3"
+            android:textColor="#000"
+            android:gravity="center_vertical"/>
+        <TextView
+            android:id="@+id/edtMatchCreateAct_Stadium"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:text="Chọn sân"
+            android:textSize="20sp"
+            android:gravity="center_vertical"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Ngày"
+            android:textSize="20sp"
+            android:layout_weight="3"
+            android:textColor="#000"
+            android:gravity="center_vertical"/>
 
-    <TextView
-        android:id="@+id/txtMatchCreateAct_Time"
+        <TextView
+            android:id="@+id/edtMatchCreateAct_Date"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:textColor="#000"
+            android:gravity="center_vertical"
+            android:textSize="20sp"/>
+    </LinearLayout>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:text="Thời gian"
-        android:textSize="20sp"
-        android:layout_weight="1"
-        android:textColor="#000"/>
+        android:layout_weight="1">
+        <TextView
+            android:id="@+id/txtMatchCreateAct_Time"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Thời gian"
+            android:textSize="20sp"
+            android:layout_weight="3"
+            android:textColor="#000"
+            android:gravity="center_vertical"/>
 
-    <EditText
-        android:id="@+id/edtMatchCreateAct_Time"
+        <TextView
+            android:id="@+id/edtMatchCreateAct_Time"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:textColor="#000"
+            android:gravity="center_vertical"
+            android:textSize="20sp"/>
+    </LinearLayout>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:textColor="#000"/>
+        android:layout_weight="1">
+        <TextView
+            android:id="@+id/txtMatchCreateAct_TimeAmount"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Thời lượng"
+            android:textSize="20sp"
+            android:layout_weight="3"
+            android:textColor="#000"
+            android:gravity="center_vertical"/>
 
-    <TextView
-        android:id="@+id/txtMatchCreateAct_TimeAmount"
+        <TextView
+            android:id="@+id/edtMatchCreateAct_TimeAmount"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:textColor="#000"
+            android:gravity="center_vertical"
+            android:textSize="20sp"/>
+    </LinearLayout>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:text="Thời lượng"
-        android:textSize="20sp"
-        android:layout_weight="1"
-        android:textColor="#000"/>
+        android:layout_weight="1">
+        <TextView
+            android:id="@+id/txtMatchCreateAct_PhoneNumber"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Số điện thoại"
+            android:textSize="20sp"
+            android:layout_weight="3"
+            android:textColor="#000"
+            android:gravity="center_vertical"/>
 
-    <EditText
-        android:id="@+id/edtMatchCreateAct_TimeAmount"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:textColor="#000"/>
-
-    <TextView
-        android:id="@+id/txtMatchCreateAct_PhoneNumber"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:text="Số điện thoại liên hệ"
-        android:textSize="20sp"
-        android:layout_weight="1"
-        android:textColor="#000"/>
-
-    <EditText
-        android:id="@+id/edtMatchCreateAct_PhoneNumber"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:textSize="20sp"
-        android:layout_weight="1"
-        android:textColor="#000"/>
-
-    <TextView
-        android:id="@+id/txtMatchCreateAct_Stadium"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:textSize="20sp"
-        android:text="Sân bóng"
-        android:layout_weight="1"
-        android:textColor="#000"/>
-
-    <EditText
-        android:id="@+id/edtMatchCreateAct_Stadium"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:textSize="20sp"
-        android:layout_weight="1"
-        android:textColor="#000"/>
+        <EditText
+            android:id="@+id/edtMatchCreateAct_PhoneNumber"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textSize="20sp"
+            android:layout_weight="7"
+            android:textColor="#000"
+            android:inputType="phone"
+            android:gravity="center_vertical"/>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/txtMatchCreateAct_Description"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:text="Mô tả"
+        android:text="Ghi chú"
         android:textSize="20sp"
         android:layout_weight="1"
-        android:textColor="#000"/>
+        android:textColor="#000"
+        android:gravity="center_vertical"/>
 
     <EditText
         android:id="@+id/edtMatchCreateAct_Description"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:textSize="20sp"
-        android:layout_weight="1"
-        android:textColor="#000"/>
+        android:layout_weight="4"
+        android:textColor="#000"
+        android:gravity="top"/>
 
     <Button
         android:id="@+id/btnMatchCreateAct_Save"
@@ -142,6 +201,5 @@
         android:text="Lưu"
         android:layout_gravity="center"
         android:background="@drawable/bgbtnloginlogout"
-        android:layout_weight="1"
-        android:layout_marginBottom="5dp"/>
+        android:layout_weight="1"/>
 </LinearLayout>
