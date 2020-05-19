@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ItemFootballMatchAdapter extends BaseAdapter {
+public class    ItemFootballMatchAdapter extends BaseAdapter {
 
     private Activity activity;
     private List<MatchModel> FootballMatchList;
