@@ -48,6 +48,9 @@ public class Home extends AppCompatActivity {
             }
             bottomNav.setSelectedItemId(R.id.nav_club);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CLubFragment()).commit();
+        }else if(data.getStringExtra("add_match") != null){
+            bottomNav.setSelectedItemId(R.id.nav_game);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new GameFragment()).commit();
         }else{
             bottomNav.setSelectedItemId(R.id.nav_account);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AccountFragment()).commit();

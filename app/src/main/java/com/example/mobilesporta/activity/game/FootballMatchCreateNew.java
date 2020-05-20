@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.mobilesporta.Home;
 import com.example.mobilesporta.R;
 import com.example.mobilesporta.activity.club.ClubProfile;
 import com.example.mobilesporta.data.MapConst;
@@ -48,6 +49,7 @@ public class FootballMatchCreateNew extends AppCompatActivity {
     Button btnSave;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     TextView tvSelectClub;
+    Button btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,15 @@ public class FootballMatchCreateNew extends AppCompatActivity {
         edtTime.setText(time.format(calendar.getTime()));
         edtTimeAmount.setText("90");
 
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FootballMatchCreateNew.this, Home.class);
+                intent.putExtra("add_match", "true");
+                startActivity(intent);
+            }
+        });
+
         edtDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,12 +88,12 @@ public class FootballMatchCreateNew extends AppCompatActivity {
             }
         });
 
-//        edtTimeAmount.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                openNumberPickerDialog();
-//            }
-//        });
+        edtTimeAmount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openNumberPickerDialog();
+            }
+        });
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -109,6 +120,7 @@ public class FootballMatchCreateNew extends AppCompatActivity {
         edtDescription = findViewById(R.id.edtMatchCreateAct_Description);
         btnSave = findViewById(R.id.btnMatchCreateAct_Save);
         tvSelectClub = findViewById(R.id.tv_select_club);
+        btnBack = findViewById(R.id.btn_back_create_match);
     }
 
     private void selectDate() {
@@ -145,25 +157,58 @@ public class FootballMatchCreateNew extends AppCompatActivity {
     }
 
     private void createMatch(){
-        String club_home_id = "-M7O5doGhyRqIeq98zvP";
-        String club_away_id = "";
-        String user_created_id = user.getUid();
-        String stadium_id = "lskfjgljsdfg";
-        String date = edtDate.getText().toString();
-        String time = edtTime.getText().toString();
-        Integer time_amount = Integer.parseInt(edtTimeAmount.getText().toString());
+        if (tvSelectClub.getText().toString().equals("") || edtStadium.getText().toString().equals("") || edtDate.getText().toString().equals("")
+        || edtTime.getText().toString().equals("") || edtTimeAmount.getText().toString().equals("")
+        || edtPhoneNumber.getText().toString().equals("") || edtDescription.getText().toString().equals("")){
+            Toast.makeText(FootballMatchCreateNew.this, "Nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            String club_home_id = "-M7O5doGhyRqIeq98zvP";
+            String club_away_id = "";
+            String user_created_id = user.getUid();
+            String stadium_id = "lskfjgljsdfg";
+            String date = edtDate.getText().toString();
+            String time = edtTime.getText().toString();
+            Integer time_amount = Integer.parseInt(edtTimeAmount.getText().toString());
 
-        MapConst mapConst = new MapConst();
+            MapConst mapConst = new MapConst();
 
-        String status = mapConst.STATUS_MATCH_MAP.get("NONE");
-        String description = edtDescription.getText().toString();
-        String phone_number = edtPhoneNumber.getText().toString();
-        MatchModel matchModel = new MatchModel(club_home_id, club_away_id, user_created_id, stadium_id, date, time, time_amount, status, description, phone_number);
+            String status = mapConst.STATUS_MATCH_MAP.get("NONE");
+            String description = edtDescription.getText().toString();
+            String phone_number = edtPhoneNumber.getText().toString();
+            MatchModel matchModel = new MatchModel(club_home_id, club_away_id, user_created_id, stadium_id, date, time, time_amount, status, description, phone_number);
 
-        MatchService matchService = new MatchService();
-        matchService.addMatch(matchModel);
-        Intent intent = new Intent(FootballMatchCreateNew.this, FootballMatchInfo.class);
-        intent.putExtra("match_id", "sdfd");
-        startActivity(intent);
+            MatchService matchService = new MatchService();
+            matchService.addMatch(matchModel);
+            Intent intent = new Intent(FootballMatchCreateNew.this, FootballMatchInfo.class);
+            intent.putExtra("match_id", "sdfd");
+            startActivity(intent);
+        }
+
+    }
+
+    private void openNumberPickerDialog(){
+        View v1 = getLayoutInflater().inflate(R.layout.dialog_number_picker, null);
+
+        final NumberPicker picker = (NumberPicker) v1.findViewById(R.id.np_time_amout);
+        picker.setMinValue(60);
+        picker.setMaxValue(120);
+        picker.setWrapSelectorWheel(false);
+
+        AlertDialog.Builder builder =  new AlertDialog.Builder(this);
+        builder.setView (v1);
+        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                int pickedValue = picker.getValue();
+                edtTimeAmount.setText(Integer.toString(pickedValue));
+                return;
+            } });
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                return;
+            } });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }
