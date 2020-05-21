@@ -43,7 +43,6 @@
             android:layout_marginRight="8dp"
             android:layout_marginBottom="10dp"
             android:src="@drawable/ic_add_white"
-            android:background="#FFC107"
             android:backgroundTint="#FFC107"/>
     </FrameLayout>
 

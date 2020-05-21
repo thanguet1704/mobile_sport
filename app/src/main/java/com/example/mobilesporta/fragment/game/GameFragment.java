@@ -26,7 +26,7 @@ public class GameFragment extends Fragment {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private TabItem sugesstionsTab, myTab;
-    public PagerAdapter pagerAdapter;
+    private FootballMatchAdapter footballMatchAdapter;
     private FloatingActionButton btnCreateMatch;
 
     @Nullable
@@ -40,17 +40,17 @@ public class GameFragment extends Fragment {
         btnCreateMatch = view.findViewById(R.id.create_match);
         viewPager = view.findViewById(R.id.FootballMatchAct_ViewPager);
 
-        pagerAdapter = new FootballMatchAdapter(getActivity().getSupportFragmentManager(), tabLayout.getTabCount());
-        viewPager.setAdapter(pagerAdapter);
+        footballMatchAdapter = new FootballMatchAdapter(getActivity().getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(footballMatchAdapter);
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
                 if(tab.getPosition() == 0) {
-                    pagerAdapter.notifyDataSetChanged();
+                    footballMatchAdapter.notifyDataSetChanged();
                 } else if (tab.getPosition() == 1) {
-                    pagerAdapter.notifyDataSetChanged();
+                    footballMatchAdapter.notifyDataSetChanged();
                 }
             }
 

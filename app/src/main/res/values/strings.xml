@@ -39,5 +39,7 @@
     <string name="title_activity_edit_account">Tài khoản</string>
     <string name="title_activity_recommend">Giới thiệu</string>
     <string name="title_activity_pravicy_policy">Chính sách bảo mật</string>
+    <string name="title_activity_search_select_stadium_for_match">SearchSelectStadiumForMatch
+    </string>
 
 </resources>

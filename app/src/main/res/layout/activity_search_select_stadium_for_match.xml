@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.club.ClubSearching"
+    android:weightSum="10"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <EditText
+            android:id="@+id/edt_search_stadium_for_match"
+            android:layout_width="350dp"
+            android:layout_height="50dp"
+            android:drawableLeft="@drawable/ic_search_black_24dp"
+            android:background="@drawable/edt_search_club_style"
+            android:hint="Tìm kiếm sân bóng, địa điểm"/>
+        <Button
+            android:layout_marginRight="-10dp"
+            android:id="@+id/btn_cancel_search_stadium_for_match"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:text="Hủy"
+            android:textSize="24sp"
+            android:textColor="#FFC107"
+            android:textAllCaps="false"
+            android:background="@drawable/btn_search_club_style"/>
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/lv_stadium_for_match"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9"
+        android:padding="20dp"/>
+
+
+</LinearLayout>

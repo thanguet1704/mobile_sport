@@ -1,16 +1,21 @@
 package com.example.mobilesporta;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
+import com.example.mobilesporta.activity.club.ClubProfile;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -27,6 +32,7 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
@@ -177,8 +183,22 @@ public class MainActivity extends AppCompatActivity {
         dangky.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Register.class);
-                startActivity(intent);
+                View viewEdit = getLayoutInflater().inflate(R.layout.dialog_register, null);
+                final Dialog dialog = new Dialog(MainActivity.this);
+                dialog.setContentView(viewEdit);
+                dialog.show();
+                Window window = dialog.getWindow();
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT, ViewPager.LayoutParams.WRAP_CONTENT);
+                Button btnRegister = dialog.findViewById(R.id.btnRegister);
+                final EditText edtEmail = dialog.findViewById(R.id.register_email);
+                final EditText edtPass = dialog.findViewById(R.id.register_pass);
+                final EditText edtrePass = dialog.findViewById(R.id.register_re_pass);
+                btnRegister.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        register(edtEmail, edtPass, edtrePass, dialog);
+                    }
+                });
             }
         });
     }
@@ -248,5 +268,32 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    private void register(EditText edtEmail, EditText edtPass, EditText edtrePass, final Dialog dialog){
+        String email = edtEmail.getText().toString();
+        String password = edtPass.getText().toString();
+        String rePassword = edtrePass.getText().toString();
+        if (email.length() == 0 || password.length() == 0 || rePassword.length() == 0){
+            Toast.makeText(MainActivity.this, "Nhập đầy đủ thông tin", Toast.LENGTH_LONG).show();
+        }else{
+            if (password.equals(rePassword) == false){
+                Toast.makeText(MainActivity.this, "Nhập lại mật khẩu không đúng", Toast.LENGTH_LONG).show();
+            }else{
+                mAuth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(MainActivity.this, "Đăng ký thành công", Toast.LENGTH_LONG).show();
+                                    FirebaseAuth.getInstance().signOut();
+                                    dialog.hide();
+                                } else {
+                                    Toast.makeText(MainActivity.this, "Email không hợp lệ hoặc mật khẩu lớn hơn 6 ký tự", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
+            }
+        }
     }
 }
