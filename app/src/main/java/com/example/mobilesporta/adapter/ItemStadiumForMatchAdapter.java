@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.mobilesporta.R;
 import com.example.mobilesporta.model.ClubModel;
 import com.example.mobilesporta.model.StadiumModel;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -50,9 +51,12 @@ public class ItemStadiumForMatchAdapter extends BaseAdapter {
         TextView addressStadium = convertView.findViewById(R.id.tv_name_stadium_for_match);
         TextView openingTime = convertView.findViewById(R.id.tv_name_stadium_for_match);
 
-        StadiumModel stadiumModel = listStadium.get(position);
+        StadiumModel stadium = listStadium.get(position);
 
-
+        Picasso.get().load(stadium.getImage()).into(imageStadium);
+        nameStadium.setText(stadium.getStadium_name());
+        addressStadium.setText(stadium.getAddress());
+        openingTime.setText(stadium.getTime_open());
         return convertView;
     }
 }

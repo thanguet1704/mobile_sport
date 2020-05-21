@@ -2,6 +2,7 @@ package com.example.mobilesporta.model;
 
 import com.example.mobilesporta.data.service.StadiumCommentService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StadiumModel {
@@ -17,13 +18,13 @@ public class StadiumModel {
     private String location_x;
     private String location_y;
 
-    private List<StadiumCommentService> listComments;
+    private ArrayList<StadiumCommentModel> listComments;
     private String zone;
 
     public StadiumModel() {
     }
 
-    public StadiumModel(String stadium_name, String description, String address, Integer amount, Integer cost, String image, String phone_number, String time_open, String time_close, String location_x, String location_y, List<StadiumCommentService> listComments, String zone) {
+    public StadiumModel(String stadium_name, String description, String address, Integer amount, Integer cost, String image, String phone_number, String time_open, String time_close, String location_x, String location_y, ArrayList<StadiumCommentModel> listComments, String zone) {
         this.stadium_name = stadium_name;
         this.description = description;
         this.address = address;
@@ -43,116 +44,103 @@ public class StadiumModel {
         return stadium_name;
     }
 
-    public StadiumModel setStadium_name(String stadium_name) {
+    public void setStadium_name(String stadium_name) {
         this.stadium_name = stadium_name;
-        return this;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public StadiumModel setDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
-        return this;
     }
 
     public String getAddress() {
         return address;
     }
 
-    public StadiumModel setAddress(String address) {
+    public void setAddress(String address) {
         this.address = address;
-        return this;
     }
 
     public Integer getAmount() {
         return amount;
     }
 
-    public StadiumModel setAmount(Integer amount) {
+    public void setAmount(Integer amount) {
         this.amount = amount;
-        return this;
     }
 
     public Integer getCost() {
         return cost;
     }
 
-    public StadiumModel setCost(Integer cost) {
+    public void setCost(Integer cost) {
         this.cost = cost;
-        return this;
     }
 
     public String getImage() {
         return image;
     }
 
-    public StadiumModel setImage(String image) {
+    public void setImage(String image) {
         this.image = image;
-        return this;
     }
 
     public String getPhone_number() {
         return phone_number;
     }
 
-    public StadiumModel setPhone_number(String phone_number) {
+    public void setPhone_number(String phone_number) {
         this.phone_number = phone_number;
-        return this;
     }
 
     public String getTime_open() {
         return time_open;
     }
 
-    public StadiumModel setTime_open(String time_open) {
+    public void setTime_open(String time_open) {
         this.time_open = time_open;
-        return this;
     }
 
     public String getTime_close() {
         return time_close;
     }
 
-    public StadiumModel setTime_close(String time_close) {
+    public void setTime_close(String time_close) {
         this.time_close = time_close;
-        return this;
     }
 
     public String getLocation_x() {
         return location_x;
     }
 
-    public StadiumModel setLocation_x(String location_x) {
+    public void setLocation_x(String location_x) {
         this.location_x = location_x;
-        return this;
     }
 
     public String getLocation_y() {
         return location_y;
     }
 
-    public StadiumModel setLocation_y(String location_y) {
+    public void setLocation_y(String location_y) {
         this.location_y = location_y;
-        return this;
     }
 
-    public List<StadiumCommentService> getComments() {
+    public ArrayList<StadiumCommentModel> getListComments() {
         return listComments;
     }
 
-    public StadiumModel setComments(List<StadiumCommentService> listComments) {
+    public void setListComments(ArrayList<StadiumCommentModel> listComments) {
         this.listComments = listComments;
-        return this;
     }
 
     public String getZone() {
         return zone;
     }
 
-    public StadiumModel setZone(String zone) {
+    public void setZone(String zone) {
         this.zone = zone;
-        return this;
     }
 }

@@ -45,29 +45,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:text="Đội nhà"
-            android:textSize="20sp"
-            android:textColor="#000"
-            android:gravity="center"
-            android:textAlignment="textStart"/>
-        <TextView
-            android:id="@+id/tv_select_club"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="7"
-            android:text="Chọn câu lạc bộ"
-            android:textSize="20dp"
-            android:gravity="center_vertical"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
         android:layout_weight="1">
         <TextView
             android:id="@+id/txtMatchCreateAct_Stadium"
@@ -87,6 +64,29 @@
             android:textSize="20sp"
             android:gravity="center_vertical"/>
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:text="Đội nhà"
+            android:textSize="20sp"
+            android:textColor="#000"
+            android:gravity="center_vertical"/>
+        <Spinner
+            android:id="@+id/tv_select_club"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:textSize="20sp"
+            android:gravity="center_vertical"/>
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -198,13 +198,18 @@
         android:layout_weight="4"
         android:textColor="#000"
         android:gravity="top"/>
-
-    <Button
-        android:id="@+id/btnMatchCreateAct_Save"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:text="Lưu"
-        android:layout_gravity="center"
-        android:background="@drawable/bgbtnloginlogout"
-        android:layout_weight="1"/>
+        android:layout_weight="2"
+        android:gravity="center">
+        <Button
+            android:id="@+id/btnMatchCreateAct_Save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tạo kèo"
+            android:layout_gravity="center"
+            android:background="@drawable/bgbtnloginlogout"/>
+    </LinearLayout>
+
 </LinearLayout>
