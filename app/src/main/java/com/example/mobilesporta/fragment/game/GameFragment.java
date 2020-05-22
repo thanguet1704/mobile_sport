@@ -41,6 +41,7 @@ public class GameFragment extends Fragment {
         viewPager = view.findViewById(R.id.FootballMatchAct_ViewPager);
 
         footballMatchAdapter = new FootballMatchAdapter(getActivity().getSupportFragmentManager(), tabLayout.getTabCount());
+
         viewPager.setAdapter(footballMatchAdapter);
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

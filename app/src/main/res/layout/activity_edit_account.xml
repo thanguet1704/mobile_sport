@@ -22,7 +22,8 @@
             android:text=" Tên"
             android:textSize="24dp"
             android:drawableLeft="@drawable/edit_name"
-            android:textColor="#0B0B0B"/>
+            android:textColor="#0B0B0B"
+            android:gravity="center_vertical"/>
         <EditText
             android:id="@+id/edit_name"
             android:layout_weight="1"
@@ -43,7 +44,8 @@
             android:text=" Email"
             android:textSize="24dp"
             android:drawableLeft="@drawable/edit_email"
-            android:textColor="#0B0B0B"/>
+            android:textColor="#0B0B0B"
+            android:gravity="center_vertical"/>
         <EditText
             android:id="@+id/edit_email"
             android:layout_weight="1"
@@ -65,7 +67,8 @@
             android:text=" Mật khẩu"
             android:textSize="24dp"
             android:drawableLeft="@drawable/edit_pass"
-            android:textColor="#0B0B0B"/>
+            android:textColor="#0B0B0B"
+            android:gravity="center_vertical"/>
         <EditText
             android:id="@+id/edit_pass"
             android:layout_weight="1"
@@ -87,7 +90,8 @@
             android:text=" Xác nhận Mật khẩu"
             android:textSize="24dp"
             android:drawableLeft="@drawable/edit_pass"
-            android:textColor="#0B0B0B"/>
+            android:textColor="#0B0B0B"
+            android:gravity="center_vertical"/>
         <EditText
             android:id="@+id/edit_confirm_pass"
             android:layout_weight="1"

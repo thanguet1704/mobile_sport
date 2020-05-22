@@ -9,11 +9,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.mobilesporta.R;
 import com.example.mobilesporta.activity.game.FootballMatchCreateNew;
+import com.example.mobilesporta.activity.game.FootballMatchInfo;
 import com.example.mobilesporta.adapter.ItemFootballMatchAdapter;
 import com.example.mobilesporta.data.service.ClubService;
 import com.example.mobilesporta.data.service.MatchService;
@@ -31,9 +33,11 @@ public class MyFbMatch_TabFragment extends Fragment {
 
     MatchService matchService = new MatchService();
     List<MatchModel> listMatch = matchService.getMyListMatch();
+    List<String> listMatchId = matchService.getMyListMatchId();
 
     ClubService clubService = new ClubService();
     Map<String, ClubModel> mapClubs = clubService.getMapClubs();
+
 
     Button btnCreateNewMatch;
     ListView lvMatch;
@@ -62,5 +66,13 @@ public class MyFbMatch_TabFragment extends Fragment {
     private void showMyListMatch() {
         ItemFootballMatchAdapter itemFootballMatchAdapter = new ItemFootballMatchAdapter(getActivity(), listMatch, mapClubs);
         lvMatch.setAdapter(itemFootballMatchAdapter);
+        lvMatch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), FootballMatchInfo.class);
+                intent.putExtra("match_id", listMatchId.get(position));
+                startActivity(intent);
+            }
+        });
     }
 }

@@ -1,5 +1,7 @@
 package com.example.mobilesporta.activity.game;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -15,10 +17,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -28,14 +33,25 @@ import com.example.mobilesporta.R;
 import com.example.mobilesporta.activity.club.ClubProfile;
 import com.example.mobilesporta.data.MapConst;
 import com.example.mobilesporta.data.service.MatchService;
+import com.example.mobilesporta.model.ClubModel;
 import com.example.mobilesporta.model.MatchModel;
+import com.example.mobilesporta.model.StadiumModel;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.EventListener;
 import java.util.logging.SimpleFormatter;
 
 public class FootballMatchCreateNew extends AppCompatActivity {
@@ -48,8 +64,14 @@ public class FootballMatchCreateNew extends AppCompatActivity {
     EditText edtDescription;
     Button btnSave;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
     TextView tvSelectClub;
     Button btnBack;
+    Spinner tvSelectClub;
+    Button btnBack;
+    String clubId;
+    public static final int ACTIVITYB_REQUEST = 100;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,10 +125,51 @@ public class FootballMatchCreateNew extends AppCompatActivity {
             }
         });
 
-        tvSelectClub.setOnClickListener(new View.OnClickListener() {
+        //select club
+        final ArrayList<ClubModel> listMyClub = new ArrayList<>();
+        final ArrayList<String> listNameClub = new ArrayList<>();
+        final ArrayList<String> listClubId = new ArrayList<>();
+
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("clubs");
+        mDatabase.orderByChild("user_created_id").equalTo(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    for (DataSnapshot snapshot: dataSnapshot.getChildren()){
+                        ClubModel club = snapshot.getValue(ClubModel.class);
+                        listMyClub.add(club);
+                        listNameClub.add(club.getClub_name());
+                        listClubId.add(snapshot.getKey());
+                    }
+                }
+
+                ArrayAdapter arrayAdapter = new ArrayAdapter(FootballMatchCreateNew.this, android.R.layout.simple_spinner_item, listNameClub);
+                tvSelectClub.setAdapter(arrayAdapter);
+                arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                tvSelectClub.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        clubId = listClubId.get(position);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        edtStadium.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(FootballMatchCreateNew.this, "skjdfhs", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(FootballMatchCreateNew.this, SearchSelectStadiumForMatch.class);
+                startActivityForResult(intent, ACTIVITYB_REQUEST);;
             }
         });
     }
@@ -157,32 +220,70 @@ public class FootballMatchCreateNew extends AppCompatActivity {
     }
 
     private void createMatch(){
-        if (tvSelectClub.getText().toString().equals("") || edtStadium.getText().toString().equals("") || edtDate.getText().toString().equals("")
+        if (clubId.equals("") || edtStadium.getText().toString().equals("") || edtDate.getText().toString().equals("")
         || edtTime.getText().toString().equals("") || edtTimeAmount.getText().toString().equals("")
         || edtPhoneNumber.getText().toString().equals("") || edtDescription.getText().toString().equals("")){
             Toast.makeText(FootballMatchCreateNew.this, "Nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
         }
         else{
-            String club_home_id = "-M7O5doGhyRqIeq98zvP";
-            String club_away_id = "";
             String user_created_id = user.getUid();
             String stadium_id = "lskfjgljsdfg";
+            String club_home_id = clubId;
+            String club_away_id = "";
+            String user_created_id = user.getUid();
+            String stadium_id = edtStadium.getText().toString();
             String date = edtDate.getText().toString();
             String time = edtTime.getText().toString();
             Integer time_amount = Integer.parseInt(edtTimeAmount.getText().toString());
-
-            MapConst mapConst = new MapConst();
-
+          
+            final MapConst mapConst = new MapConst();
             String status = mapConst.STATUS_MATCH_MAP.get("NONE");
+          
             String description = edtDescription.getText().toString();
             String phone_number = edtPhoneNumber.getText().toString();
             MatchModel matchModel = new MatchModel(club_home_id, club_away_id, user_created_id, stadium_id, date, time, time_amount, status, description, phone_number);
 
-            MatchService matchService = new MatchService();
-            matchService.addMatch(matchModel);
+            
             Intent intent = new Intent(FootballMatchCreateNew.this, FootballMatchInfo.class);
             intent.putExtra("match_id", "sdfd");
             startActivity(intent);
+            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+            mDatabase.child("matchs").push().setValue(matchModel);
+            final String matchId[] = new String[1];
+            mDatabase.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    if (dataSnapshot.exists()){
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                            StadiumModel stadiumModel = snapshot.getValue(StadiumModel.class);
+                            matchId[0] = snapshot.getKey();
+                        }
+                        Intent intent = new Intent(FootballMatchCreateNew.this, FootballMatchInfo.class);
+                        intent.putExtra("match_id", matchId[0]);
+                        startActivityForResult(intent, 100);
+                    }
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });;
         }
 
     }
@@ -210,5 +311,19 @@ public class FootballMatchCreateNew extends AppCompatActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100) {
+            if (resultCode == RESULT_OK) {
+                if (data != null) {
+                    String newString = data.getStringExtra("stadium_name");
+                    edtStadium.setText(newString);
+                }
+            }
+        }
     }
 }

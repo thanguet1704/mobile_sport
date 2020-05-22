@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.mobilesporta.R;
 import com.example.mobilesporta.model.ClubModel;
 import com.example.mobilesporta.model.MatchModel;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.List;
@@ -85,6 +86,7 @@ public class    ItemFootballMatchAdapter extends BaseAdapter {
         if (!match.getClub_home_id().equals("")) {
             ClubModel homeClub = getClubById(match.getClub_home_id());
             txtHomeClubName.setText(homeClub.getClub_name());
+            Picasso.get().load(homeClub.getImage()).into(imgHomeClub);
         }
         else {
             txtHomeClubName.setText("???");
@@ -94,6 +96,7 @@ public class    ItemFootballMatchAdapter extends BaseAdapter {
         if( !match.getClub_away_id().equals("")) {
             ClubModel awayClub = getClubById(match.getClub_away_id());
             txtAwayClubName.setText(awayClub.getClub_name());
+            Picasso.get().load(awayClub.getImage()).into(imgAwayClub);
         }
         else {
             txtAwayClubName.setText("???");

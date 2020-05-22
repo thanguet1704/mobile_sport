@@ -38,6 +38,7 @@ public class EditAccount extends AppCompatActivity {
 
         findId();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
         edtEmail.setText(user.getEmail());
         if (user.getDisplayName() != null)
             edtUsername.setText(user.getDisplayName());
