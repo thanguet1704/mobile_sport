@@ -65,10 +65,8 @@ public class FootballMatchCreateNew extends AppCompatActivity {
     Button btnSave;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-    TextView tvSelectClub;
     Button btnBack;
-    Spinner tvSelectClub;
-    Button btnBack;
+    Spinner spSelectClub;
     String clubId;
     public static final int ACTIVITYB_REQUEST = 100;
 
@@ -86,6 +84,7 @@ public class FootballMatchCreateNew extends AppCompatActivity {
         edtDate.setText(date.format(calendar.getTime()));
         edtTime.setText(time.format(calendar.getTime()));
         edtTimeAmount.setText("90");
+        spSelectClub.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,9 +143,10 @@ public class FootballMatchCreateNew extends AppCompatActivity {
                 }
 
                 ArrayAdapter arrayAdapter = new ArrayAdapter(FootballMatchCreateNew.this, android.R.layout.simple_spinner_item, listNameClub);
-                tvSelectClub.setAdapter(arrayAdapter);
+                spSelectClub.setAdapter(arrayAdapter);
                 arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                tvSelectClub.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                spSelectClub.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         clubId = listClubId.get(position);
@@ -182,7 +182,7 @@ public class FootballMatchCreateNew extends AppCompatActivity {
         edtPhoneNumber = findViewById(R.id.edtMatchCreateAct_PhoneNumber);
         edtDescription = findViewById(R.id.edtMatchCreateAct_Description);
         btnSave = findViewById(R.id.btnMatchCreateAct_Save);
-        tvSelectClub = findViewById(R.id.tv_select_club);
+        spSelectClub = findViewById(R.id.tv_select_club);
         btnBack = findViewById(R.id.btn_back_create_match);
     }
 
@@ -227,10 +227,8 @@ public class FootballMatchCreateNew extends AppCompatActivity {
         }
         else{
             String user_created_id = user.getUid();
-            String stadium_id = "lskfjgljsdfg";
             String club_home_id = clubId;
             String club_away_id = "";
-            String user_created_id = user.getUid();
             String stadium_id = edtStadium.getText().toString();
             String date = edtDate.getText().toString();
             String time = edtTime.getText().toString();
@@ -245,7 +243,7 @@ public class FootballMatchCreateNew extends AppCompatActivity {
 
             
             Intent intent = new Intent(FootballMatchCreateNew.this, FootballMatchInfo.class);
-            intent.putExtra("match_id", "sdfd");
+
             startActivity(intent);
             DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
             mDatabase.child("matchs").push().setValue(matchModel);
