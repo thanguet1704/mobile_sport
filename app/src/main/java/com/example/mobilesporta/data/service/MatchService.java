@@ -120,6 +120,39 @@ public class MatchService {
         return listMatchId;
     }
 
+    public List<String> getMyListMatchId() {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("matchs");
+        Query matchs = mDatabase.orderByKey();
+
+        ValueEventListener valueEventListener = new ValueEventListener() {
+
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            String user_id = user.getUid();
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        MatchModel match = snapshot.getValue(MatchModel.class);
+                        if (match.getUser_created_id().equals(user_id)) {
+
+                            listMatchId.add(snapshot.getKey());
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+
+        matchs.addListenerForSingleValueEvent(valueEventListener);
+
+        return listMatchId;
+    }
+
     public Map<String, MatchModel> getMapMatchs() {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("matchs");
         Query a = mDatabase.orderByKey();
