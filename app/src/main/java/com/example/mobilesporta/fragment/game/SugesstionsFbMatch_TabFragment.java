@@ -3,6 +3,7 @@ package com.example.mobilesporta.fragment.game;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -20,6 +22,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.example.mobilesporta.R;
+import com.example.mobilesporta.activity.game.FootballMatchInfo;
 import com.example.mobilesporta.adapter.ItemFootballMatchAdapter;
 import com.example.mobilesporta.data.service.ClubService;
 import com.example.mobilesporta.data.service.MatchService;
@@ -39,6 +42,7 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
 
     MatchService matchService = new MatchService();
     List<MatchModel> listMatch = matchService.getListMatch();
+    List<String> listMatchId = matchService.getListMatchId();
 
     ClubService clubService = new ClubService();
     Map<String, ClubModel> mapClubs = clubService.getMapClubs();
@@ -76,6 +80,14 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
     private void showListMatch() {
         ItemFootballMatchAdapter itemFootballMatchAdapter = new ItemFootballMatchAdapter(getActivity(), listMatch, mapClubs);
         listView.setAdapter(itemFootballMatchAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), FootballMatchInfo.class);
+                intent.putExtra("match_id", listMatchId.get(position));
+                startActivity(intent);
+            }
+        });
     }
 
     private void pickTime() {
@@ -83,7 +95,7 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
         txtTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+                TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), android.R.style.Theme_Holo_Light_Dialog_MinWidth, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         txtTime.setText(hourOfDay + ":" + minute);
@@ -99,7 +111,7 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
         txtDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), android.R.style.Theme_Holo_Light_Dialog_MinWidth, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         calendar.set(year, month, dayOfMonth);
