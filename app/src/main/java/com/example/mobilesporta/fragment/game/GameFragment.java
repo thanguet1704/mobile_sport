@@ -44,7 +44,6 @@ public class GameFragment extends Fragment {
 
         viewPager.setAdapter(footballMatchAdapter);
 
-
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

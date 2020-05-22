@@ -64,10 +64,14 @@ public class FootballMatchCreateNew extends AppCompatActivity {
     EditText edtDescription;
     Button btnSave;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+    TextView tvSelectClub;
+    Button btnBack;
     Spinner tvSelectClub;
     Button btnBack;
     String clubId;
     public static final int ACTIVITYB_REQUEST = 100;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -222,6 +226,8 @@ public class FootballMatchCreateNew extends AppCompatActivity {
             Toast.makeText(FootballMatchCreateNew.this, "Nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
         }
         else{
+            String user_created_id = user.getUid();
+            String stadium_id = "lskfjgljsdfg";
             String club_home_id = clubId;
             String club_away_id = "";
             String user_created_id = user.getUid();
@@ -229,15 +235,18 @@ public class FootballMatchCreateNew extends AppCompatActivity {
             String date = edtDate.getText().toString();
             String time = edtTime.getText().toString();
             Integer time_amount = Integer.parseInt(edtTimeAmount.getText().toString());
-
+          
             final MapConst mapConst = new MapConst();
-
             String status = mapConst.STATUS_MATCH_MAP.get("NONE");
+          
             String description = edtDescription.getText().toString();
             String phone_number = edtPhoneNumber.getText().toString();
             MatchModel matchModel = new MatchModel(club_home_id, club_away_id, user_created_id, stadium_id, date, time, time_amount, status, description, phone_number);
 
-
+            
+            Intent intent = new Intent(FootballMatchCreateNew.this, FootballMatchInfo.class);
+            intent.putExtra("match_id", "sdfd");
+            startActivity(intent);
             DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
             mDatabase.child("matchs").push().setValue(matchModel);
             final String matchId[] = new String[1];
@@ -302,6 +311,7 @@ public class FootballMatchCreateNew extends AppCompatActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
+
     }
 
     @Override
