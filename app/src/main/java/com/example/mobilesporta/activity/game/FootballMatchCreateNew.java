@@ -304,7 +304,7 @@ public class FootballMatchCreateNew extends AppCompatActivity {
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 int pickedValue = picker.getValue();
-                edtTimeAmount.setText(Integer.toString(pickedValue));
+                edtTimeAmount.setText(60 + pickedValue * 30 + "");
                 return;
             } });
 

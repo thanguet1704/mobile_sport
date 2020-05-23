@@ -127,12 +127,12 @@ public class FootballMatchInfo extends AppCompatActivity {
                 if(dataSnapshot.exists()) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
-                        tvDate.setText("sdfsdf");
-                        tvStadiumName.setText("sdfsdf");
-                        tvAddress.setText("sdfsdf");
-                        tvPhoneNumber.setText("sdfsdf");
-                        tvDescription.setText("sdfsdf");
-                        tvAmountsClub.setText("2" + " đội muốn tham gia trận đấu này");
+//                        tvDate.setText("sdfsdf");
+//                        tvStadiumName.setText("sdfsdf");
+//                        tvAddress.setText("sdfsdf");
+//                        tvPhoneNumber.setText("sdfsdf");
+//                        tvDescription.setText("sdfsdf");
+//                        tvAmountsClub.setText("2" + " đội muốn tham gia trận đấu này");
                     }
                 }
             }

@@ -169,7 +169,7 @@
         android:id="@+id/txtMatchInfoAct_PhoneNumber"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:text="0353005557"
+        android:text=" 0353005557"
         android:textSize="20sp"
         android:layout_weight="1"
         android:gravity="center_vertical"
@@ -182,12 +182,12 @@
         android:id="@+id/txtMatchInfoAct_Description"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:text="Anh em giao lưu nhè nhẹeeee"
+        android:text=" Anh em giao lưu nhè nhẹeeee"
         android:textSize="20sp"
         android:textColor="#000"
         android:layout_weight="2"
         android:gravity="center_vertical"
-        android:drawableLeft="@drawable/bell"
+        android:drawableLeft="@drawable/broadcast"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"/>
     <TextView
