@@ -15,9 +15,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mobilesporta.R;
@@ -87,7 +91,7 @@ public class EditAccount extends AppCompatActivity {
             if (password.equals(confirmPassword) == false){
                 edtPassword.setText("");
                 edtConfirmPassword.setText("");
-                Toast.makeText(EditAccount.this, "Nhập lại mật khẩu không đúng", Toast.LENGTH_LONG).show();
+                showToastError("nhập lại mật khẩu không đúng");
             }else{
                 UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                         .setDisplayName(username)
@@ -104,7 +108,7 @@ public class EditAccount extends AppCompatActivity {
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                Toast.makeText(EditAccount.this, "Bạn đã đổi mật khẩu, mời đăng nhập lại", Toast.LENGTH_SHORT).show();
+                                showToastSuccess("Đổi mật khẩu thành công");
                                 FirebaseAuth.getInstance().signOut();
                                 startActivity(new Intent(EditAccount.this, MainActivity.class));
                             }
@@ -126,5 +130,35 @@ public class EditAccount extends AppCompatActivity {
                         }
                     });
         }
+    }
+
+    public void showToastError(String message){
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.error_toast, (ViewGroup) findViewById(R.id.toast_error));
+
+        TextView mes = layout.findViewById(R.id.text_error);
+        mes.setText(message);
+
+        Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+
+        toast.show();
+    }
+
+    public void showToastSuccess(String message){
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.toast_success, (ViewGroup) findViewById(R.id.toast_success));
+
+        TextView mes = layout.findViewById(R.id.text_success);
+        mes.setText(message);
+
+        Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+
+        toast.show();
     }
 }

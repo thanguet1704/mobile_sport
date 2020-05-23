@@ -15,7 +15,10 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -223,11 +226,11 @@ public class FootballMatchCreateNew extends AppCompatActivity {
 
     private void createMatch(){
         if (edtStadium.getText().toString().equals("Chọn sân")){
-            Toast.makeText(FootballMatchCreateNew.this, "Hãy chọn sân bóng", Toast.LENGTH_SHORT).show();
+            showToast("Hãy chọn sân bóng");
         }else if (edtDate.getText().toString().equals("")
         || edtTime.getText().toString().equals("") || edtTimeAmount.getText().toString().equals("")
         || edtPhoneNumber.getText().toString().equals("") || edtDescription.getText().toString().equals("")){
-            Toast.makeText(FootballMatchCreateNew.this, "Nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+            showToast("Nhập đầy đủ thông tin");
         }
         else{
 
@@ -246,24 +249,19 @@ public class FootballMatchCreateNew extends AppCompatActivity {
             String phone_number = edtPhoneNumber.getText().toString();
             MatchModel matchModel = new MatchModel(club_home_id, club_away_id, user_created_id, stadium_id, date, time, time_amount, status, description, phone_number);
 
-            
-            Intent intent = new Intent(FootballMatchCreateNew.this, FootballMatchInfo.class);
-
-            startActivity(intent);
             DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
             mDatabase.child("matchs").push().setValue(matchModel);
-            final String[] matchId = new String[1];
             mDatabase.addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                     if (dataSnapshot.exists()){
+                        ArrayList<String> listMatchId = new ArrayList<>();
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                            StadiumModel stadiumModel = snapshot.getValue(StadiumModel.class);
-                            matchId[0] = snapshot.getKey();
+                            listMatchId.add(snapshot.getKey());
                         }
                         Intent intent = new Intent(FootballMatchCreateNew.this, FootballMatchInfo.class);
-                        intent.putExtra("match_id", matchId[0]);
-                        startActivityForResult(intent, 100);
+                        intent.putExtra("match_id", listMatchId.get(0));
+                        startActivity(intent);
                     }
                 }
 
@@ -327,5 +325,20 @@ public class FootballMatchCreateNew extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    public void showToast(String message){
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.error_toast, (ViewGroup) findViewById(R.id.toast_error));
+
+        TextView mes = layout.findViewById(R.id.text_error);
+        mes.setText(message);
+
+        Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+
+        toast.show();
     }
 }
