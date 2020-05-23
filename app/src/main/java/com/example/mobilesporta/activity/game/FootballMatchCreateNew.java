@@ -222,10 +222,8 @@ public class FootballMatchCreateNew extends AppCompatActivity {
     }
 
     private void createMatch(){
-        if (clubId.equals("") || edtStadium.getText().toString().equals("Chọn sân")){
+        if (edtStadium.getText().toString().equals("Chọn sân")){
             Toast.makeText(FootballMatchCreateNew.this, "Hãy chọn sân bóng", Toast.LENGTH_SHORT).show();
-        }else if (spSelectClub.getSelectedItem().toString().equals("")){
-            Toast.makeText(FootballMatchCreateNew.this, "Hãy tạo câu lạc bộ trước", Toast.LENGTH_SHORT).show();
         }else if (edtDate.getText().toString().equals("")
         || edtTime.getText().toString().equals("") || edtTimeAmount.getText().toString().equals("")
         || edtPhoneNumber.getText().toString().equals("") || edtDescription.getText().toString().equals("")){

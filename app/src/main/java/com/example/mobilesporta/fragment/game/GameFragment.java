@@ -21,6 +21,13 @@ import com.example.mobilesporta.adapter.FootballMatchAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class GameFragment extends Fragment {
     private TabLayout tabLayout;
@@ -28,6 +35,7 @@ public class GameFragment extends Fragment {
     private TabItem sugesstionsTab, myTab;
     private FootballMatchAdapter footballMatchAdapter;
     private FloatingActionButton btnCreateMatch;
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     @Nullable
     @Override
@@ -70,7 +78,22 @@ public class GameFragment extends Fragment {
         btnCreateMatch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), FootballMatchCreateNew.class));
+                DatabaseReference database = FirebaseDatabase.getInstance().getReference("clubs");
+                database.orderByChild("user_created_id").equalTo(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()){
+                            startActivity(new Intent(getActivity(), FootballMatchCreateNew.class));
+                        }else{
+                            Toast.makeText(getContext(), "Hãy tạo câu lạc bộ", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
 
