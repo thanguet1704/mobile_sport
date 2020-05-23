@@ -222,7 +222,11 @@ public class FootballMatchCreateNew extends AppCompatActivity {
     }
 
     private void createMatch(){
-        if (clubId.equals("") || edtStadium.getText().toString().equals("Chọn sân") || edtDate.getText().toString().equals("")
+        if (clubId.equals("") || edtStadium.getText().toString().equals("Chọn sân")){
+            Toast.makeText(FootballMatchCreateNew.this, "Hãy chọn sân bóng", Toast.LENGTH_SHORT).show();
+        }else if (spSelectClub.getSelectedItem().toString().equals("")){
+            Toast.makeText(FootballMatchCreateNew.this, "Hãy tạo câu lạc bộ trước", Toast.LENGTH_SHORT).show();
+        }else if (edtDate.getText().toString().equals("")
         || edtTime.getText().toString().equals("") || edtTimeAmount.getText().toString().equals("")
         || edtPhoneNumber.getText().toString().equals("") || edtDescription.getText().toString().equals("")){
             Toast.makeText(FootballMatchCreateNew.this, "Nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
@@ -293,9 +297,11 @@ public class FootballMatchCreateNew extends AppCompatActivity {
         View v1 = getLayoutInflater().inflate(R.layout.dialog_number_picker, null);
 
         final NumberPicker picker = (NumberPicker) v1.findViewById(R.id.np_time_amout);
-        picker.setMinValue(60);
-        picker.setMaxValue(120);
+        String nums[] = {"60", "90", "120"};
+        picker.setMinValue(0);
+        picker.setMaxValue(nums.length - 1);
         picker.setWrapSelectorWheel(false);
+        picker.setDisplayedValues(nums);
 
         AlertDialog.Builder builder =  new AlertDialog.Builder(this);
         builder.setView (v1);
@@ -303,10 +309,6 @@ public class FootballMatchCreateNew extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 int pickedValue = picker.getValue();
                 edtTimeAmount.setText(Integer.toString(pickedValue));
-                return;
-            } });
-        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
                 return;
             } });
 
