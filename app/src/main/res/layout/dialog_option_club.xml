@@ -7,8 +7,8 @@
     <Button
         android:id="@+id/btn_edit_info_club"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Sửa"
+        android:layout_height="60dp"
+        android:text=" Sửa"
         android:layout_weight="1"
         android:background="#fff"
         android:textAllCaps="false"
@@ -19,8 +19,8 @@
     <Button
         android:id="@+id/btn_delete_club"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Xóa"
+        android:layout_height="60dp"
+        android:text=" Xóa"
         android:layout_weight="1"
         android:background="#fff"
         android:textAllCaps="false"

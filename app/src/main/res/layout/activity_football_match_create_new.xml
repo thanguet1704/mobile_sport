@@ -6,14 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".activity.game.FootballMatchCreateNew"
     android:orientation="vertical"
-    android:weightSum="14"
-    android:padding="10dp">
+    android:weightSum="14">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal"
-        android:weightSum="10">
+        android:weightSum="10"
+        android:background="@drawable/bg_toolbar">
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -45,7 +45,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:padding="10dp">
         <TextView
             android:id="@+id/txtMatchCreateAct_Stadium"
             android:layout_width="0dp"
@@ -69,7 +70,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="10dp">
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -90,7 +92,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:padding="10dp">
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -112,7 +115,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:padding="10dp">
         <TextView
             android:id="@+id/txtMatchCreateAct_Time"
             android:layout_width="0dp"
@@ -135,7 +139,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:padding="10dp">
         <TextView
             android:id="@+id/txtMatchCreateAct_TimeAmount"
             android:layout_width="0dp"
@@ -158,7 +163,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:padding="10dp">
         <TextView
             android:id="@+id/txtMatchCreateAct_PhoneNumber"
             android:layout_width="0dp"
@@ -188,7 +194,8 @@
         android:textSize="20sp"
         android:layout_weight="1"
         android:textColor="#000"
-        android:gravity="center_vertical"/>
+        android:gravity="center_vertical"
+        android:padding="10dp"/>
 
     <EditText
         android:id="@+id/edtMatchCreateAct_Description"
@@ -198,7 +205,8 @@
         android:layout_weight="4"
         android:textColor="#000"
         android:gravity="top"
-        android:hint="Sân 5, 7 hay 11. Tỉ lệ hay ghi chú khác..."/>
+        android:hint="Sân 5, 7 hay 11. Tỉ lệ hay ghi chú khác..."
+        android:padding="10dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
