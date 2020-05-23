@@ -240,7 +240,7 @@ public class FootballMatchCreateNew extends AppCompatActivity {
             String stadium_id = idStadium;
             String date = edtDate.getText().toString();
             String time = edtTime.getText().toString();
-            Integer time_amount = Integer.parseInt(edtTimeAmount.getText().toString());
+            String time_amount = edtTimeAmount.getText().toString();
           
             final MapConst mapConst = new MapConst();
             String status = mapConst.STATUS_MATCH_MAP.get("NONE");
@@ -257,11 +257,11 @@ public class FootballMatchCreateNew extends AppCompatActivity {
                     if (dataSnapshot.exists()){
                         ArrayList<String> listMatchId = new ArrayList<>();
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                            listMatchId.add(snapshot.getKey());
+                            Intent intent = new Intent(FootballMatchCreateNew.this, FootballMatchInfo.class);
+                            intent.putExtra("match_id", snapshot.getKey());
+                            intent.putExtra("stadium_name", edtStadium.getText().toString());
+                            startActivity(intent);
                         }
-                        Intent intent = new Intent(FootballMatchCreateNew.this, FootballMatchInfo.class);
-                        intent.putExtra("match_id", listMatchId.get(0));
-                        startActivity(intent);
                     }
                 }
 

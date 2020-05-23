@@ -8,7 +8,7 @@ public class MatchModel {
     private String stadium_id;
     private String date;
     private String time;
-    private Integer time_amount;
+    private String time_amount;
     private String status;
     private String description;
     private String phone_number;
@@ -16,7 +16,7 @@ public class MatchModel {
     public MatchModel() {
     }
 
-    public MatchModel(String club_home_id, String club_away_id, String user_created_id, String stadium_id, String date, String time, Integer time_amount, String status, String description, String phone_number) {
+    public MatchModel(String club_home_id, String club_away_id, String user_created_id, String stadium_id, String date, String time, String time_amount, String status, String description, String phone_number) {
         this.club_home_id = club_home_id;
         this.club_away_id = club_away_id;
         this.user_created_id = user_created_id;
@@ -83,13 +83,12 @@ public class MatchModel {
         return this;
     }
 
-    public Integer getTime_amount() {
+    public String getTime_amount() {
         return time_amount;
     }
 
-    public MatchModel setTime_amount(Integer time_amount) {
+    public void setTime_amount(String time_amount) {
         this.time_amount = time_amount;
-        return this;
     }
 
     public String getStatus() {

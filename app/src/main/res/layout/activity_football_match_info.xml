@@ -1,253 +1,226 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.game.FootballMatchInfo">
+    tools:context=".activity.game.FootballMatchInfo"
+    android:weightSum="10"
+    android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cvMatchInfoAct_HomeClub"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:cardBackgroundColor="@color/colorPrimaryDark"
-        app:cardCornerRadius="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:background="#FFEB3B">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical">
+            <Button
+                android:id="@+id/btn_match_info_back"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/ic_back"/>
+        </LinearLayout>
 
-        <ImageView
-            android:id="@+id/imgMatchInfoAct_HomeClubAvt"
-            android:layout_width="40dp"
-            android:layout_height="50dp"
-            android:layout_margin="2dp"
-            android:src="@mipmap/ic_launcher" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="8"
+            android:text="TẠO KÈO"
+            android:textSize="26sp"
+            android:gravity="center"
+            android:textColor="#FF9800"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical">
+            <Button
+                android:id="@+id/btn_delete_match"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/ic_delete_club"/>
+        </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="horizontal"
+        android:weightSum="9">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:orientation="vertical"
+            android:gravity="center">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvMatchInfoAct_HomeClub"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                app:cardCornerRadius="10dp">
 
-    <TextView
-        android:id="@+id/txtMatchInfo_HomeClubName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Arsenal FC"
-        android:textSize="16sp"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cvMatchInfoAct_HomeClub" />
+                <ImageView
+                    android:id="@+id/imgMatchInfoAct_HomeClubAvt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/news_hightlight" />
 
-    <TextView
-        android:layout_width="90dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="30dp"
-        android:text="VS"
-        android:textSize="36sp"
-        android:textColor="#FF9800"
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/txtMatchInfo_HomeClubName"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Arsenal FC"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:textColor="#000"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center">
+            <TextView
+                android:layout_width="90dp"
+                android:layout_height="50dp"
+                android:text="VS"
+                android:textSize="36sp"
+                android:textColor="#FF9800"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:orientation="vertical"
+            android:gravity="center">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvMatchInfoAct_AwayClub"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                app:cardCornerRadius="10dp">
+
+                <ImageView
+                    android:id="@+id/imgMatchInfoAct_AwayClubAvt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/news_hightlight"
+                    android:scaleType="fitXY"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/tvMatchInfoAct_AwayClubName"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Ha Nội FC"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:textColor="#000"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
         android:gravity="center"
-        app:layout_constraintHorizontal_bias="0.50"
-        app:layout_constraintLeft_toRightOf="@id/cvMatchInfoAct_HomeClub"
-        app:layout_constraintRight_toLeftOf="@id/cvMatchInfoAct_AwayClub"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <TextView
-        android:id="@+id/tvMatchInfoAct_AwayClubName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Ha Nội FC"
-        android:textSize="16sp"
-        app:layout_constraintHorizontal_bias="0.90"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cvMatchInfoAct_AwayClub" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cvMatchInfoAct_AwayClub"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:cardBackgroundColor="@color/colorPrimaryDark"
-        app:cardCornerRadius="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.90"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/imgMatchInfoAct_AwayClubAvt"
-            android:layout_width="40dp"
-            android:layout_height="50dp"
-            android:layout_margin="2dp"
-            android:src="@mipmap/ic_launcher" />
-
-    </androidx.cardview.widget.CardView>
-
-    <TextView
-        android:id="@+id/txtMatchInfoAct_Date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="60dp"
-        android:text="Ngày"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cvMatchInfoAct_HomeClub" />
-
-    <EditText
-        android:id="@+id/edtMatchInfoAct_Date"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:enabled="false"
-        android:text="14/02"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txtMatchInfoAct_Date"
-        app:layout_constraintTop_toTopOf="@+id/txtMatchInfoAct_Date"
-        app:layout_constraintBottom_toBottomOf="@+id/txtMatchInfoAct_Date"/>
-
-    <TextView
-        android:id="@+id/txtMatchInfoAct_Time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:text="Thời gian"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtMatchInfoAct_Date" />
-
-    <EditText
-        android:id="@+id/edtMatchInfoAct_Time"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:enabled="false"
-        android:text="11:00 am"
-        app:layout_constraintStart_toEndOf="@+id/txtMatchInfoAct_Time"
-        app:layout_constraintTop_toTopOf="@+id/txtMatchInfoAct_Time"
-        app:layout_constraintBottom_toBottomOf="@+id/txtMatchInfoAct_Time"/>
-
-    <TextView
-        android:id="@+id/txtMatchInfoAct_TimeAmount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Thời lượng"
-        android:textSize="14sp"
-        app:layout_constraintLeft_toRightOf="@id/edtMatchInfoAct_Time"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/txtMatchInfoAct_Time"
-        app:layout_constraintBottom_toBottomOf="@id/txtMatchInfoAct_Time"/>
-
-    <EditText
-        android:id="@+id/edtMatchInfoAct_TimeAmount"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:enabled="false"
-        android:text="90"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txtMatchInfoAct_TimeAmount"
-        app:layout_constraintTop_toTopOf="@+id/txtMatchInfoAct_TimeAmount"
-        app:layout_constraintBottom_toBottomOf="@+id/txtMatchInfoAct_TimeAmount"/>
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tv_match_info_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Thứ Bảy, 23/05 từ 19:30"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:textColor="#3F51B5"/>
+        <TextView
+            android:id="@+id/txtMatchInfoAct_Stadium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sân bóng Trường Đại học Ngoại Ngữ - ĐHQGHN"
+            android:textSize="20sp"
+            android:textColor="#3F51B5"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"/>
+        <TextView
+            android:id="@+id/txtMatchInfo_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Số 2 Phạm Văn Đồng, Quận Cầu Giấy"
+            android:textSize="18dp"
+            android:gravity="center"/>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/txtMatchInfoAct_PhoneNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:text="Số điện thoại liên hệ"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtMatchInfoAct_Time" />
-
-    <EditText
-        android:id="@+id/edtMatchInfoAct_PhoneNumber"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:enabled="false"
-        android:text="0904609822"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txtMatchInfoAct_PhoneNumber"
-        app:layout_constraintTop_toTopOf="@+id/txtMatchInfoAct_PhoneNumber"
-        app:layout_constraintBottom_toBottomOf="@+id/txtMatchInfoAct_PhoneNumber"/>
-
-    <TextView
-        android:id="@+id/txtMatchInfoAct_Stadium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:text="Sân bóng"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtMatchInfoAct_PhoneNumber" />
-
-    <EditText
-        android:id="@+id/edtMatchInfoAct_Stadium"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:textSize="16sp"
-        android:enabled="false"
-        android:text="Sân bóng ĐH Ngoại ngữ - DHQG HN"
-        app:layout_constraintBottom_toBottomOf="@+id/txtMatchInfoAct_Stadium"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txtMatchInfoAct_Stadium"
-        app:layout_constraintTop_toTopOf="@+id/txtMatchInfoAct_Stadium" />
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="0353005557"
+        android:textSize="20sp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:textColor="#000"
+        android:drawableLeft="@drawable/ic_phone"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"/>
 
     <TextView
         android:id="@+id/txtMatchInfoAct_Description"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="Anh em giao lưu nhè nhẹeeee"
+        android:textSize="20sp"
+        android:textColor="#000"
+        android:layout_weight="2"
+        android:gravity="center_vertical"
+        android:drawableLeft="@drawable/bell"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"/>
+    <TextView
+        android:id="@+id/tv_amounts_club"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:text="Mô tả"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtMatchInfoAct_Stadium" />
-
-    <EditText
-        android:id="@+id/edtMatchInfoAct_Description"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
+        android:text="0 đội muốn tham gia trận đấu này"
         android:textSize="16sp"
-        android:enabled="false"
-        android:text="Sân 500, nước từng đội trả tiền. Kèo 7-3 nhẹ nhàng không chặt chém"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtMatchInfoAct_Description" />
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"/>
 
     <Button
         android:id="@+id/btnMatchInfoAct_ApplyMatch"
-        android:layout_width="0dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:text="Chọn đối"
+        android:textColor="#fff"
+        android:textSize="16sp"
         android:layout_marginTop="10dp"
-        android:text="BẮT KÈO"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtMatchInfoAct_Description" />
-
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/bgbtnloginlogout"
+        android:textAllCaps="false"/>
     <Button
-        android:id="@+id/btnMatchInfoAct_DeleteMatch"
-        android:layout_width="0dp"
+        android:id="@+id/btn_request"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:text="Tham gia"
+        android:textColor="#fff"
         android:layout_marginTop="10dp"
-        android:text="HỦY KÈO"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtMatchInfoAct_Description" />
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/bgbtnloginlogout"
+        android:textAllCaps="false"
+        android:visibility="gone"
+        android:textSize="16sp"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

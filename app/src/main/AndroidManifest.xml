@@ -38,7 +38,7 @@
             android:name=".menu.Club"
             android:label="Câu lạc bộ" />
         <activity android:name=".activity.game.FootballMatchInfo"
-            android:parentActivityName=".Home">
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
             android:name=".activity.club.ClubProfile"
