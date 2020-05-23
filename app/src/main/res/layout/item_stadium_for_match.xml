@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="120dp"
     android:weightSum="10">
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="120dp"
         android:layout_weight="3"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center_vertical">
         <androidx.cardview.widget.CardView
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -19,7 +20,6 @@
                 android:id="@+id/img_stadium_for_match"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/news_hightlight"
                 android:scaleType="fitXY"/>
         </androidx.cardview.widget.CardView>
     </LinearLayout>
@@ -28,27 +28,28 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="7"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center_vertical">
         <TextView
             android:id="@+id/tv_name_stadium_for_match"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
-            android:text="Sân bóng trường đại học ngoại ngữ"
+            android:layout_height="wrap_content"
             android:textColor="#000"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:gravity="center_vertical"/>
         <TextView
+            android:id="@+id/tv_address_stadium"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
-            android:text="Phạm Văn Đồng - Mai Dịch - Cầu Giấy - Hà nội"
-            android:gravity="center_vertical"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:text="06:00 - 24:00"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
             android:gravity="center_vertical"
-            android:layout_weight="1"/>
+            android:drawableLeft="@drawable/ic_location"/>
+        <TextView
+            android:id="@+id/tv_time_stadium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:gravity="center_vertical"
+            android:drawableLeft="@drawable/ic_time"/>
     </LinearLayout>
 </LinearLayout>

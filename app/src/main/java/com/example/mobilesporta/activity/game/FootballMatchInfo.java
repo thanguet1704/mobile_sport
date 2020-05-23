@@ -44,7 +44,7 @@ public class FootballMatchInfo extends AppCompatActivity {
 
 
 
-    String match_id;
+
 
     ClubService clubService = new ClubService();
     Map<String, ClubModel> mapClubs = clubService.getMapClubs();
@@ -59,10 +59,10 @@ public class FootballMatchInfo extends AppCompatActivity {
         setContentView(R.layout.activity_football_match_info);
 
         Intent idMatchFromFragment = getIntent();
-        match_id = idMatchFromFragment.getStringExtra("match_id");
+        String match_id = idMatchFromFragment.getStringExtra("match_id");
 
         connectView();
-        showMatchInfo();
+        showMatchInfo(match_id);
     }
 
     private void connectView() {
@@ -126,11 +126,10 @@ public class FootballMatchInfo extends AppCompatActivity {
         edtDescription.setText(matchModel.getDescription());
     }
 
-    private void showMatchInfo() {
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        Query mQuery = mDatabase.child("matchs").orderByKey().equalTo(match_id);
-
-        ValueEventListener valueEventListener = new ValueEventListener() {
+    private void showMatchInfo(final String match_id) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("matchs");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
@@ -146,8 +145,6 @@ public class FootballMatchInfo extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        };
-
-        mQuery.addListenerForSingleValueEvent(valueEventListener);
+        });
     }
 }

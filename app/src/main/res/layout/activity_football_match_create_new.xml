@@ -197,7 +197,8 @@
         android:textSize="20sp"
         android:layout_weight="4"
         android:textColor="#000"
-        android:gravity="top"/>
+        android:gravity="top"
+        android:hint="Sân 5, 7 hay 11. Tỉ lệ hay ghi chú khác..."/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"

@@ -68,6 +68,8 @@ public class FootballMatchCreateNew extends AppCompatActivity {
     Button btnBack;
     Spinner spSelectClub;
     String clubId;
+    String idStadium;
+
     public static final int ACTIVITYB_REQUEST = 100;
 
 
@@ -220,16 +222,17 @@ public class FootballMatchCreateNew extends AppCompatActivity {
     }
 
     private void createMatch(){
-        if (clubId.equals("") || edtStadium.getText().toString().equals("") || edtDate.getText().toString().equals("")
+        if (clubId.equals("") || edtStadium.getText().toString().equals("Chọn sân") || edtDate.getText().toString().equals("")
         || edtTime.getText().toString().equals("") || edtTimeAmount.getText().toString().equals("")
         || edtPhoneNumber.getText().toString().equals("") || edtDescription.getText().toString().equals("")){
             Toast.makeText(FootballMatchCreateNew.this, "Nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
         }
         else{
+
             String user_created_id = user.getUid();
             String club_home_id = clubId;
             String club_away_id = "";
-            String stadium_id = edtStadium.getText().toString();
+            String stadium_id = idStadium;
             String date = edtDate.getText().toString();
             String time = edtTime.getText().toString();
             Integer time_amount = Integer.parseInt(edtTimeAmount.getText().toString());
@@ -247,7 +250,7 @@ public class FootballMatchCreateNew extends AppCompatActivity {
             startActivity(intent);
             DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
             mDatabase.child("matchs").push().setValue(matchModel);
-            final String matchId[] = new String[1];
+            final String[] matchId = new String[1];
             mDatabase.addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -320,6 +323,7 @@ public class FootballMatchCreateNew extends AppCompatActivity {
                 if (data != null) {
                     String newString = data.getStringExtra("stadium_name");
                     edtStadium.setText(newString);
+                    idStadium = data.getStringExtra("stadium_id");
                 }
             }
         }

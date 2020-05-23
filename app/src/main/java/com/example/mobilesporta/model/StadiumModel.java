@@ -1,16 +1,13 @@
 package com.example.mobilesporta.model;
 
-import com.example.mobilesporta.data.service.StadiumCommentService;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class StadiumModel {
     private String stadium_name;
     private String description;
     private String address;
-    private Integer amount;
-    private Integer cost;
+    private String amount;
+    private String cost;
     private String image;
     private String phone_number;
     private String time_open;
@@ -24,7 +21,7 @@ public class StadiumModel {
     public StadiumModel() {
     }
 
-    public StadiumModel(String stadium_name, String description, String address, Integer amount, Integer cost, String image, String phone_number, String time_open, String time_close, String location_x, String location_y, ArrayList<StadiumCommentModel> listComments, String zone) {
+    public StadiumModel(String stadium_name, String description, String address, String amount, String cost, String image, String phone_number, String time_open, String time_close, String location_x, String location_y, ArrayList<StadiumCommentModel> listComments, String zone) {
         this.stadium_name = stadium_name;
         this.description = description;
         this.address = address;
@@ -64,19 +61,19 @@ public class StadiumModel {
         this.address = address;
     }
 
-    public Integer getAmount() {
+    public String getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
     }
 
-    public Integer getCost() {
+    public String getCost() {
         return cost;
     }
 
-    public void setCost(Integer cost) {
+    public void setCost(String cost) {
         this.cost = cost;
     }
 

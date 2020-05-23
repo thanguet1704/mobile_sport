@@ -10,9 +10,12 @@ import com.example.mobilesporta.model.StadiumModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,6 +25,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.mobilesporta.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +45,6 @@ public class SearchSelectStadiumForMatch extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_select_stadium_for_match);
 
-        Intent intent = getIntent();
-        intent.getStringExtra("match_id");
-
         map();
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -50,42 +55,8 @@ public class SearchSelectStadiumForMatch extends AppCompatActivity {
             }
         });
 
-        final ArrayList<StadiumModel> listStadium = new ArrayList<>();
-
-        StadiumCommentModel stadiumComment = new StadiumCommentModel("sads", "sdsd");
-        ArrayList<StadiumCommentModel> listStadiumComment = new ArrayList<>();
-        listStadiumComment.add(stadiumComment);
-
-        StadiumModel stadium = new StadiumModel();
-        stadium.setStadium_name("sfdsdf");
-        stadium.setDescription("asdas");
-        stadium.setAddress("sdfsdf");
-        stadium.setAmount(12312);
-        stadium.setCost(21012);
-        stadium.setImage("sdfsdf");
-        stadium.setPhone_number("23123");
-        stadium.setTime_open("12312");
-        stadium.setTime_close("sdfsdf");
-        stadium.setLocation_x("2312");
-        stadium.setLocation_y("12321");
-        stadium.setListComments(listStadiumComment);
-        stadium.setZone("ssdfsdf");
-        listStadium.add(stadium);
-
-        ItemStadiumForMatchAdapter itemStadiumForMatchAdapter = new ItemStadiumForMatchAdapter(SearchSelectStadiumForMatch.this, R.layout.item_stadium_for_match, listStadium);
-        lvStadium.setAdapter(itemStadiumForMatchAdapter);
-
-        lvStadium.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("id", listStadium.get(position).getStadium_name() + "");
-                Intent intent = new Intent();
-                intent.putExtra("stadium_id", listStadium.get(position).getStadium_name());
-                intent.putExtra("stadium_name", listStadium.get(position).getStadium_name());
-                setResult(RESULT_OK, intent);
-                finish();
-            }
-        });
+        renderItemStadium();
+        search();
 
     }
 
@@ -95,4 +66,100 @@ public class SearchSelectStadiumForMatch extends AppCompatActivity {
         lvStadium = findViewById(R.id.lv_stadium_for_match);
     }
 
+    private void renderItemStadium(){
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("stadiums");
+        databaseReference.orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    final ArrayList<StadiumModel> listStadium = new ArrayList<>();
+                    final ArrayList<String> listIdStadium = new ArrayList<>();
+
+                    for (DataSnapshot snapshot: dataSnapshot.getChildren()){
+                        StadiumModel stadium = snapshot.getValue(StadiumModel.class);
+                        listStadium.add(stadium);
+                        listIdStadium.add(snapshot.getKey());
+                    }
+
+                    ItemStadiumForMatchAdapter itemStadiumForMatchAdapter = new ItemStadiumForMatchAdapter(SearchSelectStadiumForMatch.this, R.layout.item_stadium_for_match, listStadium);
+                    lvStadium.setAdapter(itemStadiumForMatchAdapter);
+                    lvStadium.setMinimumHeight(500);
+                    itemStadiumForMatchAdapter.notifyDataSetChanged();
+
+                    lvStadium.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Intent intent = new Intent();
+                            intent.putExtra("stadium_id", listIdStadium.get(position));
+                            intent.putExtra("stadium_name", listStadium.get(position).getStadium_name());
+                            setResult(RESULT_OK, intent);
+                            finish();
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+    private void search(){
+        edtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(final CharSequence s, final int start, int count, int after) {
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("stadiums");
+                databaseReference.orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()){
+                            final ArrayList<StadiumModel> listStadium = new ArrayList<>();
+                            final ArrayList<String> listIdStadium = new ArrayList<>();
+
+                            for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                                StadiumModel stadium = snapshot.getValue(StadiumModel.class);
+                                
+                                if (stadium.getStadium_name().toLowerCase().contains(s) ||
+                                stadium.getZone().toLowerCase().contains(s)){
+                                    listIdStadium.add(snapshot.getKey());
+                                    listStadium.add(stadium);
+                                }
+                            }
+
+                            ItemStadiumForMatchAdapter itemStadiumForMatchAdapter = new ItemStadiumForMatchAdapter(SearchSelectStadiumForMatch.this, R.layout.item_stadium_for_match, listStadium);
+                            lvStadium.setAdapter(itemStadiumForMatchAdapter);
+                            lvStadium.setMinimumHeight(500);
+
+                            lvStadium.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    Intent intent = new Intent();
+                                    intent.putExtra("stadium_id", listIdStadium.get(position));
+                                    intent.putExtra("stadium_name", listStadium.get(position).getStadium_name());
+                                    setResult(RESULT_OK, intent);
+                                    finish();
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
 }
