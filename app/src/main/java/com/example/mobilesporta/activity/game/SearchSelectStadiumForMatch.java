@@ -92,6 +92,8 @@ public class SearchSelectStadiumForMatch extends AppCompatActivity {
                             Intent intent = new Intent();
                             intent.putExtra("stadium_id", listIdStadium.get(position));
                             intent.putExtra("stadium_name", listStadium.get(position).getStadium_name());
+                            intent.putExtra("stadium_address", listStadium.get(position).getAddress());
+                            Log.d("address",  listStadium.get(position).getAddress());
                             setResult(RESULT_OK, intent);
                             finish();
                         }
@@ -130,6 +132,7 @@ public class SearchSelectStadiumForMatch extends AppCompatActivity {
                             ItemStadiumForMatchAdapter itemStadiumForMatchAdapter = new ItemStadiumForMatchAdapter(SearchSelectStadiumForMatch.this, R.layout.item_stadium_for_match, listStadium);
                             lvStadium.setAdapter(itemStadiumForMatchAdapter);
                             lvStadium.setMinimumHeight(500);
+                            itemStadiumForMatchAdapter.notifyDataSetChanged();
 
                             lvStadium.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
@@ -138,6 +141,7 @@ public class SearchSelectStadiumForMatch extends AppCompatActivity {
                                     intent.putExtra("stadium_id", listIdStadium.get(position));
                                     intent.putExtra("stadium_name", listStadium.get(position).getStadium_name());
                                     intent.putExtra("stadium_address", listStadium.get(position).getAddress());
+                                    Log.d("address",  listStadium.get(position).getAddress());
                                     setResult(RESULT_OK, intent);
                                     finish();
                                 }

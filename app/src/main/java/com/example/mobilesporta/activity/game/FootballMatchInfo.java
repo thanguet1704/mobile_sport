@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.mobilesporta.Home;
 import com.example.mobilesporta.R;
 import com.example.mobilesporta.data.service.ClubService;
 import com.example.mobilesporta.data.service.MatchService;
@@ -53,12 +54,28 @@ public class FootballMatchInfo extends AppCompatActivity {
         setContentView(R.layout.activity_football_match_info);
 
         Intent intent = getIntent();
-        String match_id = intent.getStringExtra("match_id");
+        final String match_id = intent.getStringExtra("match_id");
         stadiumName = intent.getStringExtra("stadium_name");
         stadiumAddress = intent.getStringExtra("stadium_address");
 
         connectView();
         showMatchInfo(match_id);
+
+        btnBackToMatch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FootballMatchInfo.this, Home.class);
+                intent.putExtra("add_match", "true");
+                startActivity(intent);
+            }
+        });
+
+        btnDeleteMatch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteMatch(match_id);
+            }
+        });
     }
 
     private void connectView() {
@@ -88,35 +105,34 @@ public class FootballMatchInfo extends AppCompatActivity {
         return  clubModel;
     }
 
-    private  void setView(MatchModel matchModel) {
+    private  void setViewClub(MatchModel matchModel) {
 
-        Log.e("s", String.valueOf(mapClubs.size()));
-        Log.e("ss", String.valueOf(mapMatchs.size()));
-
-        if (!matchModel.getClub_home_id().equals("")) {
-            ClubModel homeClubModel = getClubById(matchModel.getClub_home_id(), mapClubs);
-            Log.e("s", homeClubModel.getImage());
-            txtHomeClubName.setText(homeClubModel.getClub_name());
-            Picasso.get().load(homeClubModel.getImage()).into(imgHomeClubName);
-        }
-        else {
-            txtHomeClubName.setText("???");
-        }
-
-
-        if( !matchModel.getClub_away_id().equals("")) {
-            ClubModel awayClubModel = getClubById(matchModel.getClub_away_id(), mapClubs);
-            txtAwayClubName.setText(awayClubModel.getClub_name());
-            Picasso.get().load(awayClubModel.getImage()).into(imgAwayClubName);
-        }
-        else {
-            txtAwayClubName.setText("???");
-        }
-
+//        Log.e("s", String.valueOf(mapClubs.size()));
+//        Log.e("ss", String.valueOf(mapMatchs.size()));
+//
+//        if (!matchModel.getClub_home_id().equals("")) {
+//            ClubModel homeClubModel = getClubById(matchModel.getClub_home_id(), mapClubs);
+//            Log.e("s", homeClubModel.getImage());
+//            txtHomeClubName.setText(homeClubModel.getClub_name());
+//            Picasso.get().load(homeClubModel.getImage()).into(imgHomeClubName);
+//        }
+//        else {
+//            txtHomeClubName.setText("???");
+//        }
+//
+//
+//        if( !matchModel.getClub_away_id().equals("")) {
+//            ClubModel awayClubModel = getClubById(matchModel.getClub_away_id(), mapClubs);
+//            txtAwayClubName.setText(awayClubModel.getClub_name());
+//            Picasso.get().load(awayClubModel.getImage()).into(imgAwayClubName);
+//        }
+//        else {
+//            txtAwayClubName.setText("???");
+//        }
+//
 
 
 //        Picasso.get().load(awayClub.getImage()).into(imgAwayClub);
-
 
     }
 
@@ -143,5 +159,13 @@ public class FootballMatchInfo extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void deleteMatch(String matchId){
+        MatchService matchService = new MatchService();
+        matchService.deleteMatch(matchId);
+        Intent intent = new Intent(FootballMatchInfo.this, Home.class);
+        intent.putExtra("add_match", "true");
+        startActivity(intent);
     }
 }

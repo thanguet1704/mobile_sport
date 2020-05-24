@@ -179,4 +179,9 @@ public class MatchService {
 
         return mapMatchs;
     }
+
+    public void deleteMatch(String match_id){
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("matchs").child(match_id);
+        mDatabase.removeValue();
+    }
 }
