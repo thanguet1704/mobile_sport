@@ -39,7 +39,7 @@ public class FootballMatchInfo extends AppCompatActivity {
     ImageView imgAwayClubName;
     TextView tvDate, tvStadiumName, tvAddress, tvPhoneNumber, tvDescription, tvAmountsClub;
     Button btnSelectClub, btnRequest, btnBackToMatch, btnDeleteMatch;
-    String stadiumName, match_id;
+    String stadiumName, stadiumAddress;
 
     ClubService clubService = new ClubService();
     Map<String, ClubModel> mapClubs = clubService.getMapClubs();
@@ -52,12 +52,13 @@ public class FootballMatchInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_football_match_info);
 
-        Intent idMatchFromFragment = getIntent();
-        match_id = idMatchFromFragment.getStringExtra("match_id");
-        stadiumName = idMatchFromFragment.getStringExtra("stadium_name");
+        Intent intent = getIntent();
+        String match_id = intent.getStringExtra("match_id");
+        stadiumName = intent.getStringExtra("stadium_name");
+        stadiumAddress = intent.getStringExtra("stadium_address");
 
         connectView();
-        showMatchInfo();
+        showMatchInfo(match_id);
     }
 
     private void connectView() {
@@ -68,8 +69,8 @@ public class FootballMatchInfo extends AppCompatActivity {
         tvDate = findViewById(R.id.tv_match_info_date);
         tvStadiumName = findViewById(R.id.txtMatchInfoAct_Stadium);
         tvAddress = findViewById(R.id.txtMatchInfo_address);
-        tvPhoneNumber = findViewById(R.id.txtMatchCreateAct_PhoneNumber);
-        tvDescription = findViewById(R.id.txtMatchCreateAct_Description);
+        tvPhoneNumber = findViewById(R.id.txtMatchInfoAct_PhoneNumber);
+        tvDescription = findViewById(R.id.txtMatchInfoAct_Description);
         tvAmountsClub = findViewById(R.id.tv_amounts_club);
         btnSelectClub = findViewById(R.id.btnMatchInfoAct_ApplyMatch);
         btnRequest = findViewById(R.id.btn_request);
@@ -119,20 +120,20 @@ public class FootballMatchInfo extends AppCompatActivity {
 
     }
 
-    private void showMatchInfo() {
+    private void showMatchInfo(String match_id) {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("matchs");
-        databaseReference.orderByKey().equalTo("-M80o8IiqppwwOrxDY9B").addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.orderByKey().equalTo(match_id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-
-//                        tvDate.setText("sdfsdf");
-//                        tvStadiumName.setText("sdfsdf");
-//                        tvAddress.setText("sdfsdf");
-//                        tvPhoneNumber.setText("sdfsdf");
-//                        tvDescription.setText("sdfsdf");
-//                        tvAmountsClub.setText("2" + " đội muốn tham gia trận đấu này");
+                        MatchModel matchModel = snapshot.getValue(MatchModel.class);
+                        tvDate.setText(matchModel.getDate() + " từ " + matchModel.getTime());
+                        tvStadiumName.setText(stadiumName);
+                        tvAddress.setText(stadiumAddress);
+                        tvPhoneNumber.setText(matchModel.getPhone_number());
+                        tvDescription.setText(matchModel.getDescription());
+                        tvAmountsClub.setText("0" + " đội muốn tham gia trận đấu này");
                     }
                 }
             }

@@ -137,6 +137,7 @@ public class SearchSelectStadiumForMatch extends AppCompatActivity {
                                     Intent intent = new Intent();
                                     intent.putExtra("stadium_id", listIdStadium.get(position));
                                     intent.putExtra("stadium_name", listStadium.get(position).getStadium_name());
+                                    intent.putExtra("stadium_address", listStadium.get(position).getAddress());
                                     setResult(RESULT_OK, intent);
                                     finish();
                                 }

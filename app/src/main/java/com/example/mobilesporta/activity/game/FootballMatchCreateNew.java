@@ -39,7 +39,9 @@ import com.example.mobilesporta.data.service.MatchService;
 import com.example.mobilesporta.model.ClubModel;
 import com.example.mobilesporta.model.MatchModel;
 import com.example.mobilesporta.model.StadiumModel;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -71,7 +73,7 @@ public class FootballMatchCreateNew extends AppCompatActivity {
     Button btnBack;
     Spinner spSelectClub;
     String clubId;
-    String idStadium;
+    String idStadium, stadiumAddress;
 
     public static final int ACTIVITYB_REQUEST = 100;
 
@@ -250,41 +252,17 @@ public class FootballMatchCreateNew extends AppCompatActivity {
             MatchModel matchModel = new MatchModel(club_home_id, club_away_id, user_created_id, stadium_id, date, time, time_amount, status, description, phone_number);
 
             DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-            mDatabase.child("matchs").push().setValue(matchModel);
-            mDatabase.addChildEventListener(new ChildEventListener() {
+            mDatabase.child("matchs").push().setValue(matchModel, new DatabaseReference.CompletionListener() {
                 @Override
-                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                    if (dataSnapshot.exists()){
-                        ArrayList<String> listMatchId = new ArrayList<>();
-                        for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                            Intent intent = new Intent(FootballMatchCreateNew.this, FootballMatchInfo.class);
-                            intent.putExtra("match_id", snapshot.getKey());
-                            intent.putExtra("stadium_name", edtStadium.getText().toString());
-                            startActivity(intent);
-                        }
-                    }
+                public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+                    Intent intent = new Intent(FootballMatchCreateNew.this, FootballMatchInfo.class);
+                    intent.putExtra("match_id", databaseReference.getKey());
+                    intent.putExtra("stadium_name", edtStadium.getText().toString());
+                    intent.putExtra("stadium_address", stadiumAddress);
+                    startActivity(intent);
+                    finish();
                 }
-
-                @Override
-                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });;
+            });
         }
 
     }
@@ -322,6 +300,7 @@ public class FootballMatchCreateNew extends AppCompatActivity {
                     String newString = data.getStringExtra("stadium_name");
                     edtStadium.setText(newString);
                     idStadium = data.getStringExtra("stadium_id");
+                    stadiumAddress = data.getStringExtra("stadium_address");
                 }
             }
         }
