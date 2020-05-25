@@ -54,6 +54,7 @@
         android:orientation="horizontal"
         android:weightSum="9">
         <LinearLayout
+            android:id="@+id/ll_home_club"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
@@ -99,6 +100,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_away_club"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
@@ -114,7 +116,6 @@
                     android:id="@+id/imgMatchInfoAct_AwayClubAvt"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/news_hightlight"
                     android:scaleType="fitXY"/>
 
             </androidx.cardview.widget.CardView>
@@ -123,7 +124,6 @@
                 android:id="@+id/tvMatchInfoAct_AwayClubName"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:text="Ha Nội FC"
                 android:textSize="16sp"
                 android:gravity="center"
                 android:textColor="#000"/>
