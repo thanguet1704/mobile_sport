@@ -21,7 +21,7 @@ public class StadiumModel {
     public StadiumModel() {
     }
 
-    public StadiumModel(String stadium_name, String description, String address, String amount, String cost, String image, String phone_number, String time_open, String time_close, String location_x, String location_y, ArrayList<StadiumCommentModel> listComments, String zone) {
+    public StadiumModel(String stadium_name, String description, String address, String amount, String cost, String image, String phone_number, String time_open, String time_close, String location_x, String location_y) {
         this.stadium_name = stadium_name;
         this.description = description;
         this.address = address;
@@ -33,8 +33,8 @@ public class StadiumModel {
         this.time_close = time_close;
         this.location_x = location_x;
         this.location_y = location_y;
-        this.listComments = listComments;
-        this.zone = zone;
+//        this.listComments = listComments;
+//        this.zone = zone;
     }
 
     public String getStadium_name() {

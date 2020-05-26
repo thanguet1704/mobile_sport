@@ -41,5 +41,6 @@
     <string name="title_activity_pravicy_policy">Chính sách bảo mật</string>
     <string name="title_activity_search_select_stadium_for_match">SearchSelectStadiumForMatch
     </string>
+    <string name="title_activity_stadium_map">Map</string>
 
 </resources>

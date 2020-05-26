@@ -1,9 +1,11 @@
 package com.example.mobilesporta.activity.game;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.mobilesporta.Home;
 import com.example.mobilesporta.R;
@@ -21,6 +24,7 @@ import com.example.mobilesporta.data.service.MatchService;
 import com.example.mobilesporta.model.ClubModel;
 import com.example.mobilesporta.model.MatchModel;
 import com.example.mobilesporta.model.StadiumModel;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -63,8 +67,6 @@ public class FootballMatchInfo extends AppCompatActivity {
 
         Intent intent = getIntent();
         final String match_id = intent.getStringExtra("match_id");
-        stadiumName = intent.getStringExtra("stadium_name");
-        stadiumAddress = intent.getStringExtra("stadium_address");
 
         connectView();
 
@@ -73,21 +75,13 @@ public class FootballMatchInfo extends AppCompatActivity {
         //hiển thị thông tin kèo
         showMatchInfo(match_id);
 
-        btnBackToMatch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(FootballMatchInfo.this, Home.class);
-                intent.putExtra("add_match", "true");
-                startActivity(intent);
-            }
-        });
+        backToMatch();
 
-        btnDeleteMatch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                deleteMatch(match_id);
-            }
-        });
+        deleteMatch(match_id);
+        // click nút chọn đối
+        clickSelectClub();
+        // click nút tham gia
+        clickRequest();
     }
 
     private void connectView() {
@@ -180,12 +174,29 @@ public class FootballMatchInfo extends AppCompatActivity {
         });
     }
 
-    private void deleteMatch(String matchId){
-        MatchService matchService = new MatchService();
-        matchService.deleteMatch(matchId);
-        Intent intent = new Intent(FootballMatchInfo.this, Home.class);
-        intent.putExtra("add_match", "true");
-        startActivity(intent);
+    private void backToMatch(){
+        btnBackToMatch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FootballMatchInfo.this, Home.class);
+                intent.putExtra("add_match", "true");
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void deleteMatch(final String matchId){
+
+        btnDeleteMatch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MatchService matchService = new MatchService();
+                matchService.deleteMatch(matchId);
+                Intent intent = new Intent(FootballMatchInfo.this, Home.class);
+                intent.putExtra("add_match", "true");
+                startActivity(intent);
+            }
+        });
     }
 
     private void displayButtonSelectClub(String match_id){
@@ -302,5 +313,23 @@ public class FootballMatchInfo extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void clickSelectClub(){
+        btnSelectClub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                View view = getLayoutInflater().inflate(R.layout.dialog_select_club, null);
+                final Dialog dialog = new Dialog(FootballMatchInfo.this);
+                dialog.setContentView(view);
+                dialog.show();
+                Window window = dialog.getWindow();
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT, ViewPager.LayoutParams.WRAP_CONTENT);
+            }
+        });
+    }
+
+    private void clickRequest(){
+
     }
 }
