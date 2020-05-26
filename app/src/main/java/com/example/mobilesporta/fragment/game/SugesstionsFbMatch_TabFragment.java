@@ -32,6 +32,7 @@ import com.example.mobilesporta.model.MatchModel;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +44,10 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
     MatchService matchService = new MatchService();
     List<MatchModel> listMatch = matchService.getListMatch();
     List<String> listMatchId = matchService.getListMatchId();
+    List<String> listMatchIdByDate = new ArrayList<>();
+
+    List<MatchModel> listMatchByDate = new ArrayList<>();
+    Map<String, MatchModel> mapMatchModelsByDate = new HashMap<>();
 
     ClubService clubService = new ClubService();
     Map<String, ClubModel> mapClubs = clubService.getMapClubs();
@@ -51,6 +56,11 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
 
     TextView txtDate;
     TextView txtTime;
+
+    ItemFootballMatchAdapter itemFootballMatchAdapter;
+
+    final Calendar calendar = Calendar.getInstance();
+    final SimpleDateFormat sDF = new SimpleDateFormat("dd/MM/yyy");
 
     public SugesstionsFbMatch_TabFragment() {
         // Required empty public constructor
@@ -78,20 +88,43 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
     }
 
     private void showListMatch() {
-        ItemFootballMatchAdapter itemFootballMatchAdapter = new ItemFootballMatchAdapter(getActivity(), listMatch, mapClubs);
+
+        mapMatchModelsByDate = matchService.getMapMatchByDateTime(txtDate.getText().toString());
+        listMatchByDate = matchService.getListMatchByDateTime(txtDate.getText().toString());
+        listMatchIdByDate = matchService.getListMatchIdByDate(txtDate.getText().toString());
+
+        Log.e("msg1", String.valueOf(mapMatchModelsByDate.size()));
+        Log.e("msg2", String.valueOf(listMatchByDate.size()));
+
+        itemFootballMatchAdapter = new ItemFootballMatchAdapter(getActivity(), listMatchByDate, mapClubs);
         listView.setAdapter(itemFootballMatchAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), FootballMatchInfo.class);
-                intent.putExtra("match_id", listMatchId.get(position));
+                intent.putExtra("match_id", listMatchIdByDate.get(position));
                 startActivity(intent);
             }
         });
     }
 
+
+//    private String getMatchKeyFromObject(MatchModel match) {
+//        String matchKey = new String();
+//        for (Map.Entry<String, MatchModel> entry : mapMatchModelsByDate.entrySet()) {
+//            Log.e("1", match.toString());
+//            Log.e("12", entry.getValue().toString());
+//            if(entry.getValue().equals(match)) {
+//                Log.e("1", "0");
+//
+//                matchKey = entry.getKey();
+//                Log.e("key", matchKey);
+//            }
+//        }
+//        return  matchKey;
+//    }
+
     private void pickTime() {
-        final Calendar calendar = Calendar.getInstance();
         txtTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,7 +140,7 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
     }
 
     private void pickDate() {
-        final Calendar calendar = Calendar.getInstance();
+        txtDate.setText(sDF.format(calendar.getTime()));
         txtDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,7 +148,6 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         calendar.set(year, month, dayOfMonth);
-                        SimpleDateFormat sDF = new SimpleDateFormat("dd/MM/yyy");
                         txtDate.setText(sDF.format(calendar.getTime()));
                     }
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
@@ -123,4 +155,5 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
             }
         });
     }
+
 }
