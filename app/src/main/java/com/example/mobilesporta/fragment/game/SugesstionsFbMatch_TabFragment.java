@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.text.format.DateFormat;
@@ -28,10 +29,18 @@ import com.example.mobilesporta.data.service.ClubService;
 import com.example.mobilesporta.data.service.MatchService;
 import com.example.mobilesporta.model.ClubModel;
 import com.example.mobilesporta.model.MatchModel;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,14 +80,20 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view =  inflater.inflate(R.layout.fragment_sugesstions_fb_match__tab, container, false);
+        View view = inflater.inflate(R.layout.fragment_sugesstions_fb_match__tab, container, false);
         connectView(view);
 
+        init();
         pickTime();
         pickDate();
-        showListMatch();
         // Inflate the layout for this fragment
         return view;
+    }
+
+    private void init() {
+        txtDate.setText(sDF.format(calendar.getTime()));
+        getDataByDate();
+        showListMatch();
     }
 
     private void connectView(View view) {
@@ -87,11 +102,19 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
         txtDate = (TextView) view.findViewById(R.id.txtSugesstion_Match_Fragment_FilterDateSearch);
     }
 
-    private void showListMatch() {
-
+    private void getDataByDate() {
         mapMatchModelsByDate = matchService.getMapMatchByDateTime(txtDate.getText().toString());
         listMatchByDate = matchService.getListMatchByDateTime(txtDate.getText().toString());
         listMatchIdByDate = matchService.getListMatchIdByDate(txtDate.getText().toString());
+    }
+
+    private void clearData() {
+        mapMatchModelsByDate.clear();
+        listMatchByDate.clear();
+        listMatchIdByDate.clear();
+    }
+
+    private void showListMatch() {
 
         Log.e("msg1", String.valueOf(mapMatchModelsByDate.size()));
         Log.e("msg2", String.valueOf(listMatchByDate.size()));
@@ -109,21 +132,6 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
     }
 
 
-//    private String getMatchKeyFromObject(MatchModel match) {
-//        String matchKey = new String();
-//        for (Map.Entry<String, MatchModel> entry : mapMatchModelsByDate.entrySet()) {
-//            Log.e("1", match.toString());
-//            Log.e("12", entry.getValue().toString());
-//            if(entry.getValue().equals(match)) {
-//                Log.e("1", "0");
-//
-//                matchKey = entry.getKey();
-//                Log.e("key", matchKey);
-//            }
-//        }
-//        return  matchKey;
-//    }
-
     private void pickTime() {
         txtTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,7 +148,7 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
     }
 
     private void pickDate() {
-        txtDate.setText(sDF.format(calendar.getTime()));
+
         txtDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,11 +157,71 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         calendar.set(year, month, dayOfMonth);
                         txtDate.setText(sDF.format(calendar.getTime()));
+
+//                        clearData();
+//                        mapMatchModelsByDate.clear();
+//                        mapMatchModelsByDate.putAll(matchService.getMapMatchByDateTime(txtDate.getText().toString()));
+//                        mapMatchModelsByDate = matchService.getMapMatchByDateTime(txtDate.getText().toString());
+//                        listMatchByDate.clear();
+//                        listMatchByDate.addAll(matchService.getListMatchByDateTime(txtDate.getText().toString()));
+//
+//                        listMatchIdByDate.clear();
+//                        listMatchIdByDate.addAll(matchService.getListMatchIdByDate(txtDate.getText().toString()));
+
+
+                        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("matchs");
+                        Query matchsByDate = mDatabase.orderByKey();
+
+                        matchsByDate.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    clearData();
+                                    Log.e("clear : ", "here");
+                                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                        MatchModel match = snapshot.getValue(MatchModel.class);
+                                        try {
+
+                                            Log.e("logic : ", "here");
+                                            Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(txtDate.getText().toString());
+                                            Date date2 = new SimpleDateFormat("dd-MM-yyyy").parse(match.getDate());
+
+                                            if (date1.compareTo(date2) == 0) {
+                                                listMatchByDate.add(match);
+                                                listMatchIdByDate.add(snapshot.getKey());
+                                                mapMatchModelsByDate.put(snapshot.getKey(), match);
+                                                Log.e("test sizze", String.valueOf(listMatchByDate.size()));
+                                            }
+                                        } catch (ParseException e) {
+                                            e.printStackTrace();
+                                            Log.e("e : ", e.toString());
+                                        }
+                                    }
+                                    Log.e("msg1A", String.valueOf(mapMatchModelsByDate.size()));
+                                    Log.e("msg2A", String.valueOf(listMatchByDate.size()));
+                                    Log.e("msg3A", String.valueOf(listMatchIdByDate.size()));
+                                    itemFootballMatchAdapter.notifyDataSetChanged();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                Log.w("TAG", "loadPost:onCancelled", databaseError.toException());
+                            }
+                        });
+
+
+
                     }
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
+
+
+//                showListMatch();
                 datePickerDialog.show();
             }
+
         });
     }
+
 
 }
