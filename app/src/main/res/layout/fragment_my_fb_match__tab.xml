@@ -14,14 +14,12 @@
     <FrameLayout
         android:id="@+id/My_Fb_Match_Fragment_listMatch_Layout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="9">
+        android:layout_height="match_parent">
 
         <ListView
             android:id="@+id/lvMy_Fb_Match_Fragment_ListMatch"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:dividerHeight="10dp"/>
+            android:layout_height="wrap_content"/>
     </FrameLayout>
 
 </LinearLayout>

@@ -22,7 +22,6 @@
             android:id="@+id/imgItemFootballMatch_HomeClubAvt"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/news_hightlight"
             android:scaleType="fitXY"/>
 
     </androidx.cardview.widget.CardView>
@@ -44,7 +43,6 @@
         android:id="@+id/txtItemFootballMatch_Time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="15:00"
         android:textSize="16dp"
         android:textColor="#032B65"
         app:layout_constraintHorizontal_bias="0.25"
@@ -119,7 +117,6 @@
             android:id="@+id/imgItemFootballMatch_AwayClubAvt"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/news_hightlight"
             android:scaleType="fitXY"/>
 
     </androidx.cardview.widget.CardView>

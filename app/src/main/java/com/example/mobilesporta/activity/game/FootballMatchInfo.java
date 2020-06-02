@@ -2,6 +2,7 @@ package com.example.mobilesporta.activity.game;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +26,12 @@ import com.example.mobilesporta.data.service.MatchService;
 import com.example.mobilesporta.model.ClubModel;
 import com.example.mobilesporta.model.MatchModel;
 import com.example.mobilesporta.model.StadiumModel;
+import com.example.mobilesporta.notifications.APIService;
+import com.example.mobilesporta.notifications.Client;
+import com.example.mobilesporta.notifications.Data;
+import com.example.mobilesporta.notifications.Response;
+import com.example.mobilesporta.notifications.Sender;
+import com.example.mobilesporta.notifications.Token;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,12 +41,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class FootballMatchInfo extends AppCompatActivity {
 
@@ -58,7 +70,10 @@ public class FootballMatchInfo extends AppCompatActivity {
     Map<String, MatchModel> mapMatchs = matchService.getMapMatchs();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     String clubHomeId, clubAwayId;
-    String user_create_id;
+    String user_create_id, mUID;
+    APIService apiService;
+    boolean notify = false;
+    public String match_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,9 +81,12 @@ public class FootballMatchInfo extends AppCompatActivity {
         setContentView(R.layout.activity_football_match_info);
 
         Intent intent = getIntent();
-        final String match_id = intent.getStringExtra("match_id");
+        match_id = intent.getStringExtra("match_id");
+        mUID = user.getUid();
 
         connectView();
+        // update token
+        updateToken(FirebaseInstanceId.getInstance().getToken());
 
         // hiển thị nút chọn đối nếu là người tạo match, tham gia nếu là người bắt kèo
         displayButtonSelectClub(match_id);
@@ -76,12 +94,23 @@ public class FootballMatchInfo extends AppCompatActivity {
         showMatchInfo(match_id);
 
         backToMatch();
+//      create api service
+        apiService = Client.getRetrofit("https://fcm.googleapis.com/").create(APIService.class);
 
         deleteMatch(match_id);
         // click nút chọn đối
         clickSelectClub();
         // click nút tham gia
         clickRequest();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences sp = getSharedPreferences("SP_USER", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("Current_USERID", mUID);
+        editor.apply();
     }
 
     private void connectView() {
@@ -111,37 +140,6 @@ public class FootballMatchInfo extends AppCompatActivity {
             }
         }
         return  clubModel;
-    }
-
-    private  void setViewClub(MatchModel matchModel) {
-
-//        Log.e("s", String.valueOf(mapClubs.size()));
-//        Log.e("ss", String.valueOf(mapMatchs.size()));
-//
-//        if (!matchModel.getClub_home_id().equals("")) {
-//            ClubModel homeClubModel = getClubById(matchModel.getClub_home_id(), mapClubs);
-//            Log.e("s", homeClubModel.getImage());
-//            txtHomeClubName.setText(homeClubModel.getClub_name());
-//            Picasso.get().load(homeClubModel.getImage()).into(imgHomeClubName);
-//        }
-//        else {
-//            txtHomeClubName.setText("???");
-//        }
-//
-//
-//        if( !matchModel.getClub_away_id().equals("")) {
-//            ClubModel awayClubModel = getClubById(matchModel.getClub_away_id(), mapClubs);
-//            txtAwayClubName.setText(awayClubModel.getClub_name());
-//            Picasso.get().load(awayClubModel.getImage()).into(imgAwayClubName);
-//        }
-//        else {
-//            txtAwayClubName.setText("???");
-//        }
-//
-
-
-//        Picasso.get().load(awayClub.getImage()).into(imgAwayClub);
-
     }
 
     private void showMatchInfo(String match_id) {
@@ -330,6 +328,78 @@ public class FootballMatchInfo extends AppCompatActivity {
     }
 
     private void clickRequest(){
+        btnRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                notify = true;
+                DatabaseReference database = FirebaseDatabase.getInstance().getReference("matchs");
+                database.orderByKey().equalTo(match_id).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()){
+                            ArrayList<MatchModel> listMatch = new ArrayList<>();
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                                MatchModel match = snapshot.getValue(MatchModel.class);
+                                listMatch.add(match);
+                            }
 
+                            Log.d("id", match_id);
+                            if (notify){
+                                sendNotification(listMatch.get(0).getUser_created_id());
+                            }
+                            notify = false;
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+            }
+        });
+    }
+
+    private void sendNotification(final String hisUid) {
+        DatabaseReference allToken = FirebaseDatabase.getInstance().getReference("Tokens");
+        Query query = allToken.orderByKey().equalTo(hisUid);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                        Token token = snapshot.getValue(Token.class);
+
+                        Data data = new Data(user.getUid(), "Một câu lạc bộ mới tham gia trận đấu của bạn. Bắt đối ngay kẻo lỡ!", "Có đội muốn đá với đội của bạn", hisUid  , R.mipmap.ic_launcher_foreground);
+                        Sender sender = new Sender(data, token.getToken());
+                        apiService.sendNotification(sender)
+                                .enqueue(new Callback<Response>() {
+                                    @Override
+                                    public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                                        Toast.makeText(FootballMatchInfo.this, response.message() + "", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<Response> call, Throwable t) {
+
+                                    }
+                                });
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
+    public void updateToken(String token){
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Tokens");
+        Token mToken = new Token(token);
+        ref.child(user.getUid()).setValue(mToken);
     }
 }

@@ -116,9 +116,6 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
 
     private void showListMatch() {
 
-        Log.e("msg1", String.valueOf(mapMatchModelsByDate.size()));
-        Log.e("msg2", String.valueOf(listMatchByDate.size()));
-
         itemFootballMatchAdapter = new ItemFootballMatchAdapter(getActivity(), listMatchByDate, mapClubs);
         listView.setAdapter(itemFootballMatchAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="10dp"
-    android:background="@drawable/item_club_style">
+    android:background="#F5F5F5">
 
     <androidx.cardview.widget.CardView
         android:layout_width="80dp"
@@ -40,7 +40,6 @@
         android:layout_height="40dp"
         android:textSize="16sp"
         android:layout_marginLeft="20dp"
-        android:text="Arsenal FC"
         android:layout_below="@+id/txtItemClub_ClubName"
         android:textColor="#000"/>
 

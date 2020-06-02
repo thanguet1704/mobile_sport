@@ -89,7 +89,8 @@ public class    ItemFootballMatchAdapter extends BaseAdapter {
             Picasso.get().load(homeClub.getImage()).into(imgHomeClub);
         }
         else {
-            txtHomeClubName.setText("???");
+            txtHomeClubName.setText("");
+            Picasso.get().load("https://firebasestorage.googleapis.com/v0/b/mobilesporta-5bb33.appspot.com/o/image_club%2Fd63e35b31954db7a83f772702a348eb6.png?alt=media&token=964db416-1304-484c-88d0-c05aee101a1a").into(imgAwayClub);
         }
 
 
@@ -99,7 +100,8 @@ public class    ItemFootballMatchAdapter extends BaseAdapter {
             Picasso.get().load(awayClub.getImage()).into(imgAwayClub);
         }
         else {
-            txtAwayClubName.setText("???");
+            txtAwayClubName.setText("");
+            Picasso.get().load("https://firebasestorage.googleapis.com/v0/b/mobilesporta-5bb33.appspot.com/o/image_club%2Fd63e35b31954db7a83f772702a348eb6.png?alt=media&token=964db416-1304-484c-88d0-c05aee101a1a").into(imgAwayClub);
         }
 
 

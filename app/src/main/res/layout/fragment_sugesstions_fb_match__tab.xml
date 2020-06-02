@@ -12,8 +12,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/tvSugesstion_Match_Fragment_FilterDateTitle"
@@ -21,9 +20,12 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:text="Ngày "
+            android:text="Lọc"
+            android:textColor="#FFC107"
+            android:textSize="24sp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/txtSugesstion_Match_Fragment_FilterDateSearch"
@@ -31,11 +33,14 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="12dp"
-            android:text="Chọn ngày"
-            android:textSize="14sp"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/tvSugesstion_Match_Fragment_FilterDateTitle"
             app:layout_constraintStart_toEndOf="@+id/tvSugesstion_Match_Fragment_FilterDateTitle"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/bgbtnloginlogout"
+            android:padding="5dp"
+            android:textColor="#fff"
+            android:textStyle="bold"/>
 
 
         <TextView
@@ -44,7 +49,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="100dp"
             android:layout_marginTop="10dp"
-            android:text="Thời gian"
             app:layout_constraintLeft_toRightOf="@id/tvSugesstion_Match_Fragment_FilterDateTitle"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -54,8 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="12dp"
-            android:text="Từ"
-            android:textSize="14sp"
+            android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="@+id/tvSugesstion_Match_Fragment_FilterTimeTitle"
             app:layout_constraintStart_toEndOf="@+id/tvSugesstion_Match_Fragment_FilterTimeTitle"
             app:layout_constraintTop_toTopOf="parent" />
@@ -85,8 +88,7 @@
     <FrameLayout
         android:id="@+id/Sugesstion_Match_Fragment_listMatch_Layout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="9">
+        android:layout_height="match_parent">
 
         <ListView
             android:id="@+id/lvSugesstion_Match_Fragment_ListMatch"
