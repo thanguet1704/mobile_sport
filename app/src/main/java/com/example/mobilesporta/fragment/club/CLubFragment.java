@@ -122,7 +122,7 @@ public class CLubFragment extends Fragment {
         clubModel.setClub_name(nameClub);
         clubModel.setDescription(description);
         clubModel.setSlogan(slogan);
-        clubModel.setImage("https://firebasestorage.googleapis.com/v0/b/mobilesporta-5bb33.appspot.com/o/image_club%2Fimage_club.jpg?alt=media&token=7e5b5eb4-7c55-486b-9839-528804ba8f84");
+        clubModel.setImage("https://firebasestorage.googleapis.com/v0/b/mobilesporta-5bb33.appspot.com/o/image_club%2Favatar_uid_-M8hzQvJjkqB43x-JQKS?alt=media&token=a93b545f-4152-43c3-b9eb-b30cc740fd1a");
         clubModel.setBackground("https://firebasestorage.googleapis.com/v0/b/mobilesporta-5bb33.appspot.com/o/image_club%2Fbg_club.jpg?alt=media&token=cd844456-84eb-4716-b457-e383868b7871");
         clubModel.setUser_created_id(userId);
 

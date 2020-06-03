@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import com.example.mobilesporta.R;
 import com.example.mobilesporta.model.ClubModel;
 import com.example.mobilesporta.model.MatchModel;
+import com.example.mobilesporta.model.StadiumModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -73,7 +74,7 @@ public class ItemHistoryClubAdapter extends BaseAdapter {
         txtStadium = convertView.findViewById(R.id.txtItemFootballMatch_Stadium);
 
         txtMatchDate.setText(FootballMatchList.get(position).getDate() + " - " + FootballMatchList.get(position).getTime());
-        txtStadium.setText(FootballMatchList.get(position).getStadium_id());
+        renderStadiumName(FootballMatchList.get(position).getStadium_id());
 
         String clubHomeId = FootballMatchList.get(position).getClub_home_id();
         String clubAwayId = FootballMatchList.get(position).getClub_away_id();
@@ -131,5 +132,25 @@ public class ItemHistoryClubAdapter extends BaseAdapter {
         };
 
         infoClubAway.addListenerForSingleValueEvent(clubAway);
+    }
+
+    private void renderStadiumName(String stadium_id){
+        final DatabaseReference database = FirebaseDatabase.getInstance().getReference("stadiums");
+        database.orderByKey().equalTo(stadium_id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                        StadiumModel stadiumModel = snapshot.getValue(StadiumModel.class);
+                        txtStadium.setText(stadiumModel.getStadium_name());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }

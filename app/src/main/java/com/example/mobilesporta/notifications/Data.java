@@ -1,14 +1,15 @@
 package com.example.mobilesporta.notifications;
 
 public class Data {
-    private String user, body, title, sent;
+    private String user, body, title, sent, matchId;
     private Integer icon;
 
-    public Data(String user, String body, String title, String sent, Integer icon) {
+    public Data(String user, String body, String title, String sent, String matchId, Integer icon) {
         this.user = user;
         this.body = body;
         this.title = title;
         this.sent = sent;
+        this.matchId = matchId;
         this.icon = icon;
     }
 
@@ -50,5 +51,13 @@ public class Data {
 
     public void setIcon(Integer icon) {
         this.icon = icon;
+    }
+
+    public String getMatchId() {
+        return matchId;
+    }
+
+    public void setMatchId(String matchId) {
+        this.matchId = matchId;
     }
 }

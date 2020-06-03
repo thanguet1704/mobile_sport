@@ -35,6 +35,7 @@ public class MatchService {
 
     Map<String, MatchModel> mapMatchByDateTime = new HashMap<>();
     List<MatchModel> listMatchByDate = new ArrayList<>();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     String matchKey = new String();
 
@@ -59,7 +60,8 @@ public class MatchService {
                             Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(date);
                             Date date2 = new SimpleDateFormat("dd-MM-yyyy").parse(match.getDate());
 
-                            if(date1.compareTo(date2) <= 0) {
+                            if(date1.compareTo(date2) <= 0 && !user.getUid().equals(match.getUser_created_id())
+                            && match.getClub_away_id().equals("")) {
                                 listMatchByDate.add(match);
                             }
                         } catch (ParseException e) {
@@ -97,7 +99,8 @@ public class MatchService {
                             Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(date);
                             Date date2 = new SimpleDateFormat("dd-MM-yyyy").parse(match.getDate());
 
-                            if(date1.compareTo(date2) <= 0) {
+                            if(date1.compareTo(date2) <= 0 && !user.getUid().equals(match.getUser_created_id())
+                            && match.getClub_away_id().equals("")) {
                                 mapMatchByDateTime.put(snapshot.getKey(), match);
                             }
                         } catch (ParseException e) {
@@ -221,7 +224,8 @@ public class MatchService {
                             Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(date);
                             Date date2 = new SimpleDateFormat("dd-MM-yyyy").parse(match.getDate());
 
-                            if(date1.compareTo(date2) <= 0) {
+                            if(date1.compareTo(date2) <= 0 && !user.getUid().equals(match.getUser_created_id())
+                            && match.getClub_away_id().equals("")) {
                                 listMatchIdByDate.add(snapshot.getKey());
                             }
                         } catch (ParseException e) {

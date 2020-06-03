@@ -343,7 +343,6 @@ public class FootballMatchInfo extends AppCompatActivity {
                                 listMatch.add(match);
                             }
 
-                            Log.d("id", match_id);
                             if (notify){
                                 sendNotification(listMatch.get(0).getUser_created_id());
                             }
@@ -362,7 +361,7 @@ public class FootballMatchInfo extends AppCompatActivity {
     }
 
     private void sendNotification(final String hisUid) {
-        DatabaseReference allToken = FirebaseDatabase.getInstance().getReference("Tokens");
+        DatabaseReference allToken = FirebaseDatabase.getInstance().getReference("tokens");
         Query query = allToken.orderByKey().equalTo(hisUid);
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -370,8 +369,8 @@ public class FootballMatchInfo extends AppCompatActivity {
                 if (dataSnapshot.exists()){
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                         Token token = snapshot.getValue(Token.class);
-
-                        Data data = new Data(user.getUid(), "Một câu lạc bộ mới tham gia trận đấu của bạn. Bắt đối ngay kẻo lỡ!", "Có đội muốn đá với đội của bạn", hisUid  , R.mipmap.ic_launcher_foreground);
+                        String body = "Một câu lạc bộ mới tham gia trận đấu của bạn. Bắt đối ngay kẻo lỡ!";
+                        Data data = new Data(user.getUid(),body , "Có đội muốn đá với đội của bạn", hisUid, match_id, R.mipmap.ic_launcher_foreground);
                         Sender sender = new Sender(data, token.getToken());
                         apiService.sendNotification(sender)
                                 .enqueue(new Callback<Response>() {
@@ -398,7 +397,7 @@ public class FootballMatchInfo extends AppCompatActivity {
 
 
     public void updateToken(String token){
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Tokens");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("tokens");
         Token mToken = new Token(token);
         ref.child(user.getUid()).setValue(mToken);
     }

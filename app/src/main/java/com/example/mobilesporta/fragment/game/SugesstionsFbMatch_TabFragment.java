@@ -29,6 +29,8 @@ import com.example.mobilesporta.data.service.ClubService;
 import com.example.mobilesporta.data.service.MatchService;
 import com.example.mobilesporta.model.ClubModel;
 import com.example.mobilesporta.model.MatchModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -60,6 +62,7 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
 
     ClubService clubService = new ClubService();
     Map<String, ClubModel> mapClubs = clubService.getMapClubs();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     ListView listView;
 
@@ -115,7 +118,6 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
     }
 
     private void showListMatch() {
-
         itemFootballMatchAdapter = new ItemFootballMatchAdapter(getActivity(), listMatchByDate, mapClubs);
         listView.setAdapter(itemFootballMatchAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -174,29 +176,21 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 if (dataSnapshot.exists()) {
                                     clearData();
-                                    Log.e("clear : ", "here");
                                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                         MatchModel match = snapshot.getValue(MatchModel.class);
                                         try {
-
-                                            Log.e("logic : ", "here");
                                             Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(txtDate.getText().toString());
                                             Date date2 = new SimpleDateFormat("dd-MM-yyyy").parse(match.getDate());
 
-                                            if (date1.compareTo(date2) == 0) {
+                                            if (date1.compareTo(date2) == 0 && !user.getUid().equals(match.getUser_created_id()) && match.getClub_away_id().equals("")) {
                                                 listMatchByDate.add(match);
                                                 listMatchIdByDate.add(snapshot.getKey());
                                                 mapMatchModelsByDate.put(snapshot.getKey(), match);
-                                                Log.e("test sizze", String.valueOf(listMatchByDate.size()));
                                             }
                                         } catch (ParseException e) {
                                             e.printStackTrace();
-                                            Log.e("e : ", e.toString());
                                         }
                                     }
-                                    Log.e("msg1A", String.valueOf(mapMatchModelsByDate.size()));
-                                    Log.e("msg2A", String.valueOf(listMatchByDate.size()));
-                                    Log.e("msg3A", String.valueOf(listMatchIdByDate.size()));
                                     itemFootballMatchAdapter.notifyDataSetChanged();
                                 }
                             }

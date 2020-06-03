@@ -4,11 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.mobilesporta.fragment.game.MyFbMatch_TabFragment;
 import com.example.mobilesporta.fragment.game.SugesstionsFbMatch_TabFragment;
 
-public class FootballMatchAdapter extends FragmentPagerAdapter {
+public class FootballMatchAdapter extends FragmentStatePagerAdapter {
 
     private int numOfTabs;
 
