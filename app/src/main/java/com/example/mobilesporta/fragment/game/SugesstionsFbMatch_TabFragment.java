@@ -106,6 +106,8 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
     }
 
     private void getDataByDate() {
+
+        Log.d("date", txtDate.getText().toString());
         mapMatchModelsByDate = matchService.getMapMatchByDateTime(txtDate.getText().toString());
         listMatchByDate = matchService.getListMatchByDateTime(txtDate.getText().toString());
         listMatchIdByDate = matchService.getListMatchIdByDate(txtDate.getText().toString());

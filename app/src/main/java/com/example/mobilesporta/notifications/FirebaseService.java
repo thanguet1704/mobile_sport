@@ -1,5 +1,7 @@
 package com.example.mobilesporta.notifications;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,7 +24,7 @@ public class FirebaseService extends FirebaseMessagingService {
 
     private void updateToken(String tokenRefresh) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Tokens");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("tokens");
         Token token = new Token(tokenRefresh);
         ref.child(user.getUid()).setValue(token);
     }

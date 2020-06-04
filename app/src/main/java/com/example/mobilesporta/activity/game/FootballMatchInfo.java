@@ -346,7 +346,7 @@ public class FootballMatchInfo extends AppCompatActivity {
                             if (notify){
                                 sendNotification(listMatch.get(0).getUser_created_id());
                             }
-                            notify = false;
+
                         }
                     }
 
@@ -355,6 +355,7 @@ public class FootballMatchInfo extends AppCompatActivity {
 
                     }
                 });
+                notify = false;
 
             }
         });
@@ -376,7 +377,7 @@ public class FootballMatchInfo extends AppCompatActivity {
                                 .enqueue(new Callback<Response>() {
                                     @Override
                                     public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
-                                        Toast.makeText(FootballMatchInfo.this, response.message() + "", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(FootballMatchInfo.this, "success", Toast.LENGTH_SHORT).show();
                                     }
 
                                     @Override
