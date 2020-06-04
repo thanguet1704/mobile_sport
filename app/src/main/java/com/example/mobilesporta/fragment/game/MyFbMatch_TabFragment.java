@@ -40,8 +40,7 @@ import java.util.Map;
 public class MyFbMatch_TabFragment extends Fragment {
 
     MatchService matchService = new MatchService();
-    List<MatchModel> listMatch = matchService.getMyListMatch();
-    List<String> listMatchId = matchService.getMyListMatchId();
+
 
     ClubService clubService = new ClubService();
     Map<String, ClubModel> mapClubs = clubService.getMapClubs();
@@ -77,6 +76,8 @@ public class MyFbMatch_TabFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {
+                    ArrayList<MatchModel> listMatch = new ArrayList<>();
+                    final ArrayList<String> listMatchId = new ArrayList<>();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         MatchModel match = snapshot.getValue(MatchModel.class);
                         if(user.getUid().equals(match.getUser_created_id())) {
@@ -96,7 +97,6 @@ public class MyFbMatch_TabFragment extends Fragment {
                             startActivity(intent);
                         }
                     });
-                    itemFootballMatchAdapter.notifyDataSetChanged();
                 }
             }
 
