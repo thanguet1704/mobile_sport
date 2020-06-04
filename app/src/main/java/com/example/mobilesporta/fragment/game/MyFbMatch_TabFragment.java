@@ -3,6 +3,7 @@ package com.example.mobilesporta.fragment.game;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -21,6 +22,13 @@ import com.example.mobilesporta.data.service.ClubService;
 import com.example.mobilesporta.data.service.MatchService;
 import com.example.mobilesporta.model.ClubModel;
 import com.example.mobilesporta.model.MatchModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +45,7 @@ public class MyFbMatch_TabFragment extends Fragment {
 
     ClubService clubService = new ClubService();
     Map<String, ClubModel> mapClubs = clubService.getMapClubs();
-
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     Button btnCreateNewMatch;
     ListView lvMatch;
@@ -64,14 +72,37 @@ public class MyFbMatch_TabFragment extends Fragment {
     }
 
     private void showMyListMatch() {
-        ItemFootballMatchAdapter itemFootballMatchAdapter = new ItemFootballMatchAdapter(getActivity(), listMatch, mapClubs);
-        lvMatch.setAdapter(itemFootballMatchAdapter);
-        lvMatch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("matchs");
+        databaseReference.orderByKey().addValueEventListener(new ValueEventListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(), FootballMatchInfo.class);
-                intent.putExtra("match_id", listMatchId.get(position));
-                startActivity(intent);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        MatchModel match = snapshot.getValue(MatchModel.class);
+                        if(user.getUid().equals(match.getUser_created_id())) {
+                            listMatch.add(match);
+                            listMatchId.add(snapshot.getKey());
+                        }
+                    }
+
+
+                    ItemFootballMatchAdapter itemFootballMatchAdapter = new ItemFootballMatchAdapter(getActivity(), listMatch, mapClubs);
+                    lvMatch.setAdapter(itemFootballMatchAdapter);
+                    lvMatch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Intent intent = new Intent(getActivity(), FootballMatchInfo.class);
+                            intent.putExtra("match_id", listMatchId.get(position));
+                            startActivity(intent);
+                        }
+                    });
+                    itemFootballMatchAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
     }

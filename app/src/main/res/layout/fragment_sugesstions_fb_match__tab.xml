@@ -10,37 +10,32 @@
     tools:context=".fragment.game.SugesstionsFbMatch_TabFragment">
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <TextView
             android:id="@+id/tvSugesstion_Match_Fragment_FilterDateTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:text="Lọc"
             android:textColor="#FFC107"
             android:textSize="24sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/txtSugesstion_Match_Fragment_FilterDateSearch"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="12dp"
             android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/tvSugesstion_Match_Fragment_FilterDateTitle"
-            app:layout_constraintStart_toEndOf="@+id/tvSugesstion_Match_Fragment_FilterDateTitle"
-            app:layout_constraintTop_toTopOf="parent"
             android:background="@drawable/bgbtnloginlogout"
             android:padding="5dp"
+            android:layout_marginLeft="5dp"
             android:textColor="#fff"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"/>
 
 
         <TextView
@@ -83,12 +78,13 @@
 <!--            app:layout_constraintRight_toRightOf="parent"-->
 <!--            app:layout_constraintTop_toTopOf="parent"/>-->
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/Sugesstion_Match_Fragment_listMatch_Layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="9">
 
         <ListView
             android:id="@+id/lvSugesstion_Match_Fragment_ListMatch"

@@ -31,7 +31,7 @@ public class    ItemFootballMatchAdapter extends BaseAdapter {
     private Activity activity;
     private List<MatchModel> FootballMatchList;
     Map<String, ClubModel> mapClubs = new HashMap<>();
-    TextView txtStadium, txtMatchDate, txtMatchTime, txtAwayClubName, txtHomeClubName;
+    TextView txtStadium, txtMatchDate, txtMatchTime, txtAwayClubName, txtHomeClubName, txtWait;
     ImageView imgHomeClub, imgAwayClub;
 
     public ItemFootballMatchAdapter(Activity activity, List<MatchModel> footballMatchList, Map<String, ClubModel> mapClubs) {
@@ -78,31 +78,33 @@ public class    ItemFootballMatchAdapter extends BaseAdapter {
         imgHomeClub = convertView.findViewById(R.id.imgItemFootballMatch_HomeClubAvt);
         txtHomeClubName = convertView.findViewById(R.id.txtItemFootballMatch_HomeClubName);
 
+        txtWait = convertView.findViewById(R.id.tv_wait);
         imgAwayClub = convertView.findViewById(R.id.imgItemFootballMatch_AwayClubAvt);
         txtAwayClubName = convertView.findViewById(R.id.txtItemFootballMatch_AwayClubName);
         txtMatchTime = convertView.findViewById(R.id.txtItemFootballMatch_Time);
         txtMatchDate = convertView.findViewById(R.id.txtItemFootballMatch_Date);
         txtStadium = convertView.findViewById(R.id.txtItemFootballMatch_Stadium);
 
-        MatchModel match = FootballMatchList.get(position);
+        MatchModel match = FootballMatchList.get(FootballMatchList.size() - 1 - position);
 
         txtHomeClubName.setText(match.getClub_away_id());
         txtAwayClubName.setText(match.getClub_away_id());
         txtMatchTime.setText(match.getTime());
         txtMatchDate.setText(match.getDate());
 
+        if (match.getStatus().equals("N")){
+            txtWait.setText("Đang chờ đối thủ");
+        }else if (match.getStatus().equals("C")){
+            txtWait.setText("Chờ xác nhận");
+        }else{
+            txtWait.setText("Đã kết thúc");
+        }
+
         renderNameStdium(match.getStadium_id());
-
-
-        if (!match.getClub_home_id().equals("")) {
-            ClubModel homeClub = getClubById(match.getClub_home_id());
-            txtHomeClubName.setText(homeClub.getClub_name());
-            Picasso.get().load(homeClub.getImage()).into(imgHomeClub);
-        }
-        else {
-            txtHomeClubName.setText("");
-            Picasso.get().load("https://firebasestorage.googleapis.com/v0/b/mobilesporta-5bb33.appspot.com/o/image_club%2Fd63e35b31954db7a83f772702a348eb6.png?alt=media&token=964db416-1304-484c-88d0-c05aee101a1a").into(imgAwayClub);
-        }
+        
+        ClubModel homeClub = getClubById(match.getClub_home_id());
+        txtHomeClubName.setText(homeClub.getClub_name());
+        Picasso.get().load(homeClub.getImage()).into(imgHomeClub);
 
 
         if( !match.getClub_away_id().equals("")) {

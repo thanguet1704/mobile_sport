@@ -4,9 +4,11 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import android.text.format.DateFormat;
@@ -40,6 +42,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -73,6 +77,7 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
 
     final Calendar calendar = Calendar.getInstance();
     final SimpleDateFormat sDF = new SimpleDateFormat("dd/MM/yyy");
+    String dateNow;
 
     public SugesstionsFbMatch_TabFragment() {
         // Required empty public constructor
@@ -86,7 +91,10 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_sugesstions_fb_match__tab, container, false);
         connectView(view);
 
-        init();
+        txtDate.setText("Lọc");
+        getDataByDate();
+        showListMatch();
+
         pickTime();
         pickDate();
         // Inflate the layout for this fragment
@@ -94,9 +102,7 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
     }
 
     private void init() {
-        txtDate.setText(sDF.format(calendar.getTime()));
-        getDataByDate();
-        showListMatch();
+
     }
 
     private void connectView(View view) {
@@ -120,16 +126,55 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
     }
 
     private void showListMatch() {
-        itemFootballMatchAdapter = new ItemFootballMatchAdapter(getActivity(), listMatchByDate, mapClubs);
-        listView.setAdapter(itemFootballMatchAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("matchs");
+        Query matchsByDate = mDatabase.orderByKey();
+        matchsByDate.addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(), FootballMatchInfo.class);
-                intent.putExtra("match_id", listMatchIdByDate.get(position));
-                startActivity(intent);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    clearData();
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        MatchModel match = snapshot.getValue(MatchModel.class);
+                        try {
+                            LocalDate localDate = LocalDate.now();//For reference
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                            String formattedString = localDate.format(formatter);
+
+                            Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(formattedString);
+                            Date date2 = new SimpleDateFormat("dd-MM-yyyy").parse(match.getDate());
+
+                            if (date1.compareTo(date2) <= 0 && !user.getUid().equals(match.getUser_created_id()) && match.getClub_away_id().equals("")) {
+                                listMatchByDate.add(match);
+                                listMatchIdByDate.add(snapshot.getKey());
+                                mapMatchModelsByDate.put(snapshot.getKey(), match);
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    itemFootballMatchAdapter = new ItemFootballMatchAdapter(getActivity(), listMatchByDate, mapClubs);
+                    listView.setAdapter(itemFootballMatchAdapter);
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Intent intent = new Intent(getActivity(), FootballMatchInfo.class);
+                            intent.putExtra("match_id", listMatchIdByDate.get(position));
+                            startActivity(intent);
+                        }
+                    });
+                    itemFootballMatchAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w("TAG", "loadPost:onCancelled", databaseError.toException());
             }
         });
+
+
+
     }
 
 
@@ -159,17 +204,6 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
                         calendar.set(year, month, dayOfMonth);
                         txtDate.setText(sDF.format(calendar.getTime()));
 
-//                        clearData();
-//                        mapMatchModelsByDate.clear();
-//                        mapMatchModelsByDate.putAll(matchService.getMapMatchByDateTime(txtDate.getText().toString()));
-//                        mapMatchModelsByDate = matchService.getMapMatchByDateTime(txtDate.getText().toString());
-//                        listMatchByDate.clear();
-//                        listMatchByDate.addAll(matchService.getListMatchByDateTime(txtDate.getText().toString()));
-//
-//                        listMatchIdByDate.clear();
-//                        listMatchIdByDate.addAll(matchService.getListMatchIdByDate(txtDate.getText().toString()));
-
-
                         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("matchs");
                         Query matchsByDate = mDatabase.orderByKey();
 
@@ -193,7 +227,16 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
                                             e.printStackTrace();
                                         }
                                     }
-                                    itemFootballMatchAdapter.notifyDataSetChanged();
+                                    itemFootballMatchAdapter = new ItemFootballMatchAdapter(getActivity(), listMatchByDate, mapClubs);
+                                    listView.setAdapter(itemFootballMatchAdapter);
+                                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                        @Override
+                                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                            Intent intent = new Intent(getActivity(), FootballMatchInfo.class);
+                                            intent.putExtra("match_id", listMatchIdByDate.get(position));
+                                            startActivity(intent);
+                                        }
+                                    });
                                 }
                             }
 
@@ -215,6 +258,4 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
 
         });
     }
-
-
 }
