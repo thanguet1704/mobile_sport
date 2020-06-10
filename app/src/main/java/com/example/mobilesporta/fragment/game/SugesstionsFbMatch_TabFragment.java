@@ -27,6 +27,7 @@ import android.widget.TimePicker;
 import com.example.mobilesporta.R;
 import com.example.mobilesporta.activity.game.FootballMatchInfo;
 import com.example.mobilesporta.adapter.ItemFootballMatchAdapter;
+import com.example.mobilesporta.data.MapConst;
 import com.example.mobilesporta.data.service.ClubService;
 import com.example.mobilesporta.data.service.MatchService;
 import com.example.mobilesporta.model.ClubModel;
@@ -77,7 +78,6 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
 
     final Calendar calendar = Calendar.getInstance();
     final SimpleDateFormat sDF = new SimpleDateFormat("dd/MM/yyy");
-    String dateNow;
 
     public SugesstionsFbMatch_TabFragment() {
         // Required empty public constructor
@@ -137,14 +137,14 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         MatchModel match = snapshot.getValue(MatchModel.class);
                         try {
-                            LocalDate localDate = LocalDate.now();//For reference
-                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                            String formattedString = localDate.format(formatter);
+//                            LocalDate localDate = LocalDate.now();//For reference
+//                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                            String formattedString = sDF.format(calendar.getTime());
 
                             Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(formattedString);
                             Date date2 = new SimpleDateFormat("dd-MM-yyyy").parse(match.getDate());
 
-                            if (date1.compareTo(date2) <= 0 && !user.getUid().equals(match.getUser_created_id()) && match.getClub_away_id().equals("")) {
+                            if (date1.compareTo(date2) <= 0 && !user.getUid().equals(match.getUser_created_id()) && match.getStatus().equals(MapConst.STATUS_MATCH_NONE)) {
                                 listMatchByDate.add(match);
                                 listMatchIdByDate.add(snapshot.getKey());
                                 mapMatchModelsByDate.put(snapshot.getKey(), match);
@@ -218,7 +218,7 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
                                             Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(txtDate.getText().toString());
                                             Date date2 = new SimpleDateFormat("dd-MM-yyyy").parse(match.getDate());
 
-                                            if (date1.compareTo(date2) == 0 && !user.getUid().equals(match.getUser_created_id()) && match.getClub_away_id().equals("")) {
+                                            if (date1.compareTo(date2) == 0 && !user.getUid().equals(match.getUser_created_id()) && match.getStatus().equals(MapConst.STATUS_MATCH_NONE)) {
                                                 listMatchByDate.add(match);
                                                 listMatchIdByDate.add(snapshot.getKey());
                                                 mapMatchModelsByDate.put(snapshot.getKey(), match);

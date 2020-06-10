@@ -1,6 +1,8 @@
 package com.example.mobilesporta.activity.game;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +24,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.mobilesporta.Home;
 import com.example.mobilesporta.R;
 import com.example.mobilesporta.activity.club.ClubProfile;
+import com.example.mobilesporta.data.MapConst;
 import com.example.mobilesporta.data.service.ClubService;
 import com.example.mobilesporta.data.service.MatchService;
 import com.example.mobilesporta.model.ClubModel;
@@ -65,9 +69,11 @@ public class FootballMatchInfo extends AppCompatActivity {
 
     ClubService clubService = new ClubService();
     Map<String, ClubModel> mapClubs = clubService.getMapClubs();
+    Map<String, ClubModel> myMapClubs = clubService.getMyMapClubs();
 
     MatchService matchService = new MatchService();
     Map<String, MatchModel> mapMatchs = matchService.getMapMatchs();
+
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     String clubHomeId, clubAwayId;
     String user_create_id, mUID;
@@ -327,35 +333,118 @@ public class FootballMatchInfo extends AppCompatActivity {
         });
     }
 
+//    Thắng
+//    private void clickRequest(){
+//        btnRequest.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                notify = true;
+//                DatabaseReference database = FirebaseDatabase.getInstance().getReference("matchs");
+//                database.orderByKey().equalTo(match_id).addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                        if (dataSnapshot.exists()){
+//                            ArrayList<MatchModel> listMatch = new ArrayList<>();
+//                            for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+//                                MatchModel match = snapshot.getValue(MatchModel.class);
+//                                listMatch.add(match);
+//                            }
+//
+//                            if (notify){
+//                                sendNotification(listMatch.get(0).getUser_created_id());
+//                            }
+//
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                    }
+//                });
+//                notify = false;
+//
+//            }
+//        });
+//    }
+
+
+
     private void clickRequest(){
         btnRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                notify = true;
-                DatabaseReference database = FirebaseDatabase.getInstance().getReference("matchs");
-                database.orderByKey().equalTo(match_id).addValueEventListener(new ValueEventListener() {
+                Log.e("size", String.valueOf(myMapClubs.size()));
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(FootballMatchInfo.this);
+                mBuilder.setTitle("Chọn câu lạc bộ ");
+
+                final String[] arrayClubName = new String[myMapClubs.size()];
+                final String[] arrayClubKey = new String[myMapClubs.size()];
+                int i = 0;
+                for (Map.Entry<String, ClubModel> entry : myMapClubs.entrySet()) {
+                    arrayClubName[i] = entry.getValue().getClub_name();
+                    arrayClubKey[i] = entry.getKey();
+                    i++;
+                }
+                mBuilder.setSingleChoiceItems(arrayClubName, -1, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()){
-                            ArrayList<MatchModel> listMatch = new ArrayList<>();
-                            for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                                MatchModel match = snapshot.getValue(MatchModel.class);
-                                listMatch.add(match);
-                            }
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.e("which", String.valueOf(which));
+                        Log.e("key", arrayClubKey[which]);
+                        Log.e("name", arrayClubName[which]);
 
-                            if (notify){
-                                sendNotification(listMatch.get(0).getUser_created_id());
-                            }
+                        Log.e("size", String.valueOf(mapMatchs.size()));
+                        MatchModel match = new MatchModel();
+                        match = mapMatchs.get(match_id);
+                        match.setClub_away_id(arrayClubKey[which]);
+                        match.setStatus(MapConst.STATUS_MATCH_MAP.get(MapConst.STATUS_MATCH_CONFIRMING_KEY));
 
-                        }
+                        Log.e("test", String.valueOf(match));
+                        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+                        database.child("matchs").child(match_id).setValue(match);
+                        dialog.dismiss();
+                        Toast.makeText(FootballMatchInfo.this, "Đã bắt kèo. Hãy chờ đợi đối thủ xác nhận nhé!", Toast.LENGTH_SHORT).show();
                     }
-
+                });
+                mBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    public void onClick(DialogInterface dialog, int which) {
 
                     }
                 });
-                notify = false;
+
+                AlertDialog mDialog = mBuilder.create();
+                mDialog.show();
+
+//                notify = true;
+//                DatabaseReference database = FirebaseDatabase.getInstance().getReference("matchs");
+//                database.orderByKey().equalTo(match_id).addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                        if (dataSnapshot.exists()){
+//                            List<MatchModel> listMatch = new ArrayList<>();
+//                            for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+//                                MatchModel match = snapshot.getValue(MatchModel.class);
+//
+//                                // logic request
+//
+//                                // add match
+//                                listMatch.add(match);
+//                            }
+//
+//                            if (notify){
+//                                sendNotification(listMatch.get(0).getUser_created_id());
+//                            }
+//
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                    }
+//                });
+//                notify = false;
 
             }
         });
