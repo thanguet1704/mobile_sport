@@ -26,6 +26,7 @@ import com.example.mobilesporta.adapter.ItemClubAdapter;
 import com.example.mobilesporta.model.ClubModel;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -43,6 +44,7 @@ import java.util.Map;
 public class ClubService {
     ArrayList<ClubModel> listClub = new ArrayList<>();
     Map<String, ClubModel> mapClubs = new HashMap<>();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private String description;
 
     public void addClub(ClubModel clubModel){
@@ -278,10 +280,44 @@ public class ClubService {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {
+                    mapClubs.clear();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                         ClubModel clubModel = snapshot.getValue(ClubModel.class);
                         mapClubs.put(snapshot.getKey(), clubModel);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+
+        a.addListenerForSingleValueEvent(valueEventListener);
+
+        return mapClubs;
+    }
+
+    public Map<String, ClubModel> getMyMapClubs() {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("clubs");
+        Query a = mDatabase.orderByKey();
+
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                String user_id = user.getUid();
+                if(dataSnapshot.exists()) {
+                    mapClubs.clear();
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                        ClubModel clubModel = snapshot.getValue(ClubModel.class);
+
+                        if(clubModel.getUser_created_id().equals(user_id)) {
+                            mapClubs.put(snapshot.getKey(), clubModel);
+                        }
                     }
                 }
             }

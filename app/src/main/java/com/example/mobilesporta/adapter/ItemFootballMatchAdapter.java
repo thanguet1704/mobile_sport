@@ -85,7 +85,7 @@ public class    ItemFootballMatchAdapter extends BaseAdapter {
         txtMatchDate = convertView.findViewById(R.id.txtItemFootballMatch_Date);
         txtStadium = convertView.findViewById(R.id.txtItemFootballMatch_Stadium);
 
-        MatchModel match = FootballMatchList.get(FootballMatchList.size() - 1 - position);
+        MatchModel match = FootballMatchList.get(position);
 
         txtHomeClubName.setText(match.getClub_away_id());
         txtAwayClubName.setText(match.getClub_away_id());
@@ -101,7 +101,7 @@ public class    ItemFootballMatchAdapter extends BaseAdapter {
         }
 
         renderNameStdium(match.getStadium_id());
-        
+
         ClubModel homeClub = getClubById(match.getClub_home_id());
         txtHomeClubName.setText(homeClub.getClub_name());
         Picasso.get().load(homeClub.getImage()).into(imgHomeClub);

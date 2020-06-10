@@ -5,11 +5,19 @@ import java.util.Map;
 
 public class    MapConst {
 
+    public static final String	STATUS_MATCH_NONE_KEY						= "NONE";
+    public static final String	STATUS_MATCH_CONFIRMING_KEY				    = "CONFIRMING";
+    public static final String	STATUS_MATCH_DONE_KEY						= "DONE";
+
+    public static final String	STATUS_MATCH_NONE					= "N";
+    public static final String	STATUS_MATCH_CONFIRMING			    = "C";
+    public static final String	STATUS_MATCH_DONE					= "D";
+
     public static Map<String, String> STATUS_MATCH_MAP = new LinkedHashMap<>();
     static{
-        STATUS_MATCH_MAP.put("NONE", "N");
-        STATUS_MATCH_MAP.put("CONFIRMING", "C");
-        STATUS_MATCH_MAP.put("DONE", "D");
+        STATUS_MATCH_MAP.put(STATUS_MATCH_NONE_KEY, STATUS_MATCH_NONE);
+        STATUS_MATCH_MAP.put(STATUS_MATCH_CONFIRMING_KEY, STATUS_MATCH_CONFIRMING);
+        STATUS_MATCH_MAP.put(STATUS_MATCH_DONE_KEY, STATUS_MATCH_DONE);
     }
 
     public static Map<String, String> STADIUM_ZONE_MAP = new LinkedHashMap<String, String>();
