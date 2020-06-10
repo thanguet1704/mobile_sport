@@ -38,6 +38,6 @@ public class FootballMatchAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getItemPosition(@NonNull Object object) {
-        return POSITION_NONE;
+        return POSITION_UNCHANGED;
     }
 }

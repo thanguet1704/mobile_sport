@@ -44,6 +44,7 @@ public class MyFbMatch_TabFragment extends Fragment {
 
     ClubService clubService = new ClubService();
     Map<String, ClubModel> mapClubs = clubService.getMapClubs();
+    Map<String, ClubModel> mapMyClubs = clubService.getMyMapClubs();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     Button btnCreateNewMatch;
@@ -63,12 +64,14 @@ public class MyFbMatch_TabFragment extends Fragment {
 
         showMyListMatch();
 
+
         return view;
     }
 
     private void connectView(View view) {
         lvMatch = (ListView) view.findViewById(R.id.lvMy_Fb_Match_Fragment_ListMatch);
     }
+
 
     private void showMyListMatch() {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("matchs");
@@ -80,12 +83,12 @@ public class MyFbMatch_TabFragment extends Fragment {
                     final ArrayList<String> listMatchId = new ArrayList<>();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         MatchModel match = snapshot.getValue(MatchModel.class);
-                        if(user.getUid().equals(match.getUser_created_id())) {
+
+                        if(user.getUid().equals(match.getUser_created_id()) || mapMyClubs.containsKey(match.getClub_away_id()) ) {
                             listMatch.add(match);
                             listMatchId.add(snapshot.getKey());
                         }
                     }
-
 
                     ItemFootballMatchAdapter itemFootballMatchAdapter = new ItemFootballMatchAdapter(getActivity(), listMatch, mapClubs);
                     lvMatch.setAdapter(itemFootballMatchAdapter);

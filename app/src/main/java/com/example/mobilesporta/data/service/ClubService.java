@@ -44,6 +44,7 @@ import java.util.Map;
 public class ClubService {
     ArrayList<ClubModel> listClub = new ArrayList<>();
     Map<String, ClubModel> mapClubs = new HashMap<>();
+    Map<String, ClubModel> mapMyClubs = new HashMap<>();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private String description;
 
@@ -310,13 +311,13 @@ public class ClubService {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 String user_id = user.getUid();
                 if(dataSnapshot.exists()) {
-                    mapClubs.clear();
+                    mapMyClubs.clear();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                         ClubModel clubModel = snapshot.getValue(ClubModel.class);
 
                         if(clubModel.getUser_created_id().equals(user_id)) {
-                            mapClubs.put(snapshot.getKey(), clubModel);
+                            mapMyClubs.put(snapshot.getKey(), clubModel);
                         }
                     }
                 }
@@ -330,7 +331,7 @@ public class ClubService {
 
         a.addListenerForSingleValueEvent(valueEventListener);
 
-        return mapClubs;
+        return mapMyClubs;
     }
 
 }
