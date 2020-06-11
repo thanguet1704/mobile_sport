@@ -92,7 +92,7 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
         connectView(view);
 
         txtDate.setText("Lọc");
-        getDataByDate();
+//        getDataByDate();
         showListMatch();
 
         pickTime();
@@ -101,23 +101,19 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
         return view;
     }
 
-    private void init() {
-
-    }
-
     private void connectView(View view) {
         listView = (ListView) view.findViewById(R.id.lvSugesstion_Match_Fragment_ListMatch);
         txtTime = (TextView) view.findViewById(R.id.txtSugesstion_Match_Fragment_FilterTimeSearch);
         txtDate = (TextView) view.findViewById(R.id.txtSugesstion_Match_Fragment_FilterDateSearch);
     }
 
-    private void getDataByDate() {
-
-        Log.d("date", txtDate.getText().toString());
-        mapMatchModelsByDate = matchService.getMapMatchByDateTime(txtDate.getText().toString());
-        listMatchByDate = matchService.getListMatchByDateTime(txtDate.getText().toString());
-        listMatchIdByDate = matchService.getListMatchIdByDate(txtDate.getText().toString());
-    }
+//    private void getDataByDate() {
+//
+//        Log.d("date", txtDate.getText().toString());
+//        mapMatchModelsByDate = matchService.getMapMatchByDateTime(txtDate.getText().toString());
+//        listMatchByDate = matchService.getListMatchByDateTime(txtDate.getText().toString());
+//        listMatchIdByDate = matchService.getListMatchIdByDate(txtDate.getText().toString());
+//    }
 
     private void clearData() {
         mapMatchModelsByDate.clear();
@@ -172,8 +168,6 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
                 Log.w("TAG", "loadPost:onCancelled", databaseError.toException());
             }
         });
-
-
 
     }
 
