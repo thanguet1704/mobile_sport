@@ -199,28 +199,48 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"/>
 
-    <Button
-        android:id="@+id/btnMatchInfoAct_ApplyMatch"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:text="Chọn đối"
-        android:textColor="#fff"
-        android:textSize="16sp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:layout_marginTop="10dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/bgbtnloginlogout"
-        android:textAllCaps="false"/>
-    <Button
-        android:id="@+id/btn_request"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:text="Tham gia"
-        android:textColor="#fff"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/bgbtnloginlogout"
-        android:textAllCaps="false"
-        android:visibility="gone"
-        android:textSize="16sp"/>
+        android:gravity="center">
+        <Button
+            android:id="@+id/btnMatchInfoAct_ApplyMatch"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Xác Nhận"
+            android:textColor="#fff"
+            android:textSize="16sp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/bgbtnloginlogout"
+            android:textAllCaps="false"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/btn_cancel_match"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/bgbtnloginlogout"
+            android:text="Hủy"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:textSize="16sp"
+            android:layout_marginLeft="50dp"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/btn_request"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Tham gia"
+            android:textColor="#fff"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/bgbtnloginlogout"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:visibility="gone"/>
+    </LinearLayout>
 
 </LinearLayout>

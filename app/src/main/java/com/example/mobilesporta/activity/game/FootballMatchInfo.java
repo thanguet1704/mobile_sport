@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
@@ -56,6 +57,8 @@ import java.util.Map;
 import retrofit2.Call;
 import retrofit2.Callback;
 
+import static android.view.View.GONE;
+
 public class FootballMatchInfo extends AppCompatActivity {
 
     TextView txtHomeClubName;
@@ -63,13 +66,13 @@ public class FootballMatchInfo extends AppCompatActivity {
     TextView txtAwayClubName;
     ImageView imgAwayClubName;
     TextView tvDate, tvStadiumName, tvAddress, tvPhoneNumber, tvDescription, tvAmountsClub;
-    Button btnSelectClub, btnRequest, btnBackToMatch, btnDeleteMatch;
-    String stadiumName, stadiumAddress;
+    Button btnSelectClub, btnRequest, btnBackToMatch, btnDeleteMatch, btnCancelMatch;
     LinearLayout llHomeClub, llAwayClub;
 
     ClubService clubService = new ClubService();
     Map<String, ClubModel> mapClubs = clubService.getMapClubs();
     Map<String, ClubModel> myMapClubs = clubService.getMyMapClubs();
+    MapConst mapConst = new MapConst();
 
     MatchService matchService = new MatchService();
     Map<String, MatchModel> mapMatchs = matchService.getMapMatchs();
@@ -104,8 +107,6 @@ public class FootballMatchInfo extends AppCompatActivity {
         apiService = Client.getRetrofit("https://fcm.googleapis.com/").create(APIService.class);
 
         deleteMatch(match_id);
-        // click nút chọn đối
-        clickSelectClub();
         // click nút tham gia
         clickRequest();
     }
@@ -136,6 +137,7 @@ public class FootballMatchInfo extends AppCompatActivity {
         btnDeleteMatch = findViewById(R.id.btn_delete_match);
         llHomeClub = findViewById(R.id.ll_home_club);
         llAwayClub = findViewById(R.id.ll_away_club);
+        btnCancelMatch = findViewById(R.id.btn_cancel_match);
     }
 
     private ClubModel getClubById(String clubId, Map<String, ClubModel> map) {
@@ -163,6 +165,8 @@ public class FootballMatchInfo extends AppCompatActivity {
                         tvAmountsClub.setText("0" + " đội muốn tham gia trận đấu này");
                         clubHomeId = matchModel.getClub_home_id();
                         clubAwayId = matchModel.getClub_away_id();
+                        clickSelectClub(matchModel.getStatus());
+                        clickCancelMatch(matchModel.getStatus());
                     }
                     // hiển thị thông tin home club
                     renderClubHome(clubHomeId);
@@ -211,13 +215,14 @@ public class FootballMatchInfo extends AppCompatActivity {
                 if (dataSnapshot.exists()){
                     for (DataSnapshot snapshot: dataSnapshot.getChildren()){
                         MatchModel matchModel = snapshot.getValue(MatchModel.class);
-                        if (user.getUid().equals(matchModel.getUser_created_id())){
+                        if (user.getUid().equals(matchModel.getUser_created_id())
+                                && matchModel.getStatus().equals("C")){
                             btnSelectClub.setVisibility(View.VISIBLE);
-                            btnRequest.setVisibility(View.GONE);
-                        }else{
-                            btnSelectClub.setVisibility(View.GONE);
+                            btnCancelMatch.setVisibility(View.VISIBLE);
+                            btnDeleteMatch.setVisibility(View.VISIBLE);
+                        }else if (!user.getUid().equals(matchModel.getUser_created_id())){
                             btnRequest.setVisibility(View.VISIBLE);
-                            btnDeleteMatch.setVisibility(View.GONE);
+                            btnDeleteMatch.setVisibility(GONE);
                         }
                     }
                 }
@@ -265,6 +270,7 @@ public class FootballMatchInfo extends AppCompatActivity {
     private void renderClubAway(final String clubAwayId){
         if (clubAwayId.equals("")){
             Picasso.get().load("https://firebasestorage.googleapis.com/v0/b/mobilesporta-5bb33.appspot.com/o/image_club%2Fd63e35b31954db7a83f772702a348eb6.png?alt=media&token=964db416-1304-484c-88d0-c05aee101a1a").into(imgAwayClubName);
+            txtAwayClubName.setText("");
         }else{
             DatabaseReference database = FirebaseDatabase.getInstance().getReference("clubs");
             database.orderByKey().equalTo(clubAwayId).addValueEventListener(new ValueEventListener() {
@@ -319,16 +325,11 @@ public class FootballMatchInfo extends AppCompatActivity {
         });
     }
 
-    private void clickSelectClub(){
+    private void clickSelectClub(final String status){
         btnSelectClub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                View view = getLayoutInflater().inflate(R.layout.dialog_select_club, null);
-                final Dialog dialog = new Dialog(FootballMatchInfo.this);
-                dialog.setContentView(view);
-                dialog.show();
-                Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT, ViewPager.LayoutParams.WRAP_CONTENT);
+                updateStatus(status);
             }
         });
     }
@@ -491,4 +492,44 @@ public class FootballMatchInfo extends AppCompatActivity {
         Token mToken = new Token(token);
         ref.child(user.getUid()).setValue(mToken);
     }
+
+    private void updateStatus(String status){
+        if (status.equals(mapConst.STATUS_MATCH_CONFIRMING)){
+            DatabaseReference updateStatus = FirebaseDatabase.getInstance().getReference("matchs").child(match_id);
+            updateStatus.child("status").setValue(mapConst.STATUS_MATCH_DONE, new DatabaseReference.CompletionListener() {
+                @Override
+                public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+                    btnSelectClub.setVisibility(GONE);
+                    btnCancelMatch.setVisibility(GONE);
+                }
+            });
+        }
+    }
+
+    private void clickCancelMatch(String status) {
+        btnCancelMatch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cancelMatch();
+            }
+        });
+    }
+
+    private void cancelMatch() {
+        DatabaseReference updateDB = FirebaseDatabase.getInstance().getReference("matchs").child(match_id);
+        updateDB.child("club_away_id").setValue("", new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+                DatabaseReference returnStatus = FirebaseDatabase.getInstance().getReference("matchs").child(match_id);
+                returnStatus.child("status").setValue("N", new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+                        btnCancelMatch.setVisibility(GONE);
+                        btnSelectClub.setVisibility(GONE);
+                    }
+                });
+            }
+        });
+    }
+
 }
