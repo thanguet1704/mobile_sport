@@ -72,6 +72,7 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
     ListView listView;
 
     TextView txtDate;
+    TextView txtDate2;
     TextView txtTime;
 
     ItemFootballMatchAdapter itemFootballMatchAdapter;
@@ -91,12 +92,14 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_sugesstions_fb_match__tab, container, false);
         connectView(view);
 
-        txtDate.setText("Lọc");
+        txtDate.setText(sDF.format(calendar.getTime()));
+        txtDate2.setText("Đến");
 //        getDataByDate();
         showListMatch();
 
         pickTime();
         pickDate();
+        pickDate2();
         // Inflate the layout for this fragment
         return view;
     }
@@ -105,6 +108,7 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
         listView = (ListView) view.findViewById(R.id.lvSugesstion_Match_Fragment_ListMatch);
         txtTime = (TextView) view.findViewById(R.id.txtSugesstion_Match_Fragment_FilterTimeSearch);
         txtDate = (TextView) view.findViewById(R.id.txtSugesstion_Match_Fragment_FilterDateSearch);
+        txtDate2 = (TextView) view.findViewById(R.id.txtSugesstion_Match_Fragment_FilterDateSearch2);
     }
 
 //    private void getDataByDate() {
@@ -212,11 +216,23 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
                                             Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(txtDate.getText().toString());
                                             Date date2 = new SimpleDateFormat("dd-MM-yyyy").parse(match.getDate());
 
-                                            if (date1.compareTo(date2) == 0 && !user.getUid().equals(match.getUser_created_id()) && match.getStatus().equals(MapConst.STATUS_MATCH_NONE)) {
-                                                listMatchByDate.add(match);
-                                                listMatchIdByDate.add(snapshot.getKey());
-                                                mapMatchModelsByDate.put(snapshot.getKey(), match);
+
+                                            if (txtDate2.getText().toString().equals("Đến")) {
+                                                if (date1.compareTo(date2) <= 0 && !user.getUid().equals(match.getUser_created_id()) && match.getStatus().equals(MapConst.STATUS_MATCH_NONE)) {
+                                                    listMatchByDate.add(match);
+                                                    listMatchIdByDate.add(snapshot.getKey());
+                                                    mapMatchModelsByDate.put(snapshot.getKey(), match);
+                                                }
+                                            } else {
+                                                Date date1t = new SimpleDateFormat("dd/MM/yyyy").parse(txtDate2.getText().toString());
+                                                if (date1.compareTo(date2) <= 0 && date1t.compareTo(date2) >= 0 && !user.getUid().equals(match.getUser_created_id()) && match.getStatus().equals(MapConst.STATUS_MATCH_NONE)) {
+                                                    listMatchByDate.add(match);
+                                                    listMatchIdByDate.add(snapshot.getKey());
+                                                    mapMatchModelsByDate.put(snapshot.getKey(), match);
+                                                }
                                             }
+
+
                                         } catch (ParseException e) {
                                             e.printStackTrace();
                                         }
@@ -240,13 +256,76 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
                             }
                         });
 
+                    }
+                }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                datePickerDialog.show();
+            }
 
+        });
+    }
+
+    private void pickDate2() {
+
+        txtDate2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), android.R.style.Theme_Holo_Light_Dialog_MinWidth, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        calendar.set(year, month, dayOfMonth);
+                        txtDate2.setText(sDF.format(calendar.getTime()));
+
+                        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("matchs");
+                        Query matchsByDate = mDatabase.orderByKey();
+
+                        matchsByDate.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    clearData();
+                                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                        MatchModel match = snapshot.getValue(MatchModel.class);
+                                        try {
+
+                                            Date date2 = new SimpleDateFormat("dd-MM-yyyy").parse(match.getDate());
+
+                                            Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(txtDate.getText().toString());
+
+                                            Date date1t = new SimpleDateFormat("dd/MM/yyyy").parse(txtDate2.getText().toString());
+                                            if (date1.compareTo(date2) <= 0 && date1t.compareTo(date2) >= 0 && !user.getUid().equals(match.getUser_created_id()) && match.getStatus().equals(MapConst.STATUS_MATCH_NONE)) {
+                                                listMatchByDate.add(match);
+                                                listMatchIdByDate.add(snapshot.getKey());
+                                                mapMatchModelsByDate.put(snapshot.getKey(), match);
+                                            }
+
+
+                                        } catch (ParseException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                    itemFootballMatchAdapter = new ItemFootballMatchAdapter(getActivity(), listMatchByDate, mapClubs);
+                                    listView.setAdapter(itemFootballMatchAdapter);
+                                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                        @Override
+                                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                            Intent intent = new Intent(getActivity(), FootballMatchInfo.class);
+                                            intent.putExtra("match_id", listMatchIdByDate.get(position));
+                                            startActivity(intent);
+                                        }
+                                    });
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                Log.w("TAG", "loadPost:onCancelled", databaseError.toException());
+                            }
+                        });
 
                     }
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
-
-
-//                showListMatch();
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
                 datePickerDialog.show();
             }
 
