@@ -329,6 +329,7 @@ public class FootballMatchInfo extends AppCompatActivity {
         btnSelectClub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                notify = true;
                 updateStatus(status);
             }
         });
@@ -361,7 +362,7 @@ public class FootballMatchInfo extends AppCompatActivity {
                         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
                         database.child("matchs").child(match_id).setValue(match);
                         dialog.dismiss();
-                        setNotify();
+                        setNotifyForRequest();
                     }
                 });
                 mBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -377,7 +378,7 @@ public class FootballMatchInfo extends AppCompatActivity {
         });
     }
 
-    private void setNotify(){
+    private void setNotifyForRequest(){
         DatabaseReference database = FirebaseDatabase.getInstance().getReference("matchs").child(match_id);
         database.addValueEventListener(new ValueEventListener() {
             @Override
@@ -408,7 +409,7 @@ public class FootballMatchInfo extends AppCompatActivity {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                         Token token = snapshot.getValue(Token.class);
                         String body = "Bấm để xem ngay";
-                        Data data = new Data(user.getUid(), body , title, hisUid, match_id, R.drawable.google_icon);
+                        Data data = new Data(user.getUid(), body , title, hisUid, match_id, R.mipmap.ic_launcher);
 
                         Sender sender = new Sender(data, token.getToken());
                         apiService.sendNotification(sender)
@@ -446,6 +447,7 @@ public class FootballMatchInfo extends AppCompatActivity {
             updateStatus.child("status").setValue(mapConst.STATUS_MATCH_DONE, new DatabaseReference.CompletionListener() {
                 @Override
                 public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+                    setNotifyForAcceptMatch();
                     btnSelectClub.setVisibility(GONE);
                     btnCancelMatch.setVisibility(GONE);
                 }
@@ -453,16 +455,39 @@ public class FootballMatchInfo extends AppCompatActivity {
         }
     }
 
+    private void setNotifyForAcceptMatch(){
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("clubs").child(clubAwayId);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    ClubModel clubModel = dataSnapshot.getValue(ClubModel.class);
+                    if (notify){
+                        sendNotification(clubModel.getUser_created_id(), "Đội bạn đã xác nhận, chiến ngay thôi nào");
+                    }
+                    notify = false;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     private void clickCancelMatch(String status) {
         btnCancelMatch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                notify = true;
                 cancelMatch();
             }
         });
     }
 
     private void cancelMatch() {
+        setNotifyForCancelMatch();
         DatabaseReference updateDB = FirebaseDatabase.getInstance().getReference("matchs").child(match_id);
         updateDB.child("club_away_id").setValue("", new DatabaseReference.CompletionListener() {
             @Override
@@ -479,4 +504,24 @@ public class FootballMatchInfo extends AppCompatActivity {
         });
     }
 
+    private void setNotifyForCancelMatch(){
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("clubs").child(clubAwayId);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    ClubModel clubModel = dataSnapshot.getValue(ClubModel.class);
+                    if (notify){
+                        sendNotification(clubModel.getUser_created_id(), "Đội bạn đã hủy kèo");
+                    }
+                    notify = false;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 }
