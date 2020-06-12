@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import com.example.mobilesporta.fragment.game.MyFbMatch_TabFragment;
 import com.example.mobilesporta.fragment.game.SugesstionsFbMatch_TabFragment;
 
-public class FootballMatchAdapter extends FragmentStatePagerAdapter {
+public class FootballMatchAdapter extends FragmentPagerAdapter {
 
     private int numOfTabs;
 
@@ -38,6 +38,6 @@ public class FootballMatchAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getItemPosition(@NonNull Object object) {
-        return POSITION_UNCHANGED;
+        return POSITION_NONE;
     }
 }

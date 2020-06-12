@@ -37,7 +37,9 @@ public class FirebaseMessaging extends FirebaseMessagingService {
         FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
         if (fUser != null && sent.equals(fUser.getUid())){
             if (!savedCurrentUser.equals(user)){
-                sendOandAboveNotification(remoteMessage);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                    sendOandAboveNotification(remoteMessage);
+                }
             }else{
                 sendNormalNotification(remoteMessage);
             }
@@ -57,6 +59,7 @@ public class FirebaseMessaging extends FirebaseMessagingService {
         intent.putExtra("match_id", match_id);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, i, intent, PendingIntent.FLAG_ONE_SHOT);
+
         Uri defSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                 .setSmallIcon(Integer.parseInt(icon))

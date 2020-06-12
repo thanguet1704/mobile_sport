@@ -334,48 +334,11 @@ public class FootballMatchInfo extends AppCompatActivity {
         });
     }
 
-//    Thắng
-//    private void clickRequest(){
-//        btnRequest.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                notify = true;
-//                DatabaseReference database = FirebaseDatabase.getInstance().getReference("matchs");
-//                database.orderByKey().equalTo(match_id).addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                        if (dataSnapshot.exists()){
-//                            ArrayList<MatchModel> listMatch = new ArrayList<>();
-//                            for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-//                                MatchModel match = snapshot.getValue(MatchModel.class);
-//                                listMatch.add(match);
-//                            }
-//
-//                            if (notify){
-//                                sendNotification(listMatch.get(0).getUser_created_id());
-//                            }
-//
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                    }
-//                });
-//                notify = false;
-//
-//            }
-//        });
-//    }
-
-
-
     private void clickRequest(){
         btnRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("size", String.valueOf(myMapClubs.size()));
+                notify = true;
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(FootballMatchInfo.this);
                 mBuilder.setTitle("Chọn câu lạc bộ ");
 
@@ -390,21 +353,15 @@ public class FootballMatchInfo extends AppCompatActivity {
                 mBuilder.setSingleChoiceItems(arrayClubName, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Log.e("which", String.valueOf(which));
-                        Log.e("key", arrayClubKey[which]);
-                        Log.e("name", arrayClubName[which]);
-
-                        Log.e("size", String.valueOf(mapMatchs.size()));
                         MatchModel match = new MatchModel();
                         match = mapMatchs.get(match_id);
                         match.setClub_away_id(arrayClubKey[which]);
                         match.setStatus(MapConst.STATUS_MATCH_MAP.get(MapConst.STATUS_MATCH_CONFIRMING_KEY));
 
-                        Log.e("test", String.valueOf(match));
                         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
                         database.child("matchs").child(match_id).setValue(match);
                         dialog.dismiss();
-                        Toast.makeText(FootballMatchInfo.this, "Đã bắt kèo. Hãy chờ đợi đối thủ xác nhận nhé!", Toast.LENGTH_SHORT).show();
+                        setNotify();
                     }
                 });
                 mBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -416,42 +373,32 @@ public class FootballMatchInfo extends AppCompatActivity {
 
                 AlertDialog mDialog = mBuilder.create();
                 mDialog.show();
+            }
+        });
+    }
 
-//                notify = true;
-//                DatabaseReference database = FirebaseDatabase.getInstance().getReference("matchs");
-//                database.orderByKey().equalTo(match_id).addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                        if (dataSnapshot.exists()){
-//                            List<MatchModel> listMatch = new ArrayList<>();
-//                            for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-//                                MatchModel match = snapshot.getValue(MatchModel.class);
-//
-//                                // logic request
-//
-//                                // add match
-//                                listMatch.add(match);
-//                            }
-//
-//                            if (notify){
-//                                sendNotification(listMatch.get(0).getUser_created_id());
-//                            }
-//
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                    }
-//                });
-//                notify = false;
+    private void setNotify(){
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference("matchs").child(match_id);
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    MatchModel match = dataSnapshot.getValue(MatchModel.class);
+                    if (notify){
+                        sendNotification(match.getUser_created_id(), "Có đội muốn đá với đội của bạn");
+                    }
+                    notify = false;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
     }
 
-    private void sendNotification(final String hisUid) {
+    private void sendNotification(final String hisUid, final String title) {
         DatabaseReference allToken = FirebaseDatabase.getInstance().getReference("tokens");
         Query query = allToken.orderByKey().equalTo(hisUid);
         query.addValueEventListener(new ValueEventListener() {
@@ -460,14 +407,15 @@ public class FootballMatchInfo extends AppCompatActivity {
                 if (dataSnapshot.exists()){
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                         Token token = snapshot.getValue(Token.class);
-                        String body = "Một câu lạc bộ mới tham gia trận đấu của bạn. Bắt đối ngay kẻo lỡ!";
-                        Data data = new Data(user.getUid(),body , "Có đội muốn đá với đội của bạn", hisUid, match_id, R.mipmap.ic_launcher_foreground);
+                        String body = "Bấm để xem ngay";
+                        Data data = new Data(user.getUid(), body , title, hisUid, match_id, R.drawable.google_icon);
+
                         Sender sender = new Sender(data, token.getToken());
                         apiService.sendNotification(sender)
                                 .enqueue(new Callback<Response>() {
                                     @Override
                                     public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
-                                        Toast.makeText(FootballMatchInfo.this, "success", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(FootballMatchInfo.this, "Đã bắt kèo. Hãy chờ đợi đối thủ xác nhận nhé!", Toast.LENGTH_SHORT).show();
                                     }
 
                                     @Override
@@ -485,7 +433,6 @@ public class FootballMatchInfo extends AppCompatActivity {
             }
         });
     }
-
 
     public void updateToken(String token){
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("tokens");
