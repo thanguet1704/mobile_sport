@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:background="@drawable/stadium_view_background">
     <ImageView
         android:id="@+id/stadiumImage"
         android:src="@drawable/googleg_standard_color_18"
@@ -27,7 +28,8 @@
         <TextView
             android:id="@+id/stadiumTime"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:text="Thời gian: 5.am-6.pm">
         </TextView>
 
     </LinearLayout>

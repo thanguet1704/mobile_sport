@@ -1,58 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical">
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:id="@+id/backStadiumView"
-            android:background="@drawable/ic_back">
-        </Button>
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/googleg_standard_color_18">
-        </ImageView>
-
-    </FrameLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/findWay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        </Button>
-    </LinearLayout>
-    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/stadiumViewName"
-            android:layout_width="wrap_content"
+        android:src="@drawable/googleg_standard_color_18"
+        android:layout_alignParentTop="true">
+
+    </ImageView>
+    <Button
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:id="@+id/backStadiumView"
+        android:background="@drawable/ic_back">
+    </Button>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="150dp">
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sân bóng mỏ địa chất">
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="35dp"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical"
+            android:background="@drawable/stadium_view_background2">
 
-        </TextView>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Đại học mỏ quận Bắc Từ Liêm">
+            <TextView
+                android:id="@+id/stadiumViewName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tên sân"
+                android:layout_margin="25dp"/>
+            <TextView
+                android:layout_margin="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mô tả"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="25dp">
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Thời gian">
 
-        </TextView>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="6h-24h">
+                </TextView>
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Số lượng">
+                </TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/stadium_view_background1">
+                <LinearLayout
+                    android:paddingTop="30dp"
+                    android:paddingBottom="30dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@drawable/stadium_view_background">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                    </ImageView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Địa chỉ">
 
-        </TextView>
-    </LinearLayout>
+                    </TextView>
+                </LinearLayout>
+                <Button
+                    android:layout_margin="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/order_stadium"
+                    android:textColor="@android:color/white"
+                    android:text="Đặt sân">
+                </Button>
+            </LinearLayout>
 
-</LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/findWay"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="50dp">
+
+        </Button>
+    </RelativeLayout>
+</RelativeLayout>
