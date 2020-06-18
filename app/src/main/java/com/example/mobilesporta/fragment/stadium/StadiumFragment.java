@@ -19,6 +19,11 @@ import androidx.fragment.app.Fragment;
 
 import com.example.mobilesporta.R;
 import com.example.mobilesporta.model.StadiumModel;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -26,28 +31,44 @@ public class StadiumFragment extends Fragment {
 
     ListView stadiumList;
     SearchView searchList;
+    DatabaseReference dataStadium;
     ArrayList<StadiumModel> arrayStadium;
+    ArrayList<String> arrayIdStadium;
     StadiumAdapter stadiumAdapter;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_stadium, container, false);
-
+        dataStadium = FirebaseDatabase.getInstance().getReference("stadiums");
         stadiumList = view.findViewById(R.id.listStadium);
         arrayStadium = new ArrayList<StadiumModel>();
-        arrayStadium.add(new StadiumModel("Sân bóng 1","Hà Nội","6.am","","","","","","","",""));
-        arrayStadium.add(new StadiumModel("Sân bóng 2","Hà Nội","6.am","","","","","","","",""));
-        arrayStadium.add(new StadiumModel("Sân bóng 3","Hà Nội","6.am","","","","","","","",""));
-        stadiumAdapter = new StadiumAdapter(
-                getActivity(),R.layout.list_stadium_view,arrayStadium
-        );
-        stadiumList.setAdapter(stadiumAdapter);
-        stadiumList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        arrayIdStadium = new ArrayList<String>();
+        dataStadium.orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = new Intent(getActivity(),StadiumView.class);
-                i.putExtra("title",arrayStadium.get(position).getStadium_name());
-                startActivity(i);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    StadiumModel stadiumModel = snapshot.getValue(StadiumModel.class);
+                    arrayStadium.add(stadiumModel);
+                    arrayIdStadium.add(snapshot.getKey());
+                }
+
+                stadiumAdapter = new StadiumAdapter(
+                        getActivity(),R.layout.list_stadium_view,arrayStadium
+                );
+                stadiumList.setAdapter(stadiumAdapter);
+                stadiumList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent i = new Intent(getActivity(),StadiumView.class);
+                        i.putExtra("title",arrayStadium.get(position).getAddress());
+                        startActivity(i);
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
 

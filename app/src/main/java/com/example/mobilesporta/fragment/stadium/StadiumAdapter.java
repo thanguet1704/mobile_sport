@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.mobilesporta.R;
 import com.example.mobilesporta.model.StadiumModel;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -57,9 +58,10 @@ public class StadiumAdapter extends BaseAdapter implements Filterable {
         TextView stadiumTime = convertView.findViewById(R.id.stadiumTime);
 
         //stadiumImage.setImageResource(arrayStadium.get(position).getImage());
+        Picasso.get().load(arrayStadium.get(position).getImage()).into(stadiumImage);
         stadiumName.setText(arrayStadium.get(position).getStadium_name());
         stadiumAddress.setText(arrayStadium.get(position).getAddress());
-        stadiumTime.setText(arrayStadium.get(position).getTime_open());
+        stadiumTime.setText(arrayStadium.get(position).getTime_open()+" - "+arrayStadium.get(position).getTime_close());
         return convertView;
     }
 
