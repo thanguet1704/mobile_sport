@@ -24,5 +24,6 @@
         app:itemTextColor="@drawable/selector_menu"
         app:itemIconTint="@drawable/selector_menu"
         app:menu="@menu/bottom_navigation"
-        android:background="#ECE9E9"/>
+        android:background="#ECE9E9"
+        app:labelVisibilityMode="labeled"/>
 </LinearLayout>

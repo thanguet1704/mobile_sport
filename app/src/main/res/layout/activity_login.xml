@@ -109,6 +109,7 @@
             android:textColor="#fff"
             android:textSize="20sp"
             android:gravity="center"
+            android:drawablePadding="10dp"
             android:drawableLeft="@drawable/facebook_icon"
             android:layout_marginBottom="5dp"/>
         <!--        />-->
@@ -130,7 +131,8 @@
             android:background="@drawable/signinggstyle"
             android:layout_below="@+id/fake_login_button"
             android:layout_centerHorizontal="true"
-            android:drawableLeft="@drawable/google_icon"/>
+            android:drawableLeft="@drawable/google_icon"
+            android:drawablePadding="10dp"/>
     </RelativeLayout>
 
     <LinearLayout
