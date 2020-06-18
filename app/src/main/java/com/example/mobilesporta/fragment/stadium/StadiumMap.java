@@ -1,10 +1,12 @@
 package com.example.mobilesporta.fragment.stadium;
 
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -14,7 +16,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mobilesporta.MainActivity;
 import com.example.mobilesporta.R;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -25,9 +29,15 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.AutocompleteActivity;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import im.delight.android.location.SimpleLocation;
@@ -41,6 +51,7 @@ public class StadiumMap extends FragmentActivity implements OnMapReadyCallback, 
     private List<Marker> destinationMarkers = new ArrayList<>();
     private List<Polyline> polylinePaths = new ArrayList<>();
     private ProgressDialog progressDialog;
+    private String text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +62,19 @@ public class StadiumMap extends FragmentActivity implements OnMapReadyCallback, 
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        Intent i = getIntent();
+        text = i.getStringExtra("title");
+
         btnFindPath = (Button) findViewById(R.id.btnFindPath);
         etOrigin = (EditText) findViewById(R.id.etOrigin);
+        etOrigin.setFocusable(false);
+        etOrigin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editAddress();
+            }
+        });
+        Places.initialize(getApplicationContext(),"AIzaSyD9EagKsWiKToCHCpLGsoEUJ1zEPDEp3Fs");
 
         btnFindPath.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,9 +84,26 @@ public class StadiumMap extends FragmentActivity implements OnMapReadyCallback, 
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100 && resultCode == RESULT_OK){
+            Place place = Autocomplete.getPlaceFromIntent(data);
+            etOrigin.setText(place.getAddress());
+        } else if (resultCode == AutocompleteActivity.RESULT_ERROR){
+            Status status = Autocomplete.getStatusFromIntent(data);
+            Toast.makeText(getApplicationContext(), status.getStatusMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+    private void editAddress(){
+        List<Place.Field> fieldList = Arrays.asList(Place.Field.ADDRESS);
+
+        Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fieldList).build(this);
+        startActivityForResult(intent, 100);
+    }
     private void sendRequest() {
         String origin = etOrigin.getText().toString();
-        String destination = "Đại học sư phạm hà nội";
+        String destination = text;
         SimpleLocation location = new SimpleLocation(this);
         String mylocation = location.getLatitude()+","+location.getLongitude();
         if (origin.isEmpty()) {

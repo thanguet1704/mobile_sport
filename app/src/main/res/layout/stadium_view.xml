@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <ImageView
+        android:id="@+id/imageStadiumView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/googleg_standard_color_18"
@@ -39,9 +40,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Tên sân"
-                android:layout_margin="25dp"/>
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"/>
             <TextView
-                android:layout_margin="25dp"
+                android:id="@+id/desciption"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Mô tả"/>
@@ -49,8 +53,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_margin="25dp">
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp">
                 <TextView
+                    android:id="@+id/stadiumTime"
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -58,10 +64,11 @@
 
                 </TextView>
                 <TextView
+                    android:id="@+id/costStadium"
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Số lượng">
+                    android:text="Giá sân">
                 </TextView>
             </LinearLayout>
             <LinearLayout
@@ -87,6 +94,7 @@
                         android:layout_height="wrap_content">
                     </ImageView>
                     <TextView
+                        android:id="@+id/stadiumAddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Địa chỉ">
