@@ -9,7 +9,6 @@
         android:id="@+id/imageStadiumView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/googleg_standard_color_18"
         android:layout_alignParentTop="true">
 
     </ImageView>
@@ -40,8 +39,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Tên sân"
+                android:textSize="20dp"
                 android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"/>
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="20dp"/>
             <TextView
                 android:id="@+id/desciption"
                 android:layout_marginLeft="30dp"

@@ -13,10 +13,12 @@
         android:layout_marginBottom="10dp">
 
     </SearchView>
+
     <ListView
         android:id="@+id/listStadium"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:dividerHeight="10dp">
 
     </ListView>
 
