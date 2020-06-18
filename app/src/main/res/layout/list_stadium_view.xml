@@ -3,6 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:padding="10dp"
     android:orientation="horizontal"
     android:background="@drawable/stadium_view_background">
     <ImageView
@@ -28,8 +31,7 @@
         <TextView
             android:id="@+id/stadiumTime"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Thời gian: 5.am-6.pm">
+            android:layout_height="wrap_content">
         </TextView>
 
     </LinearLayout>
