@@ -7,8 +7,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="9"
+        android:layout_height="match_parent"
         android:gravity="center_vertical">
         <!--Phần này ko sửa-->
         <ImageView
@@ -42,33 +41,35 @@
             android:layout_width="match_parent"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:hint="Nhập email"
+            android:textSize="20sp"
             android:textColorHint="#B2070809"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/title"
             android:layout_marginTop="30dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/edtlogin"
             android:inputType="text"
             android:drawablePadding="10dp"
-            android:textColor="#FF5722"
+            android:textColor="#000"
             android:drawableStart="@drawable/ic_mail_outline_black_24dp"
             android:paddingLeft="20dp"/>
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:id="@+id/edtPass"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
             android:hint=" Nhập mật khẩu"
+            android:textSize="20sp"
             android:textColorHint="#B2070809"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/edtEmail"
             android:inputType="textPassword"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/edtlogin"
-            android:textColor="#FF5722"
+            android:textColor="#000"
             android:drawableStart="@drawable/ic_password"
             android:drawablePadding="10dp"
             android:paddingLeft="20dp"/>
@@ -76,20 +77,21 @@
         <Button
             android:id="@+id/loginLocal"
             android:layout_width="200dp"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_below="@+id/edtPass"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="10dp"
             android:textAllCaps="false"
             android:text="Đăng nhập"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:background="@drawable/bgbtnloginlogout"
             android:scaleType="centerCrop"
-            android:textColor="#fff"/>
+            android:textColor="#D81B60"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Hoặc"
+            android:textSize="16sp"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/loginLocal"
             android:id="@+id/or"
@@ -104,69 +106,76 @@
             android:layout_centerInParent="true"
             android:layout_below="@+id/or"
             android:visibility="gone"/>
-        <Button
-            android:id="@+id/fake_login_button"
-            android:layout_width="200dp"
-            android:layout_height="40dp"
+        <RelativeLayout
+            android:id="@+id/btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/or"
-            android:text="Facebook"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/loginfbstyle"
-            android:paddingLeft="10dp"
-            android:textAllCaps="false"
-            android:textColor="#fff"
-            android:textSize="20sp"
-            android:gravity="center"
-            android:drawableLeft="@drawable/facebook_icon"
-            android:layout_marginBottom="5dp"/>
-        <!--        />-->
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/sign_in_button"
-            android:layout_width="200dp"
-            android:layout_height="40dp"
-            android:layout_centerInParent="true"
-            android:layout_below="@+id/fake_login_button"
-            android:visibility="gone"/>
-        <Button
-            android:id="@+id/fake_signin_button"
-            android:layout_width="200dp"
-            android:layout_height="40dp"
-            android:text="Google"
-            android:textColor="#fff"
-            android:textAllCaps="false"
-            android:textSize="20sp"
-            android:paddingLeft="10dp"
-            android:background="@drawable/signinggstyle"
-            android:layout_below="@+id/fake_login_button"
-            android:layout_centerHorizontal="true"
-            android:drawableLeft="@drawable/google_icon"/>
+            android:layout_centerHorizontal="true">
+            <Button
+                android:id="@+id/fake_login_button"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:text="Facebook"
+                android:background="@drawable/loginfbstyle"
+                android:paddingLeft="10dp"
+                android:layout_marginLeft="55dp"
+                android:drawablePadding="10dp"
+                android:textAllCaps="false"
+                android:textAlignment="viewStart"
+                android:textColor="#fff"
+                android:textSize="20sp"
+                android:drawableLeft="@drawable/facebook_icon"
+                android:layout_marginBottom="5dp"/>
+            <!--        />-->
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/sign_in_button"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_below="@+id/fake_login_button"
+                android:visibility="gone"/>
+
+            <Button
+                android:id="@+id/fake_signin_button"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/signinggstyle"
+                android:drawableLeft="@drawable/google_icon"
+                android:drawablePadding="10dp"
+                android:paddingLeft="10dp"
+                android:layout_marginRight="55dp"
+                android:text="Google"
+                android:textAlignment="viewStart"
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:textSize="20sp" />
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn"
+            android:weightSum="10"
+            android:padding="10dp"
+            android:gravity="center_horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chưa có tài khoản?"
+                android:textColor="#070707"
+                android:textSize="18sp"
+                android:id="@+id/no_account"
+                android:gravity="center_vertical"/>
+            <Button
+                android:id="@+id/register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dangkylogin"
+                android:text=" Đăng ký"
+                android:textColor="#FF5722"
+                android:textAllCaps="false"
+                android:textSize="20sp"
+                android:gravity="center_vertical"/>
+        </LinearLayout>
     </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_alignParentBottom="true"
-        android:weightSum="10"
-        android:padding="10dp"
-        android:layout_weight="1">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Chưa có tài khoản?"
-            android:textColor="#070707"
-            android:textSize="16sp"
-            android:id="@+id/no_account"
-            android:gravity="center_vertical"/>
-        <Button
-            android:id="@+id/register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/dangkylogin"
-            android:text="Đăng ký"
-            android:textColor="#FF5722"
-            android:textAllCaps="false"
-            android:textSize="18sp"
-            android:gravity="center_vertical"/>
-    </LinearLayout>
-
 </LinearLayout>

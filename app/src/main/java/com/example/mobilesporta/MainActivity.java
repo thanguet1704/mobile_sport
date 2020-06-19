@@ -221,6 +221,7 @@ public class MainActivity extends AppCompatActivity {
                                     Intent intent = new Intent(MainActivity.this, Home.class);
                                     intent.putExtra("main", "home");
                                     startActivity(intent);
+                                    finish();
                                 } else {
                                     Toast.makeText(MainActivity.this, "Email hoặc mật khẩu không đúng", Toast.LENGTH_SHORT).show();
                                 }
@@ -243,6 +244,7 @@ public class MainActivity extends AppCompatActivity {
                             Intent intent = new Intent(MainActivity.this, Home.class);
                             intent.putExtra("main", "home");
                             startActivity(intent);
+                            finish();
                         } else {
                             Toast.makeText(MainActivity.this, "lỗi", Toast.LENGTH_SHORT).show();
                         }
@@ -263,6 +265,7 @@ public class MainActivity extends AppCompatActivity {
                             Intent intent = new Intent(MainActivity.this, Home.class);
                             intent.putExtra("main", "home");
                             startActivity(intent);
+                            findId();
                         } else {
                             Toast.makeText(MainActivity.this, "Lỗi", Toast.LENGTH_SHORT).show();
                         }

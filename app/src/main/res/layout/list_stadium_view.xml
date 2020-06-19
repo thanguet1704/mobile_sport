@@ -1,38 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
-    android:padding="10dp"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
-    android:background="@drawable/stadium_view_background">
-    <ImageView
-        android:id="@+id/stadiumImage"
-        android:src="@drawable/googleg_standard_color_18"
-        android:layout_width="100dp"
-        android:layout_height="100dp"/>
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:weightSum="10">
     <LinearLayout
-        android:layout_gravity="center"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:layout_weight="3"
         android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:gravity="center_vertical">
+        <androidx.cardview.widget.CardView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:cardCornerRadius="10dp"
+            android:layout_gravity="center">
+            <ImageView
+                android:id="@+id/stadiumImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"/>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="7"
+        android:orientation="vertical"
+        android:gravity="center_vertical">
         <TextView
             android:id="@+id/stadiumName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </TextView>
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:textSize="20sp"
+            android:gravity="center_vertical"/>
         <TextView
             android:id="@+id/stadiumAddress"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </TextView>
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:gravity="center_vertical"
+            android:drawableLeft="@drawable/ic_location"/>
         <TextView
             android:id="@+id/stadiumTime"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </TextView>
-
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:gravity="center_vertical"
+            android:drawableLeft="@drawable/ic_time"/>
     </LinearLayout>
 </LinearLayout>
