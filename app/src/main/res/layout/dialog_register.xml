@@ -9,9 +9,8 @@
         android:layout_weight="1"
         android:text="Đăng ký tài khoản"
         android:gravity="center"
-        android:background="#FF9800"
-        android:textStyle="bold"
-        android:textColor="#F44336"
+        android:background="@drawable/bg_title_dialog"
+        android:textColor="#D81B60"
         android:textSize="24sp"/>
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,9 +20,8 @@
         android:orientation="vertical">
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:textSize="24sp"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
             android:textColor="#000"
             android:text="Email"/>
         <EditText
@@ -31,14 +29,13 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textColor="#000"/>
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:text="Nhập mật khẩu"
-            android:textSize="24dp"
+            android:textSize="20sp"
             android:textColor="#000"/>
         <EditText
             android:id="@+id/register_pass"
@@ -46,14 +43,13 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:inputType="textPassword"
-            android:textSize="24dp"
+            android:textSize="20sp"
             android:textColor="#000"/>
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:text="Nhập lại mật khẩu"
-            android:textSize="24dp"
+            android:textSize="20sp"
             android:textColor="#000"/>
         <EditText
             android:id="@+id/register_re_pass"
@@ -61,7 +57,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:inputType="textPassword"
-            android:textSize="24dp"
+            android:textSize="20sp"
             android:textColor="#000"/>
         <LinearLayout
             android:layout_width="match_parent"
@@ -75,7 +71,7 @@
                 android:background="@drawable/bgbtnloginlogout"
                 android:text="Đăng ký"
                 android:textAllCaps="false"
-                android:textColor="#fff"
+                android:textColor="#D81B60"
                 android:textSize="20sp"/>
         </LinearLayout>
 
