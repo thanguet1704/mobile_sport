@@ -92,8 +92,8 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_sugesstions_fb_match__tab, container, false);
         connectView(view);
 
-        txtDate.setText(sDF.format(calendar.getTime()));
-        txtDate2.setText("Đến");
+        txtDate.setText("Lọc");
+        txtDate2.setText("Chọn");
 //        getDataByDate();
         showListMatch();
 
@@ -180,7 +180,7 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
         txtTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), android.R.style.Theme_Holo_Light_Dialog_MinWidth, new TimePickerDialog.OnTimeSetListener() {
+                TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), android.R.style.Theme_Holo_InputMethod, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         txtTime.setText(hourOfDay + ":" + minute);
@@ -196,7 +196,7 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
         txtDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), android.R.style.Theme_Holo_Light_Dialog_MinWidth, new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), android.R.style.Theme_Holo_InputMethod, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         calendar.set(year, month, dayOfMonth);
@@ -270,7 +270,7 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
         txtDate2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), android.R.style.Theme_Holo_Light_Dialog_MinWidth, new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), android.R.style.Theme_Holo_InputMethod, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         calendar.set(year, month, dayOfMonth);

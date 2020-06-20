@@ -10,6 +10,7 @@
     android:padding="10dp">
 
     <!-- TODO: Update blank fragment layout -->
+
     <LinearLayout
         android:id="@+id/group_comment"
         android:layout_width="match_parent"
@@ -34,6 +35,16 @@
             android:src="@drawable/send"
             android:background="#fff"/>
     </LinearLayout>
+    <TextView
+        android:id="@+id/none"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Chưa có nhận xét nào"
+        android:textSize="20sp"
+        android:textColor="#B1AFAF"
+        android:visibility="gone"/>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -43,5 +54,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </FrameLayout>
+
 
 </LinearLayout>

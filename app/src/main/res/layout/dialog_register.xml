@@ -71,7 +71,7 @@
                 android:background="@drawable/bgbtnloginlogout"
                 android:text="Đăng ký"
                 android:textAllCaps="false"
-                android:textColor="#D81B60"
+                android:textColor="#d62828"
                 android:textSize="20sp"/>
         </LinearLayout>
 

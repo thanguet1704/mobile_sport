@@ -41,10 +41,11 @@
         app:layout_constraintTop_toBottomOf="@id/cvItemFootballMatch_HomeClub" />
 
     <TextView
-        android:id="@+id/txtItemFootballMatch_Time"
+        android:id="@+id/txtItemFootballMatch_Date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16dp"
+        android:text="2020-14-02"
         android:textColor="#032B65"
         app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintBottom_toTopOf="@id/imgItemFootballMatch_Icon_VS"
@@ -52,17 +53,29 @@
         app:layout_constraintRight_toLeftOf="@id/cvItemFootballMatch_AwayClub" />
 
     <TextView
-        android:id="@+id/txtItemFootballMatch_Date"
+        android:id="@+id/from"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="2020-14-02"
-        android:textSize="16dp"
+        android:text="từ"
         android:textColor="#032B65"
+        android:textSize="16dp"
         app:layout_constraintBottom_toTopOf="@id/imgItemFootballMatch_Icon_VS"
         app:layout_constraintHorizontal_bias="0.8"
+        android:layout_marginLeft="5dp"
         app:layout_constraintLeft_toRightOf="@id/cvItemFootballMatch_HomeClub"
-        app:layout_constraintRight_toLeftOf="@id/cvItemFootballMatch_AwayClub" />
-
+        app:layout_constraintRight_toLeftOf="@id/cvItemFootballMatch_AwayClub"
+        app:layout_constraintStart_toEndOf="@+id/txtItemFootballMatch_Date" />
+    <TextView
+        android:id="@+id/txtItemFootballMatch_Time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="23:11"
+        android:textColor="#032B65"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toTopOf="@id/imgItemFootballMatch_Icon_VS"
+        app:layout_constraintHorizontal_bias="0.8"
+        android:layout_marginLeft="5dp"
+        app:layout_constraintLeft_toRightOf="@id/from"/>
     <TextView
         android:id="@+id/txtItemFootballMatch_Stadium"
         android:layout_height="wrap_content"

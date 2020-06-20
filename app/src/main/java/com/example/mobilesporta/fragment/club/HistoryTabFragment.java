@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -32,6 +33,7 @@ import java.util.ArrayList;
 public class HistoryTabFragment extends Fragment {
 
     ListView listView;
+    TextView textView;
     public HistoryTabFragment() {
         // Required empty public constructor
     }
@@ -42,7 +44,7 @@ public class HistoryTabFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_history_tab, container, false);
         listView = view.findViewById(R.id.lv_history);
-
+        textView = view.findViewById(R.id.none);
 
         String clubId = getArguments().getString("club_id");
 
@@ -68,9 +70,13 @@ public class HistoryTabFragment extends Fragment {
                         }
                     }
 
-                    ItemHistoryClubAdapter itemHistoryClubAdapter = new ItemHistoryClubAdapter(getActivity(), listMatchByHome);
-                    listView.setAdapter(itemHistoryClubAdapter);
-                    itemHistoryClubAdapter.notifyDataSetChanged();
+                    if (listMatchByHome.size() == 0){
+                        textView.setVisibility(View.VISIBLE);
+                    }else{
+                        ItemHistoryClubAdapter itemHistoryClubAdapter = new ItemHistoryClubAdapter(getActivity(), listMatchByHome);
+                        listView.setAdapter(itemHistoryClubAdapter);
+                        itemHistoryClubAdapter.notifyDataSetChanged();
+                    }
                 }
             }
 

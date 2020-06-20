@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="2"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/option_menu">
     <Button
         android:id="@+id/btn_edit_info_club"
         android:layout_width="match_parent"
@@ -15,7 +16,7 @@
         android:textAlignment="textStart"
         android:padding="5dp"
         android:textSize="18sp"
-        android:drawableLeft="@drawable/ic_edit_info_club"/>
+        android:drawableLeft="@drawable/ic_edit_black_24dp"/>
     <Button
         android:id="@+id/btn_delete_club"
         android:layout_width="match_parent"
@@ -25,7 +26,7 @@
         android:background="#fff"
         android:textAllCaps="false"
         android:textAlignment="textStart"
-        android:drawableLeft="@drawable/ic_delete_club"
+        android:drawableLeft="@drawable/ic_delete_black_24dp"
         android:padding="5dp"
         android:textSize="18sp"/>
 </LinearLayout>

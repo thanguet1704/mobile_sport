@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Wait"
-    android:background="#D1FF9B06">
+    tools:context=".Wait">
 
     <ImageView
         android:id="@+id/img_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/wait" />
+        android:src="@drawable/wait"
+        android:scaleType="fitXY"/>
 </RelativeLayout>

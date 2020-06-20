@@ -15,5 +15,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </FrameLayout>
+    <TextView
+        android:id="@+id/none"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Chưa có trận đấu nào"
+        android:textSize="20sp"
+        android:textColor="#A1A0A0"
+        android:visibility="gone"/>
 
 </FrameLayout>

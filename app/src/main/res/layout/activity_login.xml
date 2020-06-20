@@ -86,7 +86,7 @@
             android:textSize="20sp"
             android:background="@drawable/bgbtnloginlogout"
             android:scaleType="centerCrop"
-            android:textColor="#D81B60"/>
+            android:textColor="#d62828"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

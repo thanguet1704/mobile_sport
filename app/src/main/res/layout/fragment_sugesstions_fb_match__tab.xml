@@ -19,6 +19,8 @@
             android:id="@+id/tvSugesstion_Match_Fragment_FilterDateTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Từ"
+            android:layout_gravity="center_vertical"
             android:textColor="#FFC107"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -26,39 +28,38 @@
 
         <TextView
             android:id="@+id/txtSugesstion_Match_Fragment_FilterDateSearch"
-            android:layout_width="150dp"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:background="@drawable/bgbtnloginlogout"
             android:padding="5dp"
-            android:layout_marginLeft="5dp"
-            android:textColor="#fff"
+            android:layout_marginLeft="10dp"
+            android:textColor="#d62828"
             android:textStyle="bold"
             android:layout_gravity="center_vertical"
             android:gravity="center"/>
-
         <TextView
-            android:id="@+id/txtSugesstion_Match_Fragment_FilterDateSearch2"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:background="@drawable/bgbtnloginlogout"
-            android:padding="5dp"
-            android:layout_marginLeft="5dp"
-            android:textColor="#fff"
-            android:textStyle="bold"
-            android:layout_gravity="center_vertical"
-            android:gravity="center"/>
-
-
-        <TextView
-            android:id="@+id/tvSugesstion_Match_Fragment_FilterTimeTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="10dp"
-            app:layout_constraintLeft_toRightOf="@id/tvSugesstion_Match_Fragment_FilterDateTitle"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:text="Đến"
+            android:layout_gravity="center_vertical"
+            android:textColor="#FFC107"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+        <TextView
+            android:id="@+id/txtSugesstion_Match_Fragment_FilterDateSearch2"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:background="@drawable/bgbtnloginlogout"
+            android:padding="5dp"
+            android:layout_marginLeft="5dp"
+            android:textColor="#d62828"
+            android:textStyle="bold"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/txtSugesstion_Match_Fragment_FilterTimeSearch"

@@ -50,6 +50,7 @@ public class CommentTabFragment extends Fragment {
     private FirebaseUser user;
     private String userId;
     private LinearLayout llGroupComment;
+    TextView textView;
 
     public CommentTabFragment() {
         // Required empty public constructor
@@ -66,6 +67,7 @@ public class CommentTabFragment extends Fragment {
         imgBtnAddComment = view.findViewById(R.id.btn_enter_comment);
         edtComment = view.findViewById(R.id.edt_comment_club);
         llGroupComment = view.findViewById(R.id.group_comment);
+        textView = view.findViewById(R.id.none);
 
         clubId = getArguments().getString("club_id");
         userId = getArguments().getString("user_id");
@@ -119,13 +121,16 @@ public class CommentTabFragment extends Fragment {
                     ArrayList<ClubCommentModel> listClubComment = new ArrayList<>();
                     for (DataSnapshot snapshot: dataSnapshot.getChildren()){
                         ClubCommentModel clubComment = snapshot.getValue(ClubCommentModel.class);
-                        if (clubComment.getUser_id().equals(userId) == true){
-                            llGroupComment.setVisibility(View.GONE);
-                        }
                         listClubComment.add(clubComment);
                     }
-                    ItemCommentClubAdapter itemCommentClubAdapter = new ItemCommentClubAdapter(getActivity(), listClubComment);
-                    lvComment.setAdapter(itemCommentClubAdapter);
+                    if (listClubComment.size() == 0){
+                        textView.setVisibility(View.VISIBLE);
+                    }else{
+                        ItemCommentClubAdapter itemCommentClubAdapter = new ItemCommentClubAdapter(getActivity(), listClubComment);
+                        lvComment.setAdapter(itemCommentClubAdapter);
+                    }
+                }else{
+                    textView.setVisibility(View.VISIBLE);
                 }
             }
 

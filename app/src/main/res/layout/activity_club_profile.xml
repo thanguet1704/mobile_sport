@@ -32,7 +32,9 @@
             android:layout_height="30dp"
             android:layout_marginTop="130dp"
             android:layout_alignRight="@+id/imgClubProfileAct_ClubBackground"
-            android:background="@drawable/add_images"/>
+            android:drawableLeft="@drawable/ic_insert_photo_black_24dp"
+            android:background="@drawable/bg_add_image"
+            android:paddingLeft="3dp"/>
 
         <ImageView
             android:id="@+id/imgClubProfileAct_ClubBackground"
@@ -42,17 +44,17 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cvClubProfileAct_Club"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
+            android:layout_width="158dp"
+            android:layout_height="148dp"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="80dp"
-            app:cardCornerRadius="80dp"
-            android:layout_centerHorizontal="true">
+            app:cardCornerRadius="80dp">
 
             <ImageView
                 android:id="@+id/imgClubProfileAct_ClubImage"
                 android:layout_width="160dp"
                 android:layout_height="160dp"
-                android:scaleType="fitXY"/>
+                android:scaleType="fitXY" />
         </androidx.cardview.widget.CardView>
 
 
@@ -64,7 +66,9 @@
             android:layout_below="@+id/cvClubProfileAct_Club"
             android:layout_marginLeft="-30dp"
             android:layout_marginTop="-40dp"
-            android:background="@drawable/add_images"/>
+            android:drawableLeft="@drawable/ic_insert_photo_black_24dp"
+            android:background="@drawable/bg_add_image"
+            android:paddingLeft="3dp"/>
 
         <TextView
             android:id="@+id/txtClubProfile_ClubName"
