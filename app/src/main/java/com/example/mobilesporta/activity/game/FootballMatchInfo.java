@@ -49,7 +49,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.squareup.picasso.Picasso;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -83,6 +87,8 @@ public class FootballMatchInfo extends AppCompatActivity {
     APIService apiService;
     boolean notify = false;
     public String match_id;
+    Calendar calendar = Calendar.getInstance();
+    SimpleDateFormat sDF = new SimpleDateFormat("dd/MM/yyy");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,7 +168,12 @@ public class FootballMatchInfo extends AppCompatActivity {
                         renderInfoStadium(matchModel.getStadium_id());
                         tvPhoneNumber.setText(matchModel.getPhone_number());
                         tvDescription.setText(matchModel.getDescription());
-                        tvAmountsClub.setText("0" + " đội muốn tham gia trận đấu này");
+                        if (matchModel.getClub_away_id().equals("")){
+                            tvAmountsClub.setText("0" + " đội muốn tham gia trận đấu này");
+                        }else{
+                            tvAmountsClub.setText("Có đội muốn tham gia trận đấu này");
+                        }
+
                         clubHomeId = matchModel.getClub_home_id();
                         clubAwayId = matchModel.getClub_away_id();
                         clickSelectClub(matchModel.getStatus());
@@ -215,14 +226,27 @@ public class FootballMatchInfo extends AppCompatActivity {
                 if (dataSnapshot.exists()){
                     for (DataSnapshot snapshot: dataSnapshot.getChildren()){
                         MatchModel matchModel = snapshot.getValue(MatchModel.class);
-                        if (user.getUid().equals(matchModel.getUser_created_id())
-                                && matchModel.getStatus().equals("C")){
-                            btnSelectClub.setVisibility(View.VISIBLE);
-                            btnCancelMatch.setVisibility(View.VISIBLE);
-                            btnDeleteMatch.setVisibility(View.VISIBLE);
-                        }else if (!user.getUid().equals(matchModel.getUser_created_id())){
-                            btnRequest.setVisibility(View.VISIBLE);
-                            btnDeleteMatch.setVisibility(GONE);
+                        try {
+                            Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(sDF.format(calendar.getTime()));
+                            Date date2 = new SimpleDateFormat("dd-MM-yyyy").parse(matchModel.getDate());
+                            if (date1.compareTo(date2) > 0){
+                                btnSelectClub.setVisibility(GONE);
+                                btnCancelMatch.setVisibility(GONE);
+                                btnDeleteMatch.setVisibility(GONE);
+                                tvAmountsClub.setVisibility(GONE);
+                            }else{
+                                if (user.getUid().equals(matchModel.getUser_created_id())
+                                        && matchModel.getStatus().equals("C")){
+                                    btnSelectClub.setVisibility(View.VISIBLE);
+                                    btnCancelMatch.setVisibility(View.VISIBLE);
+                                    btnDeleteMatch.setVisibility(View.VISIBLE);
+                                }else if (!user.getUid().equals(matchModel.getUser_created_id())){
+                                    btnRequest.setVisibility(View.VISIBLE);
+                                    tvAmountsClub.setVisibility(GONE);
+                                }
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
                         }
                     }
                 }

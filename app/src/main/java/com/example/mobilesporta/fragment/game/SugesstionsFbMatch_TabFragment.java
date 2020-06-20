@@ -94,7 +94,6 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
 
         txtDate.setText("Lọc");
         txtDate2.setText("Đến");
-//        getDataByDate();
         showListMatch();
 
         pickTime();
@@ -110,14 +109,6 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
         txtDate = (TextView) view.findViewById(R.id.txtSugesstion_Match_Fragment_FilterDateSearch);
         txtDate2 = (TextView) view.findViewById(R.id.txtSugesstion_Match_Fragment_FilterDateSearch2);
     }
-
-//    private void getDataByDate() {
-//
-//        Log.d("date", txtDate.getText().toString());
-//        mapMatchModelsByDate = matchService.getMapMatchByDateTime(txtDate.getText().toString());
-//        listMatchByDate = matchService.getListMatchByDateTime(txtDate.getText().toString());
-//        listMatchIdByDate = matchService.getListMatchIdByDate(txtDate.getText().toString());
-//    }
 
     private void clearData() {
         mapMatchModelsByDate.clear();
@@ -137,8 +128,6 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         MatchModel match = snapshot.getValue(MatchModel.class);
                         try {
-//                            LocalDate localDate = LocalDate.now();//For reference
-//                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                             String formattedString = sDF.format(calendar.getTime());
 
                             Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(formattedString);

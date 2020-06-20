@@ -43,7 +43,8 @@
                 android:id="@+id/btn_delete_match"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@drawable/ic_delete_club"/>
+                android:background="@drawable/ic_delete_club"
+                android:visibility="gone"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -171,6 +172,7 @@
         android:textColor="#000"
         android:drawableLeft="@drawable/ic_phone"
         android:paddingLeft="10dp"
+        android:drawablePadding="10dp"
         android:paddingRight="10dp"/>
 
     <LinearLayout
@@ -178,9 +180,11 @@
         android:layout_height="wrap_content">
         <TextView
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawableTop="@drawable/broadcast"/>
+            android:drawableTop="@drawable/broadcast"
+            android:drawablePadding="10dp"
+            android:paddingLeft="10dp"/>
         <TextView
             android:id="@+id/txtMatchInfoAct_Description"
             android:layout_width="0dp"

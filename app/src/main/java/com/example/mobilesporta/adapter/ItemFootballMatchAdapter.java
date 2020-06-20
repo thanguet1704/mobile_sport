@@ -21,7 +21,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +37,8 @@ public class    ItemFootballMatchAdapter extends BaseAdapter {
     Map<String, ClubModel> mapClubs = new HashMap<>();
     TextView txtStadium, txtMatchDate, txtMatchTime, txtAwayClubName, txtHomeClubName, txtWait;
     ImageView imgHomeClub, imgAwayClub;
+    Calendar calendar = Calendar.getInstance();
+    SimpleDateFormat sDF = new SimpleDateFormat("dd/MM/yyy");
 
     public ItemFootballMatchAdapter(Activity activity, List<MatchModel> footballMatchList, Map<String, ClubModel> mapClubs) {
         this.activity = activity;
@@ -92,12 +98,22 @@ public class    ItemFootballMatchAdapter extends BaseAdapter {
         txtMatchTime.setText(match.getTime());
         txtMatchDate.setText(match.getDate());
 
-        if (match.getStatus().equals("N")){
-            txtWait.setText("Đang chờ đối thủ");
-        }else if (match.getStatus().equals("C")){
-            txtWait.setText("Chờ xác nhận");
-        }else{
-            txtWait.setText("Đã kết thúc");
+        try {
+            Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(sDF.format(calendar.getTime()));
+            Date date2 = new SimpleDateFormat("dd-MM-yyyy").parse(match.getDate());
+            if (date1.compareTo(date2) > 0){
+                txtWait.setText("Đã kết thúc");
+            }else{
+                if (match.getStatus().equals("N")){
+                    txtWait.setText("Đang chờ đối thủ");
+                }else if (match.getStatus().equals("C")){
+                    txtWait.setText("Chờ xác nhận");
+                }else{
+                    txtWait.setText("Đang diễn ra");
+                }
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
 
         renderNameStdium(match.getStadium_id());

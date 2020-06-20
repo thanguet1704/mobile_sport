@@ -121,7 +121,7 @@
             android:textAllCaps="false"
             android:textSize="24dp"
             android:textAlignment="viewStart"
-            android:drawableLeft="@drawable/icon_security"
+            android:drawableLeft="@drawable/ic_security_black_24dp"
             android:text=" Chính sách bảo mật"
             android:background="@drawable/dangkylogin"/>
 
