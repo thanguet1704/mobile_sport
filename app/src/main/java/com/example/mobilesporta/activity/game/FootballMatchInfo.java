@@ -89,6 +89,7 @@ public class FootballMatchInfo extends AppCompatActivity {
     public String match_id;
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat sDF = new SimpleDateFormat("dd/MM/yyy");
+    TextView txtStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,16 +145,7 @@ public class FootballMatchInfo extends AppCompatActivity {
         llHomeClub = findViewById(R.id.ll_home_club);
         llAwayClub = findViewById(R.id.ll_away_club);
         btnCancelMatch = findViewById(R.id.btn_cancel_match);
-    }
-
-    private ClubModel getClubById(String clubId, Map<String, ClubModel> map) {
-        ClubModel clubModel = new ClubModel();
-        for (Map.Entry<String, ClubModel> entry : map.entrySet()) {
-            if(entry.getKey().equals(clubId)) {
-                clubModel = entry.getValue();
-            }
-        }
-        return  clubModel;
+        txtStatus = findViewById(R.id.status);
     }
 
     private void showMatchInfo(String match_id) {
@@ -178,6 +170,24 @@ public class FootballMatchInfo extends AppCompatActivity {
                         clubAwayId = matchModel.getClub_away_id();
                         clickSelectClub(matchModel.getStatus());
                         clickCancelMatch(matchModel.getStatus());
+
+                        try {
+                            Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(sDF.format(calendar.getTime()));
+                            Date date2 = new SimpleDateFormat("dd-MM-yyyy").parse(matchModel.getDate());
+                            if (date1.compareTo(date2) > 0){
+                                txtStatus.setText("Đã kết thúc");
+                            }else{
+                                if (matchModel.getStatus().equals("N")){
+                                    txtStatus.setText("Đang chờ đối thủ");
+                                }else if (matchModel.getStatus().equals("C")){
+                                    txtStatus.setText("Chờ xác nhận");
+                                }else{
+                                    txtStatus.setText("Đang diễn ra");
+                                }
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
                     }
                     // hiển thị thông tin home club
                     renderClubHome(clubHomeId);
@@ -243,6 +253,7 @@ public class FootballMatchInfo extends AppCompatActivity {
                                 }else if (!user.getUid().equals(matchModel.getUser_created_id())){
                                     btnRequest.setVisibility(View.VISIBLE);
                                     tvAmountsClub.setVisibility(GONE);
+                                    btnDeleteMatch.setVisibility(GONE);
                                 }
                             }
                         } catch (ParseException e) {
