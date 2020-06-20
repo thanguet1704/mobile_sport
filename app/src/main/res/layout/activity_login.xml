@@ -14,7 +14,7 @@
             android:id="@+id/logo"
             android:layout_width="200dp"
             android:layout_height="150dp"
-            android:layout_marginLeft="80dp"
+            android:layout_centerHorizontal="true"
             android:src="@drawable/main_logo"/>
         <TextView
             android:id="@+id/appName"
@@ -108,7 +108,7 @@
             android:visibility="gone"/>
         <RelativeLayout
             android:id="@+id/btn"
-            android:layout_width="wrap_content"
+            android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/or"
             android:layout_centerHorizontal="true">
@@ -119,14 +119,12 @@
                 android:text="Facebook"
                 android:background="@drawable/loginfbstyle"
                 android:paddingLeft="10dp"
-                android:layout_marginLeft="55dp"
                 android:drawablePadding="10dp"
                 android:textAllCaps="false"
                 android:textAlignment="viewStart"
                 android:textColor="#fff"
                 android:textSize="20sp"
-                android:drawableLeft="@drawable/facebook_icon"
-                android:layout_marginBottom="5dp"/>
+                android:drawableLeft="@drawable/facebook_icon" />
             <!--        />-->
             <com.google.android.gms.common.SignInButton
                 android:id="@+id/sign_in_button"
@@ -144,7 +142,6 @@
                 android:drawableLeft="@drawable/google_icon"
                 android:drawablePadding="10dp"
                 android:paddingLeft="10dp"
-                android:layout_marginRight="55dp"
                 android:text="Google"
                 android:textAlignment="viewStart"
                 android:textAllCaps="false"
