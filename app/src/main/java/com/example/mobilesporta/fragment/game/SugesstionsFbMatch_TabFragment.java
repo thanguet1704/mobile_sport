@@ -20,6 +20,8 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -73,12 +75,14 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
 
     TextView txtDate;
     TextView txtDate2;
-    TextView txtTime;
-
+    TextView txtTime, txtNone;
+    ImageView imgNone;
     ItemFootballMatchAdapter itemFootballMatchAdapter;
+    LinearLayout linearLayout, llNone;
 
     final Calendar calendar = Calendar.getInstance();
     final SimpleDateFormat sDF = new SimpleDateFormat("dd/MM/yyy");
+
 
     public SugesstionsFbMatch_TabFragment() {
         // Required empty public constructor
@@ -95,8 +99,6 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
         txtDate.setText("Lọc");
         txtDate2.setText("Đến");
         showListMatch();
-
-        pickTime();
         pickDate();
         pickDate2();
         // Inflate the layout for this fragment
@@ -105,9 +107,12 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
 
     private void connectView(View view) {
         listView = (ListView) view.findViewById(R.id.lvSugesstion_Match_Fragment_ListMatch);
-        txtTime = (TextView) view.findViewById(R.id.txtSugesstion_Match_Fragment_FilterTimeSearch);
         txtDate = (TextView) view.findViewById(R.id.txtSugesstion_Match_Fragment_FilterDateSearch);
         txtDate2 = (TextView) view.findViewById(R.id.txtSugesstion_Match_Fragment_FilterDateSearch2);
+        txtNone = view.findViewById(R.id.txt_none);
+        imgNone = view.findViewById(R.id.img_none);
+        linearLayout = view.findViewById(R.id.ll_filter);
+        llNone = view.findViewById(R.id.ll_none);
     }
 
     private void clearData() {
@@ -142,6 +147,11 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
                             e.printStackTrace();
                         }
                     }
+                    if (listMatchByDate.size() == 0){
+                        llNone.setVisibility(View.VISIBLE);
+                    }else{
+                        llNone.setVisibility(View.GONE);
+                    }
                     itemFootballMatchAdapter = new ItemFootballMatchAdapter(getActivity(), listMatchByDate, mapClubs);
                     listView.setAdapter(itemFootballMatchAdapter);
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -153,6 +163,9 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
                         }
                     });
                     itemFootballMatchAdapter.notifyDataSetChanged();
+
+                }else{
+                    llNone.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -162,22 +175,6 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
             }
         });
 
-    }
-
-
-    private void pickTime() {
-        txtTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), android.R.style.Theme_Holo_InputMethod, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        txtTime.setText(hourOfDay + ":" + minute);
-                    }
-                }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), DateFormat.is24HourFormat(getContext()));
-                timePickerDialog.show();
-            }
-        });
     }
 
     private void pickDate() {
@@ -226,6 +223,11 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
                                             e.printStackTrace();
                                         }
                                     }
+                                    if (listMatchByDate.size() == 0){
+                                        llNone.setVisibility(View.VISIBLE);
+                                    }else{
+                                        llNone.setVisibility(View.GONE);
+                                    }
                                     itemFootballMatchAdapter = new ItemFootballMatchAdapter(getActivity(), listMatchByDate, mapClubs);
                                     listView.setAdapter(itemFootballMatchAdapter);
                                     txtDate2.setVisibility(View.VISIBLE);
@@ -237,6 +239,8 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
                                             startActivity(intent);
                                         }
                                     });
+                                }else{
+                                    llNone.setVisibility(View.VISIBLE);
                                 }
                             }
 

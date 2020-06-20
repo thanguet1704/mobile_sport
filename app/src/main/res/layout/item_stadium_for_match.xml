@@ -42,13 +42,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:gravity="center_vertical"
+            android:drawablePadding="10dp"
             android:drawableLeft="@drawable/ic_location"/>
         <TextView
             android:id="@+id/tv_time_stadium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="18sp"
+            android:drawablePadding="10dp"
             android:gravity="center_vertical"
             android:drawableLeft="@drawable/ic_time"/>
     </LinearLayout>

@@ -43,6 +43,7 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:gravity="center_vertical"
+            android:drawablePadding="10dp"
             android:drawableLeft="@drawable/ic_location"/>
         <TextView
             android:id="@+id/stadiumTime"
@@ -50,6 +51,7 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:gravity="center_vertical"
+            android:drawablePadding="10dp"
             android:drawableLeft="@drawable/ic_time"/>
     </LinearLayout>
 </LinearLayout>

@@ -9,24 +9,12 @@
     android:weightSum="10"
     tools:context=".fragment.game.SugesstionsFbMatch_TabFragment">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@drawable/bg_toolbar">
-
-        <TextView
-            android:id="@+id/tvSugesstion_Match_Fragment_FilterDateTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Từ"
-            android:layout_gravity="center_vertical"
-            android:textColor="#FFC107"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:visibility="gone"/>
-
+        android:background="@drawable/bg_toolbar"
+        android:id="@+id/ll_filter">
         <TextView
             android:id="@+id/txtSugesstion_Match_Fragment_FilterDateSearch"
             android:layout_width="130dp"
@@ -40,15 +28,6 @@
             android:layout_gravity="center_vertical"
             android:gravity="center"/>
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Đến"
-            android:layout_gravity="center_vertical"
-            android:textColor="#FFC107"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:visibility="gone"/>
-        <TextView
             android:id="@+id/txtSugesstion_Match_Fragment_FilterDateSearch2"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
@@ -61,38 +40,29 @@
             android:layout_gravity="center_vertical"
             android:gravity="center"
             android:visibility="gone"/>
-
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_none"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9"
+        android:orientation="vertical"
+        android:visibility="gone">
+        <ImageView
+            android:layout_marginTop="-50dp"
+            android:id="@+id/img_none"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:src="@drawable/none"/>
         <TextView
-            android:id="@+id/txtSugesstion_Match_Fragment_FilterTimeSearch"
+            android:id="@+id/txt_none"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="12dp"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@+id/tvSugesstion_Match_Fragment_FilterTimeTitle"
-            app:layout_constraintStart_toEndOf="@+id/tvSugesstion_Match_Fragment_FilterTimeTitle"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <!--        <TextView-->
-        <!--            android:id="@+id/txtSugesstion_Match_Fragment_FilterTimeSearchTo"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginLeft="60dp"-->
-        <!--            android:layout_marginTop="12dp"-->
-        <!--            android:text="Đến"-->
-        <!--            android:textSize="14sp"-->
-        <!--            app:layout_constraintBottom_toBottomOf="@+id/tvSugesstion_Match_Fragment_FilterTimeTitle"-->
-        <!--            app:layout_constraintStart_toEndOf="@+id/tvSugesstion_Match_Fragment_FilterTimeTitle"-->
-        <!--            app:layout_constraintTop_toTopOf="parent" />-->
-
-        <!--        <Button-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="Tìm"-->
-        <!--            android:layout_marginRight="20dp"-->
-        <!--            app:layout_constraintRight_toRightOf="parent"-->
-        <!--            app:layout_constraintTop_toTopOf="parent"/>-->
-
+            android:text="Không tìm thấy trận đấu nào gần đây."
+            android:textColor="#000"
+            android:textSize="20sp"
+            android:layout_gravity="center_horizontal"
+            android:padding="20dp"/>
     </LinearLayout>
 
     <FrameLayout

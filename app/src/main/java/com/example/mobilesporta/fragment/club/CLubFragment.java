@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,6 +57,7 @@ public class CLubFragment extends Fragment {
     ListView lvClub;
     ItemClubAdapter itemClubAdapter;
     TextView none;
+    ImageView imgNone;
 
     @Nullable
     @Override
@@ -73,6 +75,7 @@ public class CLubFragment extends Fragment {
         lvClub = view.findViewById(R.id.lvClubAct_MyClub);
         none = view.findViewById(R.id.txtClub_NoData);
         fabAddNew = view.findViewById(R.id.fabClubAdd_AddNewClub);
+        imgNone = view.findViewById(R.id.img_none);
         btnSearchClub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -161,9 +164,9 @@ public class CLubFragment extends Fragment {
                             startActivity(intent);
                         }
                     });
-                    none.setVisibility(View.INVISIBLE);
                 }else{
                     none.setVisibility(View.VISIBLE);
+                    imgNone.setVisibility(View.VISIBLE);
                 }
             }
 

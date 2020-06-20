@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.example.mobilesporta.R;
@@ -39,16 +40,12 @@ import java.util.Map;
  */
 public class MyFbMatch_TabFragment extends Fragment {
 
-    MatchService matchService = new MatchService();
-
-
     ClubService clubService = new ClubService();
     Map<String, ClubModel> mapClubs = clubService.getMapClubs();
     Map<String, ClubModel> mapMyClubs = clubService.getMyMapClubs();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-    Button btnCreateNewMatch;
     ListView lvMatch;
+    LinearLayout llNone;
 
     public MyFbMatch_TabFragment() {
         // Required empty public constructor
@@ -70,6 +67,7 @@ public class MyFbMatch_TabFragment extends Fragment {
 
     private void connectView(View view) {
         lvMatch = (ListView) view.findViewById(R.id.lvMy_Fb_Match_Fragment_ListMatch);
+        llNone = view.findViewById(R.id.ll_none);
     }
 
 
@@ -89,6 +87,11 @@ public class MyFbMatch_TabFragment extends Fragment {
                             listMatchId.add(snapshot.getKey());
                         }
                     }
+                    if (listMatch.size() == 0){
+                        llNone.setVisibility(View.VISIBLE);
+                    }else{
+                        llNone.setVisibility(View.GONE);
+                    }
 
                     ItemFootballMatchAdapter itemFootballMatchAdapter = new ItemFootballMatchAdapter(getActivity(), listMatch, mapClubs);
                     lvMatch.setAdapter(itemFootballMatchAdapter);
@@ -100,6 +103,8 @@ public class MyFbMatch_TabFragment extends Fragment {
                             startActivity(intent);
                         }
                     });
+                }else{
+                    llNone.setVisibility(View.GONE);
                 }
             }
 
