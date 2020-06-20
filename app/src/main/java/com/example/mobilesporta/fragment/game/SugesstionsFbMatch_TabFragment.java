@@ -93,7 +93,7 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
         connectView(view);
 
         txtDate.setText("Lọc");
-        txtDate2.setText("Chọn");
+        txtDate2.setText("Đến");
 //        getDataByDate();
         showListMatch();
 
@@ -239,6 +239,7 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
                                     }
                                     itemFootballMatchAdapter = new ItemFootballMatchAdapter(getActivity(), listMatchByDate, mapClubs);
                                     listView.setAdapter(itemFootballMatchAdapter);
+                                    txtDate2.setVisibility(View.VISIBLE);
                                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                         @Override
                                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

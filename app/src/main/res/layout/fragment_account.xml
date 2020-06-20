@@ -23,7 +23,8 @@
                 android:layout_width="160dp"
                 android:layout_height="160dp"
                 android:id="@+id/cv_avatar"
-                app:cardCornerRadius="80dp">
+                app:cardCornerRadius="80dp"
+                android:layout_marginTop="-10dp">
                 <ImageView
                     android:id="@+id/avatar"
                     android:layout_width="match_parent"
@@ -41,7 +42,7 @@
                 android:layout_marginTop="-50dp"
                 android:layout_marginLeft="65dp"/>
             <TextView
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:id="@+id/text_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
