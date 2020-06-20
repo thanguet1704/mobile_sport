@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="10dp"
-    android:background="#F5F5F5">
+    android:background="@drawable/bg_item_club">
 
     <androidx.cardview.widget.CardView
         android:layout_width="80dp"

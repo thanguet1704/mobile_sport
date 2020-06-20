@@ -40,9 +40,12 @@
         android:layout_height="0dp"
         android:layout_weight="9">
         <ListView
+            android:padding="10dp"
             android:id="@+id/lvClubAct_MyClub"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:dividerHeight="10dp"
+            android:divider="#fff"/>
 
         <TextView
             android:id="@+id/txtClub_NoData"
