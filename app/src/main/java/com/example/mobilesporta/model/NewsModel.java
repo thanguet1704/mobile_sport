@@ -2,43 +2,57 @@ package com.example.mobilesporta.model;
 
 public class NewsModel {
 
-    private String title;
-    private String content;
-    private String image;
+    String title,image,desc, url, time;
 
-    public NewsModel() {
+    public NewsModel(){
+
     }
 
-    public NewsModel(String title, String content, String image) {
+    public NewsModel(String title, String image, String desc, String url, String time) {
         this.title = title;
-        this.content = content;
         this.image = image;
+        this.desc = desc;
+        this.url = url;
+        this.time = time;
     }
 
-    public String getTitle() {
-        return title;
+    public String getTime() {
+        return time;
     }
 
-    public NewsModel setTitle(String title) {
-        this.title = title;
-        return this;
+    public void setTime(String time) {
+        this.time = time;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public NewsModel setContent(String content) {
-        this.content = content;
-        return this;
+    public String getDesc() {
+        return this.desc;
     }
 
     public String getImage() {
-        return image;
+        return this.image;
     }
 
-    public NewsModel setImage(String image) {
+    public String getTitle() {
+        return this.title;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public void setImage(String image) {
         this.image = image;
-        return this;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
