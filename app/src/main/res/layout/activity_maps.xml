@@ -11,23 +11,29 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="10dp"
         android:id="@+id/etOrigin"
-        android:hint="Enter origin address" />
+        android:hint="Nhập địa chỉ"
+        android:background="@drawable/stadium_view_background"/>
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_margin="5dp"
         >
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Chỉ đường"
-            android:id="@+id/btnFindPath" />
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/btnFindPath"
+            android:background="@drawable/findmap"/>
         <ImageView
             android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
+            android:layout_marginBottom="2dp"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/ic_distance"/>
@@ -41,6 +47,7 @@
         <ImageView
             android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
+            android:layout_marginBottom="2dp"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:padding="5dp"

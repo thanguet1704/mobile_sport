@@ -55,6 +55,7 @@ public class StadiumMap extends FragmentActivity implements OnMapReadyCallback, 
     private List<Polyline> polylinePaths = new ArrayList<>();
     private ProgressDialog progressDialog;
     private String text;
+    private boolean x;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,15 +75,16 @@ public class StadiumMap extends FragmentActivity implements OnMapReadyCallback, 
         etOrigin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                etOrigin.setText("");
                 editAddress();
             }
         });
         Places.initialize(getApplicationContext(),"AIzaSyD9EagKsWiKToCHCpLGsoEUJ1zEPDEp3Fs");
-
+        sendRequest(false);
         btnFindPath.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendRequest();
+                sendRequest(true);
             }
         });
     }
@@ -104,19 +106,23 @@ public class StadiumMap extends FragmentActivity implements OnMapReadyCallback, 
         Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fieldList).build(this);
         startActivityForResult(intent, 100);
     }
-    private void sendRequest() {
+    private void sendRequest(boolean a) {
         String origin = etOrigin.getText().toString();
         String destination = text;
         SimpleLocation location = new SimpleLocation(this);
         String mylocation = location.getLatitude()+","+location.getLongitude();
         if (origin.isEmpty()) {
-            Toast.makeText(this, "Please enter origin address!", Toast.LENGTH_SHORT).show();
+            if(a){
+                Toast.makeText(this, "Bạn chưa nhập địa chỉ!", Toast.LENGTH_SHORT).show();
+            }
+            x = false;
             try {
                 new DirectionFinder(this, mylocation, destination).execute();
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
         } else{
+            x = true;
             try {
                 new DirectionFinder(this, origin, destination).execute();
             } catch (UnsupportedEncodingException e) {
@@ -165,7 +171,7 @@ public class StadiumMap extends FragmentActivity implements OnMapReadyCallback, 
     @Override
     public void onDirectionFinderStart() {
         progressDialog = ProgressDialog.show(this, "Please wait.",
-                "Finding direction..!", true);
+                "Đang tìm đường..!", true);
 
         if (originMarkers != null) {
             for (Marker marker : originMarkers) {
@@ -198,7 +204,7 @@ public class StadiumMap extends FragmentActivity implements OnMapReadyCallback, 
             ((TextView) findViewById(R.id.tvDuration)).setText(route.duration.text);
             ((TextView) findViewById(R.id.tvDistance)).setText(route.distance.text);
 
-            originMarkers.add(mMap.addMarker(new MarkerOptions()
+            if(x) originMarkers.add(mMap.addMarker(new MarkerOptions()
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.start_blue))
                     .title(route.startAddress)
                     .position(route.startLocation)));
