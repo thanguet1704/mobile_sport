@@ -42,5 +42,6 @@
     <string name="title_activity_search_select_stadium_for_match">SearchSelectStadiumForMatch
     </string>
     <string name="title_activity_stadium_map">Map</string>
+    <string name="title_activity_news_info">NewsInfo</string>
 
 </resources>
