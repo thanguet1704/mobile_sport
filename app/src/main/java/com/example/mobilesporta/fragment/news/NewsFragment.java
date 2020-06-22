@@ -1,37 +1,27 @@
 package com.example.mobilesporta.fragment.news;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobilesporta.R;
 import com.example.mobilesporta.activity.news.NewsInfo;
 import com.example.mobilesporta.adapter.ItemNewsAdapter;
-import com.example.mobilesporta.data.service.NewsService;
 import com.example.mobilesporta.model.NewsModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -70,7 +60,7 @@ public class NewsFragment extends Fragment {
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Intent intent = new Intent(getActivity(), NewsInfo.class);
+                            Intent intent = new Intent(getContext(), NewsInfo.class);
                             intent.putExtra("url", listNews.get(position).getUrl());
                             startActivity(intent);
                         }

@@ -23,9 +23,9 @@ public class NewsInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_info);
 
-        Intent intent = getIntent();
-        String url = intent.getStringExtra("url");
-        webView = findViewById(R.id.wv_news_info);
+        webView = findViewById(R.id.wv_news);
+        Intent data = getIntent();
+        String url = data.getStringExtra("url");
         webView.setWebChromeClient(new WebChromeClient());
         webView.loadUrl(url);
 
