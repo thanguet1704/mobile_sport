@@ -24,7 +24,7 @@ import com.squareup.picasso.Picasso;
 
 public class StadiumView extends AppCompatActivity {
     TextView textTitle;
-    Button findWay,backStadiumView;
+    Button findWay,backStadiumView, contactStadium;
     ImageView imageStadiumView;
     TextView description, stadiumTime, stadiumAddress, costStadium;
     Query dataStadium;
@@ -40,6 +40,7 @@ public class StadiumView extends AppCompatActivity {
         description = findViewById(R.id.desciption);
         stadiumTime = findViewById(R.id.stadiumTime);
         costStadium = findViewById(R.id.costStadium);
+        contactStadium = findViewById(R.id.contactStadium);
 
         Intent i = getIntent();
         final String text = i.getStringExtra("title");
@@ -63,6 +64,7 @@ public class StadiumView extends AppCompatActivity {
                 stadiumTime.setText("Thời gian: "+stadiumModel.getTime_open()+" - "+stadiumModel.getTime_close());
                 stadiumAddress.setText("Địa chỉ: "+stadiumModel.getAddress());
                 costStadium.setText("Giá sân: "+stadiumModel.getCost());
+                contactStadium.setText("Liên hệ: "+stadiumModel.getPhone_number());
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
