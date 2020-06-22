@@ -148,6 +148,7 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
                         }
                     }
                     if (listMatchByDate.size() == 0){
+                        txtDate.setVisibility(View.GONE);
                         llNone.setVisibility(View.VISIBLE);
                     }else{
                         llNone.setVisibility(View.GONE);

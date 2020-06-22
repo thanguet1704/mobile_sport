@@ -24,6 +24,8 @@ import com.example.mobilesporta.activity.club.ClubProfile;
 import com.example.mobilesporta.activity.club.ClubSearching;
 import com.example.mobilesporta.adapter.ItemClubAdapter;
 import com.example.mobilesporta.model.ClubModel;
+import com.example.mobilesporta.model.MatchModel;
+import com.example.mobilesporta.notifications.Data;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -139,9 +141,30 @@ public class ClubService {
         infoClub.addListenerForSingleValueEvent(valueEventListener);
     }
 
-    public void deleteClub(String clubId){
+    public void deleteClub(final String clubId){
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("clubs").child(clubId);
         mDatabase.removeValue();
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference("matchs");
+        db.orderByKey().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                        MatchModel matchModel = snapshot.getValue(MatchModel.class);
+                        if (matchModel.getClub_home_id().equals(clubId) || matchModel.getClub_away_id().equals(clubId)){
+                            DatabaseReference mdb = FirebaseDatabase.getInstance().getReference("matchs").child(snapshot.getKey());
+                            mdb.removeValue();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     public void updateDescriptionClub(String clubId, final String des){

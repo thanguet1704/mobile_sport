@@ -244,13 +244,15 @@ public class FootballMatchInfo extends AppCompatActivity {
                                 btnCancelMatch.setVisibility(GONE);
                                 btnDeleteMatch.setVisibility(GONE);
                                 tvAmountsClub.setVisibility(GONE);
+                                btnRequest.setVisibility(GONE);
                             }else{
                                 if (user.getUid().equals(matchModel.getUser_created_id())
                                         && matchModel.getStatus().equals("C")){
                                     btnSelectClub.setVisibility(View.VISIBLE);
                                     btnCancelMatch.setVisibility(View.VISIBLE);
                                     btnDeleteMatch.setVisibility(View.VISIBLE);
-                                }else if (!user.getUid().equals(matchModel.getUser_created_id())){
+                                }else if (!user.getUid().equals(matchModel.getUser_created_id())
+                                        && matchModel.getStatus().equals("C")){
                                     btnRequest.setVisibility(View.VISIBLE);
                                     tvAmountsClub.setVisibility(GONE);
                                     btnDeleteMatch.setVisibility(GONE);
