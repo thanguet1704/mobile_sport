@@ -104,7 +104,7 @@ public class MyFbMatch_TabFragment extends Fragment {
                         }
                     });
                 }else{
-                    llNone.setVisibility(View.GONE);
+                    llNone.setVisibility(View.VISIBLE);
                 }
             }
 

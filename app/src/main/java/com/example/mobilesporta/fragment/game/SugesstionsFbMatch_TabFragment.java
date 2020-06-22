@@ -166,6 +166,7 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
                     itemFootballMatchAdapter.notifyDataSetChanged();
 
                 }else{
+                    txtDate.setVisibility(View.GONE);
                     llNone.setVisibility(View.VISIBLE);
                 }
             }
