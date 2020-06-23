@@ -119,6 +119,7 @@ public class StadiumView extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if(requestCode == REQUEST_CALL){
             if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+
             } else {
                 Toast.makeText(this,"Permission DENIED", Toast.LENGTH_SHORT).show();
             }
