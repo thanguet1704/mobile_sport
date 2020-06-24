@@ -1,17 +1,24 @@
 package com.example.mobilesporta.fragment.stadium;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.mobilesporta.Home;
+import com.example.mobilesporta.MainActivity;
 import com.example.mobilesporta.R;
 import com.example.mobilesporta.model.StadiumModel;
 import com.google.firebase.database.DataSnapshot;
@@ -23,6 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 public class StadiumView extends AppCompatActivity {
+    private static final int REQUEST_CALL = 1;
     TextView textTitle;
     Button findWay,backStadiumView, contactStadium;
     ImageView imageStadiumView;
@@ -71,6 +79,14 @@ public class StadiumView extends AppCompatActivity {
 
             }
         });
+
+        contactStadium.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callPhoneNumber(stadiumModel.getPhone_number());
+            }
+        });
+
         findWay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,5 +104,25 @@ public class StadiumView extends AppCompatActivity {
                 startActivity(i);
             }
         });
+    }
+
+    private void callPhoneNumber(String x){
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CALL_PHONE}, REQUEST_CALL);
+        } else{
+            String dial = "tel:"+ x;
+            startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dial)));
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(requestCode == REQUEST_CALL){
+            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+
+            } else {
+                Toast.makeText(this,"Permission DENIED", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }
