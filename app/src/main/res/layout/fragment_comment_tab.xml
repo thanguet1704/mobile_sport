@@ -20,11 +20,12 @@
         android:weightSum="10"
         android:layout_marginBottom="5dp">
         <EditText
+            android:paddingLeft="15dp"
             android:id="@+id/edt_comment_club"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="9"
-            android:hint=" Thêm nhận xét..."
+            android:hint="Thêm nhận xét..."
             android:textColorHint="#000"
             android:background="@drawable/edt_add_comment_style"/>
         <ImageButton

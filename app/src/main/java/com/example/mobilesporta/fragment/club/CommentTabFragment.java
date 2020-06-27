@@ -106,6 +106,7 @@ public class CommentTabFragment extends Fragment {
                 clubCommentService.addClubComment(clubId, clubComment);
 
                 edtComment.setText("");
+                llGroupComment.setVisibility(View.GONE);
             }
         });
 
@@ -122,6 +123,8 @@ public class CommentTabFragment extends Fragment {
                     for (DataSnapshot snapshot: dataSnapshot.getChildren()){
                         ClubCommentModel clubComment = snapshot.getValue(ClubCommentModel.class);
                         listClubComment.add(clubComment);
+                        if (clubComment.getUser_id().equals(userId))
+                            llGroupComment.setVisibility(View.GONE);
                     }
                     if (listClubComment.size() == 0){
                         textView.setVisibility(View.VISIBLE);
