@@ -23,6 +23,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.mobilesporta.Home;
 import com.example.mobilesporta.R;
+import com.example.mobilesporta.activity.game.FootballMatchInfo;
 import com.example.mobilesporta.adapter.PageAdapter;
 import com.example.mobilesporta.data.service.ClubService;
 import com.example.mobilesporta.fragment.club.DescriptionTabFragment;
@@ -55,7 +56,7 @@ public class ClubProfile extends AppCompatActivity {
     Uri imageURI, bgURI;
     private StorageReference storageRef;
     ImageView bgClub;
-    private String userId;
+    private String userId, matchId, isFromFBMatch;
     private Button btnOptionClub, btnEditInfoClub, btnDeleteClub, btnBack, btnUpdateClub;
     private EditText edtClubName, edtSlogan, edtDescription;
 
@@ -70,6 +71,7 @@ public class ClubProfile extends AppCompatActivity {
         Intent idClubFromFragment = getIntent();
         clubId = idClubFromFragment.getStringExtra("club_id");
         userId = idClubFromFragment.getStringExtra("user_id");
+        matchId = idClubFromFragment.getStringExtra("match_id");
 
         map();
 
@@ -88,9 +90,15 @@ public class ClubProfile extends AppCompatActivity {
             btnBack.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(ClubProfile.this, Home.class);
-                    intent.putExtra("addclub", "true");
-                    startActivity(intent);
+                    if (matchId != null){
+                        Intent intent = new Intent(ClubProfile.this, FootballMatchInfo.class);
+                        intent.putExtra("match_id", matchId);
+                        startActivity(intent);
+                    }else{
+                        Intent intent = new Intent(ClubProfile.this, Home.class);
+                        intent.putExtra("addclub", "true");
+                        startActivity(intent);
+                    }
                 }
             });
         }else{
@@ -100,8 +108,14 @@ public class ClubProfile extends AppCompatActivity {
             btnBack.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(ClubProfile.this, ClubSearching.class);
-                    startActivity(intent);
+                    if (matchId != null){
+                        Intent intent = new Intent(ClubProfile.this, FootballMatchInfo.class);
+                        intent.putExtra("match_id", matchId);
+                        startActivity(intent);
+                    }else{
+                        Intent intent = new Intent(ClubProfile.this, ClubSearching.class);
+                        startActivity(intent);
+                    }
                 }
             });
         }

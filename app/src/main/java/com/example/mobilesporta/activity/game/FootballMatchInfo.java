@@ -291,6 +291,7 @@ public class FootballMatchInfo extends AppCompatActivity {
                             Intent intent = new Intent(FootballMatchInfo.this, ClubProfile.class);
                             intent.putExtra("club_id", clubHomeId);
                             intent.putExtra("user_id", user_create_id);
+                            intent.putExtra("match_id", match_id);
                             startActivity(intent);
                         }
                     });
@@ -327,6 +328,7 @@ public class FootballMatchInfo extends AppCompatActivity {
                                 Intent intent = new Intent(FootballMatchInfo.this, ClubProfile.class);
                                 intent.putExtra("club_id", clubAwayId);
                                 intent.putExtra("user_id", user_create_id);
+                                intent.putExtra("match_id", match_id);
                                 startActivity(intent);
                             }
                         });

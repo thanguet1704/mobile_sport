@@ -107,6 +107,7 @@ public class CommentTabFragment extends Fragment {
 
                 edtComment.setText("");
                 llGroupComment.setVisibility(View.GONE);
+                textView.setVisibility(View.GONE);
             }
         });
 

@@ -4,15 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
+    android:background="#FBFAFA"
     android:orientation="vertical"
     android:weightSum="10"
     tools:context=".fragment.game.SugesstionsFbMatch_TabFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/ll_filter">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/ll_filter"
+        android:visibility="gone">
         <TextView
             android:id="@+id/txtSugesstion_Match_Fragment_FilterDateSearch"
             android:layout_width="130dp"
@@ -73,8 +75,8 @@
         <ListView
             android:id="@+id/lvSugesstion_Match_Fragment_ListMatch"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:dividerHeight="10dp"
+            android:divider="#FBFAFA"/>
     </FrameLayout>
-
-    -->
 </LinearLayout>

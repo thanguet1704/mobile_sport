@@ -151,6 +151,7 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
                         txtDate.setVisibility(View.GONE);
                         llNone.setVisibility(View.VISIBLE);
                     }else{
+                        linearLayout.setVisibility(View.VISIBLE);
                         llNone.setVisibility(View.GONE);
                     }
                     itemFootballMatchAdapter = new ItemFootballMatchAdapter(getActivity(), listMatchByDate, mapClubs);
@@ -228,6 +229,7 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
                                     if (listMatchByDate.size() == 0){
                                         llNone.setVisibility(View.VISIBLE);
                                     }else{
+                                        linearLayout.setVisibility(View.VISIBLE);
                                         llNone.setVisibility(View.GONE);
                                     }
                                     itemFootballMatchAdapter = new ItemFootballMatchAdapter(getActivity(), listMatchByDate, mapClubs);
