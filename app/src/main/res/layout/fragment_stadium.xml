@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#FBFAFA">
     <SearchView
         android:id="@+id/searchStadium"
         android:layout_width="match_parent"
@@ -14,12 +15,12 @@
     </SearchView>
 
     <ListView
-        android:padding="10dp"
+        android:padding="15dp"
         android:id="@+id/listStadium"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:dividerHeight="10dp"
-        android:divider="#fff">
+        android:divider="#FBFAFA">
 
     </ListView>
 

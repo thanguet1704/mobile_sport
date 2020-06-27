@@ -7,16 +7,16 @@
     android:layout_height="match_parent">
     <ImageView
         android:id="@+id/imageStadiumView"
-        android:layout_marginTop="-40dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="280dp"
+        android:src="@drawable/news_hightlight"
+        android:scaleType="fitXY">
     </ImageView>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginBottom="-30dp">
+        android:layout_marginTop="200dp"
+        android:layout_alignParentTop="true">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,7 +32,9 @@
                 android:layout_height="wrap_content"
                 android:text="Tên sân"
                 android:textStyle="bold"
-                android:textSize="20dp"
+                android:textSize="24sp"
+                android:textColor="#FB8C00"
+                android:gravity="center_horizontal"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginTop="30dp"
@@ -43,19 +45,22 @@
                 android:layout_marginRight="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Mô tả"/>
+                android:text="Mô tả"
+                android:textSize="18sp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp">
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="30dp">
                 <TextView
                     android:id="@+id/stadiumTime"
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Thời gian">
+                    android:text="Thời gian"
+                    android:textSize="18sp">
 
                 </TextView>
                 <TextView
@@ -63,13 +68,14 @@
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Giá sân">
+                    android:text="Giá sân"
+                    android:textSize="18sp">
                 </TextView>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@drawable/stadium_view_background1"
                 android:orientation="vertical">
 
@@ -87,15 +93,13 @@
                     android:paddingRight="20dp"
                     android:paddingBottom="30dp">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"></ImageView>
-
                     <TextView
                         android:id="@+id/stadiumAddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Địa chỉ">
+                        android:text="Địa chỉ"
+                        android:gravity="center_horizontal"
+                        android:textSize="18sp">
 
                     </TextView>
                 </LinearLayout>
@@ -105,9 +109,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
-                    android:background="@drawable/order_stadium"
+                    android:background="@drawable/bgbtnloginlogout"
                     android:text="Đặt sân"
-                    android:textColor="@android:color/white"></Button>
+                    android:textSize="18sp"
+                    android:textColor="#d62828"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -124,7 +129,9 @@
         </Button>
     </RelativeLayout>
     <Button
-        android:layout_width="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="30dp"
         android:layout_height="30dp"
         android:id="@+id/backStadiumView"
         android:background="@drawable/ic_back">

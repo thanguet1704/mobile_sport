@@ -4,7 +4,8 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="150dp"
-    android:weightSum="10">
+    android:weightSum="10"
+    android:background="@drawable/bg_football_match">
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="150dp"

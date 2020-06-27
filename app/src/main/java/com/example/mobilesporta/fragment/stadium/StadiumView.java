@@ -66,7 +66,7 @@ public class StadiumView extends AppCompatActivity {
                 String s="Mô tả:\n";
                 String[] string = stadiumModel.getDescription().split("\\s\\s+");
                 for(int i=0; i < string.length; i++){
-                    s = s+"-"+string[i]+"\n";
+                    s = s+"- "+string[i]+"\n";
                 }
                 description.setText(s);
                 stadiumTime.setText("Thời gian: "+stadiumModel.getTime_open()+" - "+stadiumModel.getTime_close());
