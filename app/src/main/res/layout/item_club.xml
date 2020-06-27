@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="10dp"
-    android:background="@drawable/bg_item_club">
+    android:background="@drawable/bg_item_club"
+    android:elevation="5dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="80dp"
@@ -33,7 +34,7 @@
         app:layout_constraintLeft_toRightOf="@id/cv_img_club"
         android:textColor="#000"/>
     <TextView
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_toRightOf="@+id/cv_img_club"
         android:id="@+id/txtItemClub_slogan"
         android:layout_width="match_parent"

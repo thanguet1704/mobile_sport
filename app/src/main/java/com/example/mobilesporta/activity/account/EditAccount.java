@@ -44,10 +44,14 @@ public class EditAccount extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         edtEmail.setText(user.getEmail());
-        if (user.getDisplayName() != null)
+        if (user.getDisplayName() != null){
             edtUsername.setText(user.getDisplayName());
-        else
+            edtUsername.setSelection(edtUsername.getText().length());
+        }
+        else{
             edtUsername.setText(user.getEmail());
+            edtUsername.setSelection(edtUsername.getText().length());
+        }
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override

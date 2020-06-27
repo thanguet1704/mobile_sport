@@ -6,13 +6,15 @@
     android:layout_height="match_parent"
     android:weightSum="10"
     android:orientation="vertical"
-    android:background="#fff">
+    android:background="#FBFAFA">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:background="@drawable/bg_toolbar"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:elevation="10dp">
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -25,11 +27,12 @@
             android:paddingLeft="10dp"
             android:textStyle="bold"/>
         <Button
+            android:drawablePadding="15dp"
             android:id="@+id/btn_search_club"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:drawableRight="@drawable/search_icon_yellow"
+            android:drawableLeft="@drawable/search_icon_yellow"
             android:background="@drawable/dangkylogin"
             android:gravity="center"/>
     </LinearLayout>
@@ -52,14 +55,18 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="9"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp">
         <ListView
             android:padding="10dp"
             android:id="@+id/lvClubAct_MyClub"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:dividerHeight="10dp"
-            android:divider="#fff"/>
+            android:dividerHeight="20dp"
+            android:divider="#FBFAFA"/>
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
