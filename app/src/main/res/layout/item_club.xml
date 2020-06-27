@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="10dp"
+    android:padding="15dp"
     android:background="@drawable/bg_item_club"
     android:elevation="5dp">
 
@@ -11,11 +11,11 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:id="@+id/cv_img_club"
-        app:cardCornerRadius="10dp">
+        app:cardCornerRadius="40dp">
         <ImageView
             android:id="@+id/imgItemClub_ClubImage"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:scaleType="fitXY"/>
