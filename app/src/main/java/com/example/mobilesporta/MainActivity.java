@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private LoginButton loginButton;
     private CallbackManager callbackManager;
     private Button fakeLoginButton, loginLocalButton, dangky, fakeSigninButton;
-    private EditText edtEmail, edtPassword;
+    EditText edtEmail, edtPassword;
     private FirebaseAuth mAuth;
 
     @Override
@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         findId();
+
         mAuth = FirebaseAuth.getInstance();
         clickDangky();
 
@@ -273,8 +274,8 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    private void register(EditText edtEmail, EditText edtPass, EditText edtrePass, final Dialog dialog){
-        String email = edtEmail.getText().toString();
+    private void register(EditText edtEmailDialog, EditText edtPass, EditText edtrePass, final Dialog dialog){
+        final String email = edtEmailDialog.getText().toString();
         String password = edtPass.getText().toString();
         String rePassword = edtrePass.getText().toString();
         if (email.length() == 0 || password.length() == 0 || rePassword.length() == 0){
@@ -291,6 +292,8 @@ public class MainActivity extends AppCompatActivity {
                                     Toast.makeText(MainActivity.this, "Đăng ký thành công", Toast.LENGTH_LONG).show();
                                     FirebaseAuth.getInstance().signOut();
                                     dialog.hide();
+                                    edtEmail.setText(email);
+                                    edtEmail.setSelection(edtEmail.getText().length());
                                 } else {
                                     Toast.makeText(MainActivity.this, "Email không hợp lệ hoặc mật khẩu lớn hơn 6 ký tự", Toast.LENGTH_LONG).show();
                                 }

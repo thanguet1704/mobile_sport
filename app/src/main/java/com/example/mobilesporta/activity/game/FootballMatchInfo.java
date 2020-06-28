@@ -402,6 +402,7 @@ public class FootballMatchInfo extends AppCompatActivity {
                         database.child("matchs").child(match_id).setValue(match);
                         dialog.dismiss();
                         setNotifyForRequest();
+                        Toast.makeText(FootballMatchInfo.this, "Đã chọn kèo. Hãy chờ đợi đối thủ xác nhận nhé!", Toast.LENGTH_SHORT).show();
                     }
                 });
                 mBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -455,7 +456,7 @@ public class FootballMatchInfo extends AppCompatActivity {
                                 .enqueue(new Callback<Response>() {
                                     @Override
                                     public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
-                                        Toast.makeText(FootballMatchInfo.this, "Đã bắt kèo. Hãy chờ đợi đối thủ xác nhận nhé!", Toast.LENGTH_SHORT).show();
+
                                     }
 
                                     @Override
@@ -503,6 +504,7 @@ public class FootballMatchInfo extends AppCompatActivity {
                     ClubModel clubModel = dataSnapshot.getValue(ClubModel.class);
                     if (notify){
                         sendNotification(clubModel.getUser_created_id(), "Đội bạn đã xác nhận, chiến ngay thôi nào");
+                        Toast.makeText(FootballMatchInfo.this, "Chọn đối thành công", Toast.LENGTH_SHORT).show();
                     }
                     notify = false;
                 }
@@ -552,6 +554,7 @@ public class FootballMatchInfo extends AppCompatActivity {
                     ClubModel clubModel = dataSnapshot.getValue(ClubModel.class);
                     if (notify){
                         sendNotification(clubModel.getUser_created_id(), "Đội bạn đã hủy kèo");
+                        Toast.makeText(FootballMatchInfo.this, "Bạn đã hủy kèo này", Toast.LENGTH_SHORT).show();
                     }
                     notify = false;
                 }
