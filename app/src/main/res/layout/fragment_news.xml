@@ -13,13 +13,13 @@
         android:layout_weight="1"
         android:background="#FBFAFA"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+        android:paddingRight="10dp"
+        android:gravity="center_vertical">
         <SearchView
             android:id="@+id/search_news"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:queryHint="Tìm kiếm tin tức"
-            android:gravity="center"
             android:textSize="30dp"
             android:iconifiedByDefault="false"
             android:layout_gravity="center_vertical"

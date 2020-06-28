@@ -63,7 +63,7 @@ public class StadiumView extends AppCompatActivity {
                 }
                 textTitle.setText(stadiumModel.getStadium_name());
                 Picasso.get().load(stadiumModel.getImage()).into(imageStadiumView);
-                String s="Mô tả:\n";
+                String s="Dịch vụ:\n";
                 String[] string = stadiumModel.getDescription().split("\\s\\s+");
                 for(int i=0; i < string.length; i++){
                     s = s+"- "+string[i]+"\n";

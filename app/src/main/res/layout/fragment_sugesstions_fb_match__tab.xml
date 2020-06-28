@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FBFAFA"
+    android:background="#fff"
     android:orientation="vertical"
     android:weightSum="10"
     tools:context=".fragment.game.SugesstionsFbMatch_TabFragment">
@@ -75,8 +75,6 @@
         <ListView
             android:id="@+id/lvSugesstion_Match_Fragment_ListMatch"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:dividerHeight="10dp"
-            android:divider="#FBFAFA"/>
+            android:layout_height="wrap_content"/>
     </FrameLayout>
 </LinearLayout>

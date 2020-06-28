@@ -73,7 +73,7 @@ public class StadiumFragment extends Fragment {
         });
 
         searchList = view.findViewById(R.id.searchStadium);
-        searchList.setQueryHint("Tìm kiếm...");
+        searchList.setQueryHint("Tìm kiếm sân bóng, khu vực");
         searchList.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String Text) {
