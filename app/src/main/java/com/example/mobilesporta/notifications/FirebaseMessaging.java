@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -18,6 +19,7 @@ import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.example.mobilesporta.R;
 import com.example.mobilesporta.activity.game.FootballMatchInfo;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -46,6 +48,7 @@ public class FirebaseMessaging extends FirebaseMessagingService {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void sendNormalNotification(RemoteMessage remoteMessage) {
         String user = remoteMessage.getData().get("user");
         String icon = remoteMessage.getData().get("icon");
@@ -68,6 +71,8 @@ public class FirebaseMessaging extends FirebaseMessagingService {
                 .setAutoCancel(true)
                 .setSound(defSoundUri)
                 .setContentIntent(pendingIntent)
+                .setColor(getApplicationContext().getColor(R.color.com_facebook_blue))
+                .setLargeIcon(BitmapFactory.decodeResource(getApplicationContext().getResources(), R.mipmap.ic_launcher))
                 .setShowWhen(true);
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);

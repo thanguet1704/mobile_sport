@@ -6,10 +6,13 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
+
+import com.example.mobilesporta.R;
 
 public class OreoAndAboveNotification extends ContextWrapper {
 
@@ -51,6 +54,8 @@ public class OreoAndAboveNotification extends ContextWrapper {
                 .setContentText(body)
                 .setSound(soundUri)
                 .setAutoCancel(true)
-                .setSmallIcon(Integer.parseInt(icon));
+                .setSmallIcon(Integer.parseInt(icon))
+                .setColor(getApplicationContext().getColor(R.color.ic_launcher_background))
+                .setLargeIcon(BitmapFactory.decodeResource(getApplicationContext().getResources(), R.mipmap.ic_launcher));
     }
 }

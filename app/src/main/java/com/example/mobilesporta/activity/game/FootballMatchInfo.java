@@ -449,7 +449,7 @@ public class FootballMatchInfo extends AppCompatActivity {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                         Token token = snapshot.getValue(Token.class);
                         String body = "Bấm để xem ngay";
-                        Data data = new Data(user.getUid(), body , title, hisUid, match_id, R.mipmap.ic_launcher);
+                        Data data = new Data(user.getUid(), body , title, hisUid, match_id, R.mipmap.ic_launcher_round);
 
                         Sender sender = new Sender(data, token.getToken());
                         apiService.sendNotification(sender)
@@ -490,6 +490,8 @@ public class FootballMatchInfo extends AppCompatActivity {
                     setNotifyForAcceptMatch();
                     btnSelectClub.setVisibility(GONE);
                     btnCancelMatch.setVisibility(GONE);
+                    btnRequest.setVisibility(GONE);
+                    btnDeleteMatch.setVisibility(GONE);
                 }
             });
         }

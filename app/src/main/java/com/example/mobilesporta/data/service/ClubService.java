@@ -151,9 +151,13 @@ public class ClubService {
                 if (dataSnapshot.exists()){
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                         MatchModel matchModel = snapshot.getValue(MatchModel.class);
-                        if (matchModel.getClub_home_id().equals(clubId) || matchModel.getClub_away_id().equals(clubId)){
+                        if (matchModel.getClub_home_id().equals(clubId)){
                             DatabaseReference mdb = FirebaseDatabase.getInstance().getReference("matchs").child(snapshot.getKey());
                             mdb.removeValue();
+                        }
+                        if (matchModel.getClub_away_id().equals(clubId)){
+                            DatabaseReference mdb = FirebaseDatabase.getInstance().getReference("matchs").child(snapshot.getKey());
+                            mdb.child("club_away_id").setValue("");
                         }
                     }
                 }
