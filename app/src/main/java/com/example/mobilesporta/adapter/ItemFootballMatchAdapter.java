@@ -91,7 +91,7 @@ public class    ItemFootballMatchAdapter extends BaseAdapter {
         txtMatchDate = convertView.findViewById(R.id.txtItemFootballMatch_Date);
         txtStadium = convertView.findViewById(R.id.txtItemFootballMatch_Stadium);
 
-        MatchModel match = FootballMatchList.get(position);
+        MatchModel match = FootballMatchList.get(FootballMatchList.size() - 1 - position);
 
         txtHomeClubName.setText(match.getClub_away_id());
         txtAwayClubName.setText(match.getClub_away_id());

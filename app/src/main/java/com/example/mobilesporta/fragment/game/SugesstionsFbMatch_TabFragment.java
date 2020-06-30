@@ -160,7 +160,7 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             Intent intent = new Intent(getActivity(), FootballMatchInfo.class);
-                            intent.putExtra("match_id", listMatchIdByDate.get(position));
+                            intent.putExtra("match_id", listMatchIdByDate.get(listMatchIdByDate.size() - 1- position));
                             startActivity(intent);
                         }
                     });
@@ -239,7 +239,7 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
                                         @Override
                                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                             Intent intent = new Intent(getActivity(), FootballMatchInfo.class);
-                                            intent.putExtra("match_id", listMatchIdByDate.get(position));
+                                            intent.putExtra("match_id", listMatchIdByDate.get(listMatchIdByDate.size() - 1- position));
                                             startActivity(intent);
                                         }
                                     });
@@ -308,7 +308,7 @@ public class SugesstionsFbMatch_TabFragment extends Fragment {
                                         @Override
                                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                             Intent intent = new Intent(getActivity(), FootballMatchInfo.class);
-                                            intent.putExtra("match_id", listMatchIdByDate.get(position));
+                                            intent.putExtra("match_id", listMatchIdByDate.get(listMatchIdByDate.size() - 1- position));
                                             startActivity(intent);
                                         }
                                     });

@@ -51,7 +51,7 @@ public class ItemNewsAdapter extends BaseAdapter {
         ImageView imgNews = convertView.findViewById(R.id.image_news);
         TextView txtTime = convertView.findViewById(R.id.tv_time);
 
-        NewsModel newsModel = listNews.get(position);
+        NewsModel newsModel = listNews.get(listNews.size() - 1 - position);
 
         //do du lieu ra item
         txtTitle.setText(newsModel.getTitle());

@@ -99,7 +99,7 @@ public class MyFbMatch_TabFragment extends Fragment {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             Intent intent = new Intent(getActivity(), FootballMatchInfo.class);
-                            intent.putExtra("match_id", listMatchId.get(position));
+                            intent.putExtra("match_id", listMatchId.get(listMatchId.size() - 1- position));
                             startActivity(intent);
                         }
                     });

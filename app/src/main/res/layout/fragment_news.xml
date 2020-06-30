@@ -32,9 +32,7 @@
         android:id="@+id/lv_item_news"
         android:layout_weight="9"
         android:padding="10dp"
-        android:dividerHeight="15dp"
+        android:dividerHeight="20dp"
         android:divider="#fff"/>
-
-
 </LinearLayout>
 

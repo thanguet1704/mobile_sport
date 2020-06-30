@@ -158,6 +158,8 @@ public class ClubService {
                         if (matchModel.getClub_away_id().equals(clubId)){
                             DatabaseReference mdb = FirebaseDatabase.getInstance().getReference("matchs").child(snapshot.getKey());
                             mdb.child("club_away_id").setValue("");
+                            DatabaseReference mdb1 = FirebaseDatabase.getInstance().getReference("matchs").child(snapshot.getKey());
+                            mdb1.child("status").setValue("N");
                         }
                     }
                 }
@@ -246,58 +248,6 @@ public class ClubService {
         };
 
         infoClub.addListenerForSingleValueEvent(valueEventListener);
-    }
-
-    public List<ClubModel> getListClubs() {
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("clubs");
-        Query a = mDatabase.orderByKey();
-
-        ValueEventListener valueEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        ClubModel clubModel = snapshot.getValue(ClubModel.class);
-                        listClub.add(clubModel);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        };
-
-        a.addListenerForSingleValueEvent(valueEventListener);
-
-        return listClub;
-    }
-
-    public List<ClubModel> getClubById(final String clubId) {
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("clubs");
-        Query a = mDatabase.orderByKey().equalTo(clubId);
-
-        ValueEventListener valueEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        ClubModel clubModel = snapshot.getValue(ClubModel.class);
-                        listClub.add(clubModel);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        };
-
-        a.addListenerForSingleValueEvent(valueEventListener);
-
-        return listClub;
     }
 
     public Map<String, ClubModel> getMapClubs() {
