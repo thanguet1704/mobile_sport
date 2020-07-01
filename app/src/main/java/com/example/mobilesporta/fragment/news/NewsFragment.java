@@ -91,7 +91,7 @@ public class NewsFragment extends Fragment {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                     Intent intent = new Intent(getContext(), NewsInfo.class);
-                                    intent.putExtra("url", listNewsSearch.get(position).getUrl());
+                                    intent.putExtra("url", listNewsSearch.get(listNewsSearch.size() - 1 - position).getUrl());
                                     startActivity(intent);
                                 }
                             });
